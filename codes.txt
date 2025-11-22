@@ -1,0 +1,148 @@
+#region LoadItems process
+//private void LoadItems()
+//{
+//    try
+//    {
+//        // --- 1. Prepare filter parameters ---
+//        string status = cmbStatus.SelectedItem?.ToString() == "All" ? "" : cmbStatus.SelectedItem?.ToString();
+//        int? categoryId = Convert.ToInt32(cmbCategory.SelectedValue) == 0 ? null : Convert.ToInt32(cmbCategory.SelectedValue);
+//        int? locationId = Convert.ToInt32(cmbLocation.SelectedValue) == 0 ? null : Convert.ToInt32(cmbLocation.SelectedValue);
+//        int? departmentId = Convert.ToInt32(cmbDepartment.SelectedValue) == 0 ? null : Convert.ToInt32(cmbDepartment.SelectedValue);
+//        string search = searchBox.Text.Trim();
+
+//        // --- 2. Open database connection ---
+//        using var conn = Database.GetConnection();
+//        conn.Open();
+
+//        // --- 3. Build query with filters ---
+//        string query = @"
+//            SELECT SQL_CALC_FOUND_ROWS i.id, i.title, i.description, i.image_path,
+//                   c.name AS category, i.type, i.status,
+//                   l.name AS location, d.name AS department,
+//                   u.name AS reporter_name, i.date_reported
+//            FROM items i
+//            LEFT JOIN categories c ON i.category_id = c.id
+//            LEFT JOIN locations l ON i.location_id = l.id
+//            LEFT JOIN departments d ON i.department_id = d.id
+//            LEFT JOIN users u ON i.reported_by = u.id
+//            WHERE (@search IS NULL OR i.title LIKE CONCAT('%', @search, '%'))
+//              AND (@status IS NULL OR i.status = @status)
+//              AND (@categoryId IS NULL OR i.category_id = @categoryId)
+//              AND (@locationId IS NULL OR i.location_id = @locationId)
+//              AND (@departmentId IS NULL OR i.department_id = @departmentId)
+//            ORDER BY i.date_reported DESC
+//            LIMIT @offset, @pageSize;";
+
+//        int offset = (currentPage - 1) * pageSize;
+
+//        using var cmd = new MySqlCommand(query, conn);
+//        cmd.Parameters.AddWithValue("@search", string.IsNullOrEmpty(search) ? (object)DBNull.Value : search);
+//        cmd.Parameters.AddWithValue("@status", string.IsNullOrEmpty(status) ? (object)DBNull.Value : status);
+//        cmd.Parameters.AddWithValue("@categoryId", categoryId ?? (object)DBNull.Value);
+//        cmd.Parameters.AddWithValue("@locationId", locationId ?? (object)DBNull.Value);
+//        cmd.Parameters.AddWithValue("@departmentId", departmentId ?? (object)DBNull.Value);
+//        cmd.Parameters.AddWithValue("@offset", offset);
+//        cmd.Parameters.AddWithValue("@pageSize", pageSize);
+
+//        // --- 4. Fill DataTable ---
+//        DataTable dt = new DataTable();
+//        using var da = new MySqlDataAdapter(cmd);
+//        da.Fill(dt);
+
+//        // --- 5. Get total records for pagination ---
+//        using var totalCmd = new MySqlCommand("SELECT FOUND_ROWS();", conn);
+//        totalRecords = Convert.ToInt32(totalCmd.ExecuteScalar());
+//        totalPages = Math.Max(1, (int)Math.Ceiling(totalRecords / (double)pageSize));
+
+//        // --- 6. Populate DataGridView ---
+//        tblItems.Rows.Clear();
+//        Image defaultImg = Properties.Resources.default_item;
+
+//        foreach (DataRow row in dt.Rows)
+//        {
+//            int rowIndex = tblItems.Rows.Add();
+//            tblItems.Rows[rowIndex].Cells["colItemId"].Value = row["id"];
+
+//            Image imgToUse = defaultImg;
+//            string imgPath = row["image_path"].ToString();
+//            if (!string.IsNullOrEmpty(imgPath))
+//            {
+//                string fullPath = Path.Combine(Application.StartupPath, imgPath);
+//                if (File.Exists(fullPath))
+//                {
+//                    using var original = Image.FromFile(fullPath);
+//                    imgToUse = new Bitmap(original, new Size(55, 55));
+//                }
+//            }
+
+//            tblItems.Rows[rowIndex].Cells["colItem"].Tag = new object[]
+//            {
+//                imgToUse,
+//                row["description"].ToString()
+//            };
+//            tblItems.Rows[rowIndex].Cells["colItem"].Value = row["title"];
+//            tblItems.Rows[rowIndex].Cells["colCategory"].Value = row["category"];
+//            tblItems.Rows[rowIndex].Cells["colType"].Value = row["type"];
+//            tblItems.Rows[rowIndex].Cells["colStatus"].Value = row["status"];
+//            tblItems.Rows[rowIndex].Cells["colLocation"].Value = row["location"];
+//            tblItems.Rows[rowIndex].Cells["colDepartment"].Value = row["department"];
+//            tblItems.Rows[rowIndex].Cells["colReportedBy"].Value = row["reporter_name"];
+//            tblItems.Rows[rowIndex].Cells["colDateTime"].Value =
+//                Convert.ToDateTime(row["date_reported"]).ToString("MMMM dd, yyyy hh:mm tt");
+//            tblItems.Rows[rowIndex].Cells["colActions"].Value = "View";
+//        }
+
+//        AdjustRowHeights();
+//        UpdatePaginationControls();
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show("Error loading items: " + ex.Message);
+//    }
+//}
+#endregion LoadItem Process
+
+
+ACTION BUTTONS (TEXT)
+    else if (e.ColumnIndex == tblItems.Columns["colActions"].Index)
+    {
+        e.Handled = true;
+        e.PaintBackground(e.CellBounds, true);
+
+        int btnWidth = 50, btnHeight = 25, spacing = 5;
+        int y = e.CellBounds.Y + (e.CellBounds.Height - btnHeight) / 2;
+
+        var visibleButtons = new List<(string Text, Color Color)>();
+        int reporterId = Convert.ToInt32(tblItems.Rows[e.RowIndex].Cells["colReportedById"].Value);
+
+        // Determine which buttons should be visible
+        visibleButtons.Add(("View", Color.FromArgb(66, 133, 244)));
+
+        if (Session.Role == "Admin" || (Session.Role == "Staff" && reporterId == Session.UserId))
+            visibleButtons.Add(("Edit", Color.FromArgb(52, 168, 83)));
+
+        if (Session.Role == "SuperAdmin")
+            visibleButtons.Add(("Delete", Color.FromArgb(234, 67, 53)));
+
+        int totalWidth = btnWidth * visibleButtons.Count + spacing * (visibleButtons.Count - 1);
+        int startX = e.CellBounds.X + (e.CellBounds.Width - totalWidth) / 2;
+
+        var rects = new Rectangle[visibleButtons.Count];
+
+        for (int i = 0; i < visibleButtons.Count; i++)
+        {
+            rects[i] = new Rectangle(startX + i * (btnWidth + spacing), y, btnWidth, btnHeight);
+            using (Brush brush = new SolidBrush(visibleButtons[i].Color))
+                e.Graphics.FillRectangle(brush, rects[i]);
+
+            e.Graphics.DrawString(visibleButtons[i].Text, new Font("Segoe UI", 8),
+                Brushes.White, rects[i], new StringFormat
+                {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                });
+        }
+
+        row.Cells[e.ColumnIndex].Tag = rects;
+    }
+}

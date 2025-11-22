@@ -1,6 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
-using System.Text;
+﻿using BCrypt.Net;
 
 namespace LFsystem.Helpers
 {
@@ -8,14 +6,12 @@ namespace LFsystem.Helpers
     {
         public static string HashPassword(string password)
         {
-            using var sha256 = SHA256.Create();
-            byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-            return Convert.ToBase64String(bytes);
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
         public static bool VerifyPassword(string password, string hash)
         {
-            return HashPassword(password) == hash;
+            return BCrypt.Net.BCrypt.Verify(password, hash);
         }
     }
 }

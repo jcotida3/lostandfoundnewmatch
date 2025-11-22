@@ -1,11 +1,19 @@
-﻿namespace LFsystem
+﻿// EditItemForm.Designer.cs
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using Guna.UI2.WinForms;
+
+namespace LFsystem.Views.Pages
 {
     partial class EditItemForm
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -23,7 +31,7 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
+        /// Required method for Designer support — do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -51,27 +59,27 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             mainPanel = new Panel();
-            btnReplace = new Guna.UI2.WinForms.Guna2Button();
-            btnSave = new Guna.UI2.WinForms.Guna2Button();
-            btnCancel = new Guna.UI2.WinForms.Guna2Button();
-            pnlFinderInformation = new Guna.UI2.WinForms.Guna2Panel();
-            txtFindContact = new Guna.UI2.WinForms.Guna2TextBox();
+            btnReplace = new Guna2Button();
+            btnSave = new Guna2Button();
+            btnCancel = new Guna2Button();
+            pnlFinderInformation = new Guna2Panel();
+            txtFindContact = new Guna2TextBox();
             lblFindContact = new Label();
-            txtFindName = new Guna.UI2.WinForms.Guna2TextBox();
+            txtFindName = new Guna2TextBox();
             lblFindName = new Label();
             lblFinderInformation = new Label();
             picBox = new PictureBox();
             pictureBox1 = new PictureBox();
             lblItemPhoto = new Label();
-            cmbDepartment = new Guna.UI2.WinForms.Guna2ComboBox();
-            cmbLocation = new Guna.UI2.WinForms.Guna2ComboBox();
+            cmbDepartment = new Guna2ComboBox();
+            cmbLocation = new Guna2ComboBox();
             lblDepartment = new Label();
             lblLocation = new Label();
-            itemDescription = new Guna.UI2.WinForms.Guna2TextBox();
+            itemDescription = new Guna2TextBox();
             lblDescription = new Label();
-            cmbCategory = new Guna.UI2.WinForms.Guna2ComboBox();
+            cmbCategory = new Guna2ComboBox();
             lblCategory = new Label();
-            itemName = new Guna.UI2.WinForms.Guna2TextBox();
+            itemName = new Guna2TextBox();
             lblItemName = new Label();
             rbFound = new RadioButton();
             rbLost = new RadioButton();
@@ -80,8 +88,8 @@
             lblEdit = new Label();
             mainPanel.SuspendLayout();
             pnlFinderInformation.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picBox).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((ISupportInitialize)picBox).BeginInit();
+            ((ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // mainPanel
@@ -128,7 +136,7 @@
             btnReplace.FillColor = Color.White;
             btnReplace.Font = new Font("Segoe UI", 9F);
             btnReplace.ForeColor = Color.Black;
-            btnReplace.Location = new Point(165, 550);
+            btnReplace.Location = new Point(165, 524);
             btnReplace.Margin = new Padding(3, 4, 3, 4);
             btnReplace.Name = "btnReplace";
             btnReplace.ShadowDecoration.CustomizableEdges = customizableEdges2;
@@ -155,7 +163,7 @@
             btnSave.Size = new Size(120, 30);
             btnSave.TabIndex = 28;
             btnSave.Text = "Update Item";
-            btnSave.Click += btnSave_Click_1;
+            btnSave.Click += btnSave_Click;
             // 
             // btnCancel
             // 
@@ -191,11 +199,11 @@
             pnlFinderInformation.Controls.Add(lblFinderInformation);
             pnlFinderInformation.CustomizableEdges = customizableEdges11;
             pnlFinderInformation.FillColor = Color.FromArgb(239, 247, 255);
-            pnlFinderInformation.Location = new Point(13, 609);
+            pnlFinderInformation.Location = new Point(13, 562);
             pnlFinderInformation.Margin = new Padding(3, 4, 3, 4);
             pnlFinderInformation.Name = "pnlFinderInformation";
             pnlFinderInformation.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            pnlFinderInformation.Size = new Size(466, 122);
+            pnlFinderInformation.Size = new Size(466, 105);
             pnlFinderInformation.TabIndex = 26;
             // 
             // txtFindContact
@@ -219,7 +227,7 @@
             txtFindContact.PlaceholderText = "";
             txtFindContact.SelectedText = "";
             txtFindContact.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            txtFindContact.Size = new Size(203, 36);
+            txtFindContact.Size = new Size(203, 30);
             txtFindContact.TabIndex = 31;
             // 
             // lblFindContact
@@ -253,7 +261,7 @@
             txtFindName.PlaceholderText = "";
             txtFindName.SelectedText = "";
             txtFindName.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            txtFindName.Size = new Size(203, 36);
+            txtFindName.Size = new Size(203, 30);
             txtFindName.TabIndex = 29;
             // 
             // lblFindName
@@ -280,7 +288,7 @@
             // picBox
             // 
             picBox.BorderStyle = BorderStyle.FixedSingle;
-            picBox.Location = new Point(11, 383);
+            picBox.Location = new Point(11, 357);
             picBox.Margin = new Padding(3, 4, 3, 4);
             picBox.Name = "picBox";
             picBox.Size = new Size(466, 159);
@@ -291,7 +299,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.upload_icon;
-            pictureBox1.Location = new Point(11, 354);
+            pictureBox1.Location = new Point(11, 328);
             pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(27, 20);
@@ -303,7 +311,7 @@
             // 
             lblItemPhoto.AutoSize = true;
             lblItemPhoto.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblItemPhoto.Location = new Point(35, 354);
+            lblItemPhoto.Location = new Point(35, 328);
             lblItemPhoto.Name = "lblItemPhoto";
             lblItemPhoto.Size = new Size(88, 20);
             lblItemPhoto.TabIndex = 22;
@@ -322,13 +330,13 @@
             cmbDepartment.Font = new Font("Segoe UI", 10F);
             cmbDepartment.ForeColor = Color.FromArgb(68, 88, 112);
             cmbDepartment.IntegralHeight = false;
-            cmbDepartment.ItemHeight = 30;
-            cmbDepartment.Location = new Point(257, 305);
+            cmbDepartment.ItemHeight = 24;
+            cmbDepartment.Location = new Point(256, 291);
             cmbDepartment.Margin = new Padding(3, 4, 3, 4);
             cmbDepartment.MaxDropDownItems = 5;
             cmbDepartment.Name = "cmbDepartment";
             cmbDepartment.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            cmbDepartment.Size = new Size(205, 36);
+            cmbDepartment.Size = new Size(205, 30);
             cmbDepartment.TabIndex = 14;
             // 
             // cmbLocation
@@ -343,19 +351,19 @@
             cmbLocation.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             cmbLocation.Font = new Font("Segoe UI", 10F);
             cmbLocation.ForeColor = Color.FromArgb(68, 88, 112);
-            cmbLocation.ItemHeight = 30;
-            cmbLocation.Location = new Point(10, 305);
+            cmbLocation.ItemHeight = 24;
+            cmbLocation.Location = new Point(9, 291);
             cmbLocation.Margin = new Padding(3, 4, 3, 4);
             cmbLocation.Name = "cmbLocation";
             cmbLocation.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            cmbLocation.Size = new Size(205, 36);
+            cmbLocation.Size = new Size(205, 30);
             cmbLocation.TabIndex = 13;
             // 
             // lblDepartment
             // 
             lblDepartment.AutoSize = true;
             lblDepartment.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblDepartment.Location = new Point(254, 280);
+            lblDepartment.Location = new Point(253, 266);
             lblDepartment.Name = "lblDepartment";
             lblDepartment.Size = new Size(82, 17);
             lblDepartment.TabIndex = 12;
@@ -365,7 +373,7 @@
             // 
             lblLocation.AutoSize = true;
             lblLocation.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblLocation.Location = new Point(11, 280);
+            lblLocation.Location = new Point(10, 266);
             lblLocation.Name = "lblLocation";
             lblLocation.Size = new Size(61, 17);
             lblLocation.TabIndex = 11;
@@ -391,7 +399,7 @@
             itemDescription.PlaceholderText = "";
             itemDescription.SelectedText = "";
             itemDescription.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            itemDescription.Size = new Size(452, 65);
+            itemDescription.Size = new Size(452, 55);
             itemDescription.TabIndex = 10;
             // 
             // lblDescription
@@ -417,13 +425,13 @@
             cmbCategory.Font = new Font("Segoe UI", 10F);
             cmbCategory.ForeColor = Color.FromArgb(68, 88, 112);
             cmbCategory.IntegralHeight = false;
-            cmbCategory.ItemHeight = 30;
+            cmbCategory.ItemHeight = 24;
             cmbCategory.Location = new Point(258, 134);
             cmbCategory.Margin = new Padding(3, 4, 3, 4);
             cmbCategory.MaxDropDownItems = 5;
             cmbCategory.Name = "cmbCategory";
             cmbCategory.ShadowDecoration.CustomizableEdges = customizableEdges20;
-            cmbCategory.Size = new Size(205, 36);
+            cmbCategory.Size = new Size(205, 30);
             cmbCategory.TabIndex = 8;
             // 
             // lblCategory
@@ -457,7 +465,7 @@
             itemName.PlaceholderText = "iPhone 12";
             itemName.SelectedText = "";
             itemName.ShadowDecoration.CustomizableEdges = customizableEdges22;
-            itemName.Size = new Size(205, 36);
+            itemName.Size = new Size(205, 30);
             itemName.TabIndex = 6;
             // 
             // lblItemName
@@ -536,45 +544,45 @@
             Name = "EditItemForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
+            Load += EditItemForm_Load;
             mainPanel.ResumeLayout(false);
             mainPanel.PerformLayout();
             pnlFinderInformation.ResumeLayout(false);
             pnlFinderInformation.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)picBox).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((ISupportInitialize)picBox).EndInit();
+            ((ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
-
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel mainPanel;
-        private System.Windows.Forms.Label lblEdit;
-        private System.Windows.Forms.Label lblItemType;
-        private System.Windows.Forms.Label lblEditSub;
-        private System.Windows.Forms.RadioButton rbFound;
-        private System.Windows.Forms.RadioButton rbLost;
-        private System.Windows.Forms.Label lblItemName;
-        private Guna.UI2.WinForms.Guna2TextBox itemName;
-        private System.Windows.Forms.Label lblCategory;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbCategory;
-        private System.Windows.Forms.Label lblDescription;
-        private Guna.UI2.WinForms.Guna2TextBox itemDescription;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbDepartment;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbLocation;
-        private System.Windows.Forms.Label lblDepartment;
-        private System.Windows.Forms.PictureBox picBox;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label lblItemPhoto;
-        private Guna.UI2.WinForms.Guna2Panel pnlFinderInformation;
-        private System.Windows.Forms.Label lblFinderInformation;
-        private System.Windows.Forms.Label lblLocation;
-        private Guna.UI2.WinForms.Guna2TextBox txtFindContact;
-        private System.Windows.Forms.Label lblFindContact;
-        private Guna.UI2.WinForms.Guna2TextBox txtFindName;
-        private System.Windows.Forms.Label lblFindName;
-        private Guna.UI2.WinForms.Guna2Button btnSave;
-        private Guna.UI2.WinForms.Guna2Button btnCancel;
-        private Guna.UI2.WinForms.Guna2Button btnReplace;
+        private Panel mainPanel;
+        private Label lblEdit;
+        private Label lblItemType;
+        private Label lblEditSub;
+        private RadioButton rbFound;
+        private RadioButton rbLost;
+        private Label lblItemName;
+        private Guna2TextBox itemName;
+        private Label lblCategory;
+        private Guna2ComboBox cmbCategory;
+        private Label lblDescription;
+        private Guna2TextBox itemDescription;
+        private Guna2ComboBox cmbDepartment;
+        private Guna2ComboBox cmbLocation;
+        private Label lblDepartment;
+        private PictureBox picBox;
+        private PictureBox pictureBox1;
+        private Label lblItemPhoto;
+        private Guna2Panel pnlFinderInformation;
+        private Label lblFinderInformation;
+        private Label lblLocation;
+        private Guna2TextBox txtFindContact;
+        private Label lblFindContact;
+        private Guna2TextBox txtFindName;
+        private Label lblFindName;
+        private Guna2Button btnSave;
+        private Guna2Button btnCancel;
+        private Guna2Button btnReplace;
     }
 }

@@ -81,7 +81,7 @@ namespace LFsystem.Services
 
                 string query = @"
                 SELECT i.id, i.title, i.description, c.name AS category, i.type,
-                       l.name AS location, d.name AS department,
+                       l.name AS location, d.name AS department, reporter_id,
                        u.name AS reporter_name, i.date_created, i.image_path, i.status
                 FROM items i
                 LEFT JOIN categories c ON i.category_id = c.id

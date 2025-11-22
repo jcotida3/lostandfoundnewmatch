@@ -47,18 +47,18 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             lblManageItems = new Label();
             lblRole = new Label();
             pnlFilter = new Guna.UI2.WinForms.Guna2Panel();
@@ -75,7 +75,13 @@
             pictureBox1 = new PictureBox();
             pnlTable = new Panel();
             tblItems = new Guna.UI2.WinForms.Guna2DataGridView();
+            btnClearFilter = new Guna.UI2.WinForms.Guna2Button();
+            panelPagination = new Panel();
+            lblPageInfo = new Label();
+            btnNextPage = new Guna.UI2.WinForms.Guna2Button();
+            btnPreviousPage = new Guna.UI2.WinForms.Guna2Button();
             colItemId = new DataGridViewTextBoxColumn();
+            colReportedById = new DataGridViewTextBoxColumn();
             colItem = new DataGridViewTextBoxColumn();
             colCategory = new DataGridViewTextBoxColumn();
             colType = new DataGridViewTextBoxColumn();
@@ -86,11 +92,6 @@
             colDateTime = new DataGridViewTextBoxColumn();
             colActions = new DataGridViewButtonColumn();
             colDescription = new DataGridViewTextBoxColumn();
-            btnClearFilter = new Guna.UI2.WinForms.Guna2Button();
-            panelPagination = new Panel();
-            lblPageInfo = new Label();
-            btnNextPage = new Guna.UI2.WinForms.Guna2Button();
-            btnPreviousPage = new Guna.UI2.WinForms.Guna2Button();
             pnlFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlTable.SuspendLayout();
@@ -332,7 +333,7 @@
             tblItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             tblItems.ColumnHeadersHeight = 50;
             tblItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            tblItems.Columns.AddRange(new DataGridViewColumn[] { colItemId, colItem, colCategory, colType, colStatus, colLocation, colDepartment, colReportedBy, colDateTime, colActions, colDescription });
+            tblItems.Columns.AddRange(new DataGridViewColumn[] { colItemId, colReportedById, colItem, colCategory, colType, colStatus, colLocation, colDepartment, colReportedBy, colDateTime, colActions, colDescription });
             dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle9.BackColor = Color.White;
             dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
@@ -373,6 +374,83 @@
             tblItems.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
             tblItems.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
             // 
+            // btnClearFilter
+            // 
+            btnClearFilter.BorderColor = Color.Transparent;
+            btnClearFilter.BorderRadius = 20;
+            btnClearFilter.BorderThickness = 1;
+            btnClearFilter.Cursor = Cursors.Hand;
+            btnClearFilter.CustomizableEdges = customizableEdges13;
+            btnClearFilter.DisabledState.BorderColor = Color.DarkGray;
+            btnClearFilter.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnClearFilter.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnClearFilter.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnClearFilter.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnClearFilter.ForeColor = Color.White;
+            btnClearFilter.Location = new Point(1237, 156);
+            btnClearFilter.Name = "btnClearFilter";
+            btnClearFilter.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnClearFilter.Size = new Size(180, 45);
+            btnClearFilter.TabIndex = 1;
+            btnClearFilter.Text = "Clear FIlter";
+            btnClearFilter.Click += BtnClearFilter_Click;
+            // 
+            // panelPagination
+            // 
+            panelPagination.Controls.Add(lblPageInfo);
+            panelPagination.Controls.Add(btnNextPage);
+            panelPagination.Controls.Add(btnPreviousPage);
+            panelPagination.Location = new Point(1143, 838);
+            panelPagination.Name = "panelPagination";
+            panelPagination.Size = new Size(274, 40);
+            panelPagination.TabIndex = 6;
+            // 
+            // lblPageInfo
+            // 
+            lblPageInfo.AutoSize = true;
+            lblPageInfo.Location = new Point(100, 11);
+            lblPageInfo.Name = "lblPageInfo";
+            lblPageInfo.Size = new Size(83, 20);
+            lblPageInfo.TabIndex = 7;
+            lblPageInfo.Text = "Page 1 of 1";
+            lblPageInfo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnNextPage
+            // 
+            btnNextPage.Anchor = AnchorStyles.Right;
+            btnNextPage.BorderRadius = 8;
+            btnNextPage.CustomizableEdges = customizableEdges15;
+            btnNextPage.DisabledState.BorderColor = Color.DarkGray;
+            btnNextPage.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnNextPage.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnNextPage.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnNextPage.Font = new Font("Segoe UI", 9F);
+            btnNextPage.ForeColor = Color.White;
+            btnNextPage.Location = new Point(189, 5);
+            btnNextPage.Name = "btnNextPage";
+            btnNextPage.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnNextPage.Size = new Size(75, 30);
+            btnNextPage.TabIndex = 1;
+            btnNextPage.Text = "Next";
+            // 
+            // btnPreviousPage
+            // 
+            btnPreviousPage.Anchor = AnchorStyles.Left;
+            btnPreviousPage.BorderRadius = 8;
+            btnPreviousPage.CustomizableEdges = customizableEdges17;
+            btnPreviousPage.DisabledState.BorderColor = Color.DarkGray;
+            btnPreviousPage.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnPreviousPage.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnPreviousPage.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnPreviousPage.Font = new Font("Segoe UI", 9F);
+            btnPreviousPage.ForeColor = Color.White;
+            btnPreviousPage.Location = new Point(10, 5);
+            btnPreviousPage.Name = "btnPreviousPage";
+            btnPreviousPage.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnPreviousPage.Size = new Size(75, 30);
+            btnPreviousPage.TabIndex = 0;
+            btnPreviousPage.Text = "Prev";
+            // 
             // colItemId
             // 
             colItemId.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -380,6 +458,13 @@
             colItemId.MinimumWidth = 6;
             colItemId.Name = "colItemId";
             colItemId.Width = 70;
+            // 
+            // colReportedById
+            // 
+            colReportedById.HeaderText = "ReportedById";
+            colReportedById.MinimumWidth = 6;
+            colReportedById.Name = "colReportedById";
+            colReportedById.Visible = false;
             // 
             // colItem
             // 
@@ -472,83 +557,6 @@
             colDescription.Name = "colDescription";
             colDescription.Visible = false;
             // 
-            // btnClearFilter
-            // 
-            btnClearFilter.BorderColor = Color.Transparent;
-            btnClearFilter.BorderRadius = 20;
-            btnClearFilter.BorderThickness = 1;
-            btnClearFilter.Cursor = Cursors.Hand;
-            btnClearFilter.CustomizableEdges = customizableEdges13;
-            btnClearFilter.DisabledState.BorderColor = Color.DarkGray;
-            btnClearFilter.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnClearFilter.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnClearFilter.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnClearFilter.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnClearFilter.ForeColor = Color.White;
-            btnClearFilter.Location = new Point(1237, 156);
-            btnClearFilter.Name = "btnClearFilter";
-            btnClearFilter.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            btnClearFilter.Size = new Size(180, 45);
-            btnClearFilter.TabIndex = 1;
-            btnClearFilter.Text = "Clear FIlter";
-            btnClearFilter.Click += BtnClearFilter_Click;
-            // 
-            // panelPagination
-            // 
-            panelPagination.Controls.Add(lblPageInfo);
-            panelPagination.Controls.Add(btnNextPage);
-            panelPagination.Controls.Add(btnPreviousPage);
-            panelPagination.Location = new Point(1143, 838);
-            panelPagination.Name = "panelPagination";
-            panelPagination.Size = new Size(274, 40);
-            panelPagination.TabIndex = 6;
-            // 
-            // lblPageInfo
-            // 
-            lblPageInfo.AutoSize = true;
-            lblPageInfo.Location = new Point(100, 11);
-            lblPageInfo.Name = "lblPageInfo";
-            lblPageInfo.Size = new Size(83, 20);
-            lblPageInfo.TabIndex = 7;
-            lblPageInfo.Text = "Page 1 of 1";
-            lblPageInfo.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // btnNextPage
-            // 
-            btnNextPage.Anchor = AnchorStyles.Right;
-            btnNextPage.BorderRadius = 8;
-            btnNextPage.CustomizableEdges = customizableEdges15;
-            btnNextPage.DisabledState.BorderColor = Color.DarkGray;
-            btnNextPage.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnNextPage.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnNextPage.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnNextPage.Font = new Font("Segoe UI", 9F);
-            btnNextPage.ForeColor = Color.White;
-            btnNextPage.Location = new Point(189, 5);
-            btnNextPage.Name = "btnNextPage";
-            btnNextPage.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            btnNextPage.Size = new Size(75, 30);
-            btnNextPage.TabIndex = 1;
-            btnNextPage.Text = "Next";
-            // 
-            // btnPreviousPage
-            // 
-            btnPreviousPage.Anchor = AnchorStyles.Left;
-            btnPreviousPage.BorderRadius = 8;
-            btnPreviousPage.CustomizableEdges = customizableEdges17;
-            btnPreviousPage.DisabledState.BorderColor = Color.DarkGray;
-            btnPreviousPage.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnPreviousPage.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnPreviousPage.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnPreviousPage.Font = new Font("Segoe UI", 9F);
-            btnPreviousPage.ForeColor = Color.White;
-            btnPreviousPage.Location = new Point(10, 5);
-            btnPreviousPage.Name = "btnPreviousPage";
-            btnPreviousPage.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            btnPreviousPage.Size = new Size(75, 30);
-            btnPreviousPage.TabIndex = 0;
-            btnPreviousPage.Text = "Prev";
-            // 
             // ManageItems
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -597,6 +605,7 @@
         private Guna.UI2.WinForms.Guna2Button btnPreviousPage;
         private Label lblPageInfo;
         private DataGridViewTextBoxColumn colItemId;
+        private DataGridViewTextBoxColumn colReportedById;
         private DataGridViewTextBoxColumn colItem;
         private DataGridViewTextBoxColumn colCategory;
         private DataGridViewTextBoxColumn colType;

@@ -431,6 +431,7 @@
             panelPending.ShadowDecoration.CustomizableEdges = customizableEdges14;
             panelPending.Size = new Size(770, 167);
             panelPending.TabIndex = 5;
+            panelPending.Visible = false;
             // 
             // picBell
             // 

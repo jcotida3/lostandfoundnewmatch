@@ -13,6 +13,7 @@ namespace LFsystem.Views.Login
         {
             InitializeComponent();
             this.AcceptButton = guna2Button1; // Press Enter = login
+            
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)

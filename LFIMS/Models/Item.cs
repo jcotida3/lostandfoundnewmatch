@@ -16,9 +16,6 @@
         public string ImagePath { get; set; }
         public DateTime DateReported { get; set; }
 
-        public string CategoryName { get; set; }
-        public string LocationName { get; set; }
-        public string DepartmentName { get; set; }
-        public string ReporterName { get; set; }
+        
     }
 }

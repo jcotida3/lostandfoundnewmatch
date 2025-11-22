@@ -142,38 +142,47 @@ namespace LFsystem.Views.Pages
                 e.Handled = true;
                 e.PaintBackground(e.CellBounds, true);
 
-                int btnWidth = 50, btnHeight = 25, spacing = 5;
-                int totalWidth = btnWidth * 3 + spacing * 2;
-                int startX = e.CellBounds.X + (e.CellBounds.Width - totalWidth) / 2;
-                int y = e.CellBounds.Y + (e.CellBounds.Height - btnHeight) / 2;
+                int iconSize = 25;
+                int spacing = 12;
 
-                Rectangle btnView = new Rectangle(startX, y, btnWidth, btnHeight);
-                Rectangle btnEdit = new Rectangle(startX + btnWidth + spacing, y, btnWidth, btnHeight);
-                Rectangle btnDelete = new Rectangle(startX + (btnWidth + spacing) * 2, y, btnWidth, btnHeight);
+                int y = e.CellBounds.Y + (e.CellBounds.Height - iconSize) / 2;
 
-                row.Cells[e.ColumnIndex].Tag = new Rectangle[] { btnView, btnEdit, btnDelete };
+                var visibleIcons = new List<Image>();
+                visibleIcons.Add(Properties.Resources.view_icon); // View always
 
-                using (Brush viewBrush = new SolidBrush(Color.FromArgb(66, 133, 244)))
-                    e.Graphics.FillRectangle(viewBrush, btnView);
-                e.Graphics.DrawString("View", new Font("Segoe UI", 8), Brushes.White, btnView,
-                    new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
+                int reporterId = Convert.ToInt32(tblItems.Rows[e.RowIndex].Cells["colReportedById"].Value);
+                string status = tblItems.Rows[e.RowIndex].Cells["colStatus"].Value?.ToString() ?? "";
 
-                if (Session.Role == "Admin")
-                {
-                    using (Brush editBrush = new SolidBrush(Color.FromArgb(52, 168, 83)))
-                        e.Graphics.FillRectangle(editBrush, btnEdit);
-                    e.Graphics.DrawString("Edit", new Font("Segoe UI", 8), Brushes.White, btnEdit,
-                        new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
-                }
+                if (Session.Role == "Admin" || (Session.Role == "Staff" && reporterId == Session.UserId))
+                    visibleIcons.Add(Properties.Resources.edit_icon);
+
                 if (Session.Role == "SuperAdmin")
+                    visibleIcons.Add(Properties.Resources.delete_icon);
+
+                // Add Approve icon only if status is Pending
+                if (Session.Role == "Admin" && status.ToUpper() == "PENDING")
+                    visibleIcons.Add(Properties.Resources.approve_icon);
+
+                int totalWidth = visibleIcons.Count * iconSize + (visibleIcons.Count - 1) * spacing;
+                int startX = e.CellBounds.X + (e.CellBounds.Width - totalWidth) / 2;
+
+                Rectangle[] iconRects = new Rectangle[visibleIcons.Count];
+
+                for (int i = 0; i < visibleIcons.Count; i++)
                 {
-                    using (Brush deleteBrush = new SolidBrush(Color.FromArgb(234, 67, 53)))
-                        e.Graphics.FillRectangle(deleteBrush, btnDelete);
-                    e.Graphics.DrawString("Delete", new Font("Segoe UI", 8), Brushes.White, btnDelete,
-                        new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
+                    iconRects[i] = new Rectangle(startX + i * (iconSize + spacing), y, iconSize, iconSize);
+
+                    using (var bmp = new Bitmap(visibleIcons[i], new Size(iconSize, iconSize)))
+                    {
+                        e.Graphics.DrawImage(bmp, iconRects[i]);
+                    }
                 }
+
+                tblItems.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag = iconRects;
             }
         }
+
+
 
         private void TblItems_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -292,6 +301,7 @@ namespace LFsystem.Views.Pages
                     tblItems.Rows[rowIndex].Cells["colLocation"].Value = row["location"];
                     tblItems.Rows[rowIndex].Cells["colDepartment"].Value = row["department"];
                     tblItems.Rows[rowIndex].Cells["colReportedBy"].Value = row["reporter_name"];
+                    tblItems.Rows[rowIndex].Cells["colReportedById"].Value = row["reporter_id"]; 
                     tblItems.Rows[rowIndex].Cells["colDateTime"].Value =
                         Convert.ToDateTime(row["date_created"]).ToString("MMMM dd, yyyy hh:mm tt");
                     tblItems.Rows[rowIndex].Cells["colActions"].Value = "View";
@@ -383,146 +393,102 @@ namespace LFsystem.Views.Pages
         {
             if (e.RowIndex < 0) return;
 
-            if (tblItems.Columns[e.ColumnIndex].Name == "colActions")
+            if (tblItems.Columns[e.ColumnIndex].Name != "colActions") return;
+
+            var cell = tblItems.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            var rects = cell.Tag as Rectangle[];
+            if (rects == null) return;
+
+            // Get row data
+            int reporterId = Convert.ToInt32(tblItems.Rows[e.RowIndex].Cells["colReportedById"].Value);
+            string status = tblItems.Rows[e.RowIndex].Cells["colStatus"].Value?.ToString() ?? "";
+            int itemId = Convert.ToInt32(tblItems.Rows[e.RowIndex].Cells["colItemId"].Value);
+
+            // Dynamically map rectangles to icons
+            int index = 0;
+            Rectangle btnView = rects[index++]; // View is always first
+
+            Rectangle btnEdit = Rectangle.Empty;
+            if (Session.Role == "Admin" || (Session.Role == "Staff" && reporterId == Session.UserId))
+                btnEdit = rects[index++];
+
+            Rectangle btnDelete = Rectangle.Empty;
+            if (Session.Role == "SuperAdmin")
+                btnDelete = rects[index++];
+
+            Rectangle btnApprove = Rectangle.Empty;
+            if (Session.Role == "Admin" && status.ToUpper() == "PENDING")
+                btnApprove = rects[index++];
+
+            // Convert click coordinates
+            var clickPoint = tblItems.PointToClient(Cursor.Position);
+
+            // Handle clicks
+            if (btnView.Contains(clickPoint))
             {
-                var cell = tblItems.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                var rects = cell.Tag as Rectangle[];
-                if (rects == null) return;
-
-                Rectangle btnView = rects[0];
-                Rectangle btnEdit = rects.Length > 1 ? rects[1] : Rectangle.Empty;
-                Rectangle btnDelete = rects.Length > 2 ? rects[2] : Rectangle.Empty;
-
-                // Convert mouse click coordinates
-                var clickPoint = tblItems.PointToClient(Cursor.Position);
-
-                if (btnView.Contains(clickPoint))
+                new ViewItemForm(itemId).ShowDialog();
+            }
+            else if (btnEdit.Contains(clickPoint))
+            {
+                if (Session.Role == "Admin" || (Session.Role == "Staff" && reporterId == Session.UserId))
                 {
-                    int itemId = Convert.ToInt32(tblItems.Rows[e.RowIndex].Cells["colItemId"].Value);
-                    var viewForm = new ViewItemForm(itemId);
-                    viewForm.ShowDialog();
-                }
-                else if (Session.Role == "Admin" && btnEdit.Contains(clickPoint))
-                {
-                    int itemId = Convert.ToInt32(tblItems.Rows[e.RowIndex].Cells["colItemId"].Value);
-                    var editForm = new EditItemForm(itemId);
-                    editForm.ShowDialog();
+                    new EditItemForm(itemId).ShowDialog();
                     LoadItems();
                 }
-                //else if (Session.Role == "SuperAdmin" && btnDelete.Contains(clickPoint))
-                //{
-                //    int itemId = Convert.ToInt32(tblItems.Rows[e.RowIndex].Cells["colItemId"].Value);
-                //    // Call your delete logic
-                //    DeleteItem(itemId);
-                //    LoadItems();
-                //}
+                else
+                {
+                    MessageBox.Show("You can only edit your own reports.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else if (btnApprove.Contains(clickPoint))
+            {
+                if (MessageBox.Show("Approve this item?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        using var conn = Database.GetConnection();
+                        conn.Open();
+                        string query = "UPDATE items SET status='Approved' WHERE id=@id";
+                        using var cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@id", itemId);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Item approved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error approving item: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    LoadItems();
+                }
+            }
+            else if (btnDelete.Contains(clickPoint))
+            {
+                if (MessageBox.Show("Delete this item?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        using var conn = Database.GetConnection();
+                        conn.Open();
+                        string query = "DELETE FROM items WHERE id=@id";
+                        using var cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@id", itemId);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Item deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error deleting item: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    LoadItems();
+                }
             }
         }
+
 
         #endregion
     }
 }
 
-#region LoadItems process
-//private void LoadItems()
-//{
-//    try
-//    {
-//        // --- 1. Prepare filter parameters ---
-//        string status = cmbStatus.SelectedItem?.ToString() == "All" ? "" : cmbStatus.SelectedItem?.ToString();
-//        int? categoryId = Convert.ToInt32(cmbCategory.SelectedValue) == 0 ? null : Convert.ToInt32(cmbCategory.SelectedValue);
-//        int? locationId = Convert.ToInt32(cmbLocation.SelectedValue) == 0 ? null : Convert.ToInt32(cmbLocation.SelectedValue);
-//        int? departmentId = Convert.ToInt32(cmbDepartment.SelectedValue) == 0 ? null : Convert.ToInt32(cmbDepartment.SelectedValue);
-//        string search = searchBox.Text.Trim();
-
-//        // --- 2. Open database connection ---
-//        using var conn = Database.GetConnection();
-//        conn.Open();
-
-//        // --- 3. Build query with filters ---
-//        string query = @"
-//            SELECT SQL_CALC_FOUND_ROWS i.id, i.title, i.description, i.image_path,
-//                   c.name AS category, i.type, i.status,
-//                   l.name AS location, d.name AS department,
-//                   u.name AS reporter_name, i.date_reported
-//            FROM items i
-//            LEFT JOIN categories c ON i.category_id = c.id
-//            LEFT JOIN locations l ON i.location_id = l.id
-//            LEFT JOIN departments d ON i.department_id = d.id
-//            LEFT JOIN users u ON i.reported_by = u.id
-//            WHERE (@search IS NULL OR i.title LIKE CONCAT('%', @search, '%'))
-//              AND (@status IS NULL OR i.status = @status)
-//              AND (@categoryId IS NULL OR i.category_id = @categoryId)
-//              AND (@locationId IS NULL OR i.location_id = @locationId)
-//              AND (@departmentId IS NULL OR i.department_id = @departmentId)
-//            ORDER BY i.date_reported DESC
-//            LIMIT @offset, @pageSize;";
-
-//        int offset = (currentPage - 1) * pageSize;
-
-//        using var cmd = new MySqlCommand(query, conn);
-//        cmd.Parameters.AddWithValue("@search", string.IsNullOrEmpty(search) ? (object)DBNull.Value : search);
-//        cmd.Parameters.AddWithValue("@status", string.IsNullOrEmpty(status) ? (object)DBNull.Value : status);
-//        cmd.Parameters.AddWithValue("@categoryId", categoryId ?? (object)DBNull.Value);
-//        cmd.Parameters.AddWithValue("@locationId", locationId ?? (object)DBNull.Value);
-//        cmd.Parameters.AddWithValue("@departmentId", departmentId ?? (object)DBNull.Value);
-//        cmd.Parameters.AddWithValue("@offset", offset);
-//        cmd.Parameters.AddWithValue("@pageSize", pageSize);
-
-//        // --- 4. Fill DataTable ---
-//        DataTable dt = new DataTable();
-//        using var da = new MySqlDataAdapter(cmd);
-//        da.Fill(dt);
-
-//        // --- 5. Get total records for pagination ---
-//        using var totalCmd = new MySqlCommand("SELECT FOUND_ROWS();", conn);
-//        totalRecords = Convert.ToInt32(totalCmd.ExecuteScalar());
-//        totalPages = Math.Max(1, (int)Math.Ceiling(totalRecords / (double)pageSize));
-
-//        // --- 6. Populate DataGridView ---
-//        tblItems.Rows.Clear();
-//        Image defaultImg = Properties.Resources.default_item;
-
-//        foreach (DataRow row in dt.Rows)
-//        {
-//            int rowIndex = tblItems.Rows.Add();
-//            tblItems.Rows[rowIndex].Cells["colItemId"].Value = row["id"];
-
-//            Image imgToUse = defaultImg;
-//            string imgPath = row["image_path"].ToString();
-//            if (!string.IsNullOrEmpty(imgPath))
-//            {
-//                string fullPath = Path.Combine(Application.StartupPath, imgPath);
-//                if (File.Exists(fullPath))
-//                {
-//                    using var original = Image.FromFile(fullPath);
-//                    imgToUse = new Bitmap(original, new Size(55, 55));
-//                }
-//            }
-
-//            tblItems.Rows[rowIndex].Cells["colItem"].Tag = new object[]
-//            {
-//                imgToUse,
-//                row["description"].ToString()
-//            };
-//            tblItems.Rows[rowIndex].Cells["colItem"].Value = row["title"];
-//            tblItems.Rows[rowIndex].Cells["colCategory"].Value = row["category"];
-//            tblItems.Rows[rowIndex].Cells["colType"].Value = row["type"];
-//            tblItems.Rows[rowIndex].Cells["colStatus"].Value = row["status"];
-//            tblItems.Rows[rowIndex].Cells["colLocation"].Value = row["location"];
-//            tblItems.Rows[rowIndex].Cells["colDepartment"].Value = row["department"];
-//            tblItems.Rows[rowIndex].Cells["colReportedBy"].Value = row["reporter_name"];
-//            tblItems.Rows[rowIndex].Cells["colDateTime"].Value =
-//                Convert.ToDateTime(row["date_reported"]).ToString("MMMM dd, yyyy hh:mm tt");
-//            tblItems.Rows[rowIndex].Cells["colActions"].Value = "View";
-//        }
-
-//        AdjustRowHeights();
-//        UpdatePaginationControls();
-//    }
-//    catch (Exception ex)
-//    {
-//        MessageBox.Show("Error loading items: " + ex.Message);
-//    }
-//}
-#endregion LoadItem Process
