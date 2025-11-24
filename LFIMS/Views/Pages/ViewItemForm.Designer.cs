@@ -321,16 +321,16 @@
             // lblItemType
             // 
             lblItemType.Anchor = AnchorStyles.Left;
-            lblItemType.AutoSize = true;
             lblItemType.BackColor = Color.Red;
             lblItemType.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblItemType.ForeColor = Color.White;
             lblItemType.Location = new Point(106, 1);
             lblItemType.Name = "lblItemType";
             lblItemType.Padding = new Padding(3, 1, 3, 1);
-            lblItemType.Size = new Size(41, 22);
+            lblItemType.Size = new Size(60, 22);
             lblItemType.TabIndex = 15;
             lblItemType.Text = "lost";
+            lblItemType.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // typeElipse
             // 

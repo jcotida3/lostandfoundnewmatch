@@ -73,7 +73,7 @@ namespace LFsystem.Views.Pages
             tblItems.CellPainting += TblItems_CellPainting;
         }
 
-        private void TblItems_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        private void TblItems_CellPainting(object? sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
@@ -85,7 +85,7 @@ namespace LFsystem.Views.Pages
                 e.PaintBackground(e.CellBounds, true);
 
                 var tag = row.Cells[e.ColumnIndex].Tag as object[];
-                Image img = tag?[0] as Image;
+                Image img = tag?[0] as Image ?? Properties.Resources.default_item;
                 string description = tag?[1]?.ToString() ?? "";
                 string title = row.Cells[e.ColumnIndex].Value?.ToString() ?? "";
 
@@ -114,6 +114,10 @@ namespace LFsystem.Views.Pages
                     case "PENDING":
                         backColor = Color.FromArgb(255, 235, 156);
                         foreColor = Color.FromArgb(156, 101, 0);
+                        break;
+                    case "REJECTED":
+                       backColor = Color.FromArgb(255, 192, 192);
+                       foreColor = Color.FromArgb(139, 0, 0);
                         break;
                     default:
                         backColor = Color.LightGray;
@@ -160,9 +164,10 @@ namespace LFsystem.Views.Pages
                     visibleIcons.Add(Properties.Resources.delete_icon);
 
                 // Add Approve icon only if status is Pending
-                if (Session.Role == "Admin" && status.ToUpper() == "PENDING")
+                if (Session.Role == "Admin" && status.ToUpper() == "PENDING") { 
                     visibleIcons.Add(Properties.Resources.approve_icon);
-
+                    visibleIcons.Add(Properties.Resources.reject_icon);
+                }
                 int totalWidth = visibleIcons.Count * iconSize + (visibleIcons.Count - 1) * spacing;
                 int startX = e.CellBounds.X + (e.CellBounds.Width - totalWidth) / 2;
 
@@ -184,12 +189,12 @@ namespace LFsystem.Views.Pages
 
 
 
-        private void TblItems_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void TblItems_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             if (tblItems.Columns[e.ColumnIndex].Name == "colType")
             {
                 string val = e.Value?.ToString()?.ToLower() ?? "";
-                e.CellStyle.ForeColor = val switch
+                e.CellStyle!.ForeColor = val switch
                 {
                     "lost" => Color.Red,
                     "found" => Color.Green,
@@ -249,7 +254,8 @@ namespace LFsystem.Views.Pages
         {
             try
             {
-                string status = cmbStatus.SelectedItem?.ToString() == "All" ? "" : cmbStatus.SelectedItem?.ToString();
+                // Safely handle nullable SelectedItem
+                string status = (cmbStatus.SelectedItem?.ToString() ?? "All") == "All" ? "" : cmbStatus.SelectedItem!.ToString()!;
 
                 int? categoryId = Convert.ToInt32(cmbCategory.SelectedValue) == 0 ? null : Convert.ToInt32(cmbCategory.SelectedValue);
                 int? locationId = Convert.ToInt32(cmbLocation.SelectedValue) == 0 ? null : Convert.ToInt32(cmbLocation.SelectedValue);
@@ -277,8 +283,9 @@ namespace LFsystem.Views.Pages
                     int rowIndex = tblItems.Rows.Add();
                     tblItems.Rows[rowIndex].Cells["colItemId"].Value = row["id"];
 
+                    // Handle possible null image_path
+                    string imgPath = row["image_path"] != DBNull.Value ? row["image_path"]!.ToString()! : "";
                     Image imgToUse = defaultImg;
-                    string imgPath = row["image_path"].ToString();
                     if (!string.IsNullOrEmpty(imgPath))
                     {
                         string fullPath = Path.Combine(Application.StartupPath, imgPath);
@@ -289,21 +296,27 @@ namespace LFsystem.Views.Pages
                         }
                     }
 
+                    // Handle possible null description/title
+                    string description = row["description"] != DBNull.Value ? row["description"]!.ToString()! : "";
+                    string title = row["title"] != DBNull.Value ? row["title"]!.ToString()! : "";
+
                     tblItems.Rows[rowIndex].Cells["colItem"].Tag = new object[]
                     {
-                        imgToUse,
-                        row["description"].ToString()
+                imgToUse,
+                description
                     };
-                    tblItems.Rows[rowIndex].Cells["colItem"].Value = row["title"];
-                    tblItems.Rows[rowIndex].Cells["colCategory"].Value = row["category"];
-                    tblItems.Rows[rowIndex].Cells["colType"].Value = row["type"];
-                    tblItems.Rows[rowIndex].Cells["colStatus"].Value = row["status"];
-                    tblItems.Rows[rowIndex].Cells["colLocation"].Value = row["location"];
-                    tblItems.Rows[rowIndex].Cells["colDepartment"].Value = row["department"];
-                    tblItems.Rows[rowIndex].Cells["colReportedBy"].Value = row["reporter_name"];
-                    tblItems.Rows[rowIndex].Cells["colReportedById"].Value = row["reporter_id"]; 
+                    tblItems.Rows[rowIndex].Cells["colItem"].Value = title;
+
+                    tblItems.Rows[rowIndex].Cells["colCategory"].Value = row["category"] != DBNull.Value ? row["category"]!.ToString()! : "";
+                    tblItems.Rows[rowIndex].Cells["colType"].Value = row["type"] != DBNull.Value ? row["type"]!.ToString()! : "";
+                    tblItems.Rows[rowIndex].Cells["colStatus"].Value = row["status"] != DBNull.Value ? row["status"]!.ToString()! : "";
+                    tblItems.Rows[rowIndex].Cells["colLocation"].Value = row["location"] != DBNull.Value ? row["location"]!.ToString()! : "";
+                    tblItems.Rows[rowIndex].Cells["colDepartment"].Value = row["department"] != DBNull.Value ? row["department"]!.ToString()! : "";
+                    tblItems.Rows[rowIndex].Cells["colReportedBy"].Value = row["reporter_name"] != DBNull.Value ? row["reporter_name"]!.ToString()! : "";
+                    tblItems.Rows[rowIndex].Cells["colReportedById"].Value = row["reporter_id"] != DBNull.Value ? Convert.ToInt32(row["reporter_id"]) : 0;
+
                     tblItems.Rows[rowIndex].Cells["colDateTime"].Value =
-                        Convert.ToDateTime(row["date_created"]).ToString("MMMM dd, yyyy hh:mm tt");
+                        row["date_created"] != DBNull.Value ? Convert.ToDateTime(row["date_created"]).ToString("MMMM dd, yyyy hh:mm tt") : "";
                     tblItems.Rows[rowIndex].Cells["colActions"].Value = "View";
                 }
 
@@ -319,7 +332,7 @@ namespace LFsystem.Views.Pages
         #endregion
 
         #region Pagination
-        private void BtnPreviousPage_Click(object sender, EventArgs e)
+        private void BtnPreviousPage_Click(object? sender, EventArgs e)
         {
             if (currentPage > 1)
             {
@@ -328,7 +341,7 @@ namespace LFsystem.Views.Pages
             }
         }
 
-        private void BtnNextPage_Click(object sender, EventArgs e)
+        private void BtnNextPage_Click(object? sender, EventArgs e)
         {
             if (currentPage < totalPages)
             {
@@ -365,20 +378,20 @@ namespace LFsystem.Views.Pages
         #endregion
 
         #region Event Handlers
-        private void Filters_Changed(object sender, EventArgs e)
+        private void Filters_Changed(object? sender, EventArgs e)
         {
             currentPage = 1;
             LoadItems();
         }
 
-        private void TxtSearch_TextChanged(object sender, EventArgs e)
+        private void TxtSearch_TextChanged(object? sender, EventArgs e)
         {
             currentPage = 1;
             searchTimer.Stop();
             searchTimer.Start();
         }
 
-        private void BtnClearFilter_Click(object sender, EventArgs e)
+        private void BtnClearFilter_Click(object? sender, EventArgs e)
         {
             currentPage = 1;
             cmbStatus.SelectedIndex = 0;
@@ -389,7 +402,7 @@ namespace LFsystem.Views.Pages
             LoadItems();
         }
 
-        private void TblItems_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void TblItems_CellMouseClick(object? sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
@@ -406,7 +419,7 @@ namespace LFsystem.Views.Pages
 
             // Dynamically map rectangles to icons
             int index = 0;
-            Rectangle btnView = rects[index++]; // View is always first
+            Rectangle btnView = rects[index++];
 
             Rectangle btnEdit = Rectangle.Empty;
             if (Session.Role == "Admin" || (Session.Role == "Staff" && reporterId == Session.UserId))
@@ -417,8 +430,13 @@ namespace LFsystem.Views.Pages
                 btnDelete = rects[index++];
 
             Rectangle btnApprove = Rectangle.Empty;
+            Rectangle btnReject = Rectangle.Empty;
             if (Session.Role == "Admin" && status.ToUpper() == "PENDING")
+            {
                 btnApprove = rects[index++];
+                btnReject = rects[index++];
+
+            }
 
             // Convert click coordinates
             var clickPoint = tblItems.PointToClient(Cursor.Position);
@@ -463,6 +481,32 @@ namespace LFsystem.Views.Pages
                     LoadItems();
                 }
             }
+            if (btnReject != Rectangle.Empty && btnReject.Contains(clickPoint))
+            {
+                if (MessageBox.Show("Reject this item?", "Confirm",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        using var conn = Database.GetConnection();
+                        conn.Open();
+                        string query = "UPDATE items SET status='Rejected' WHERE id=@id";
+                        using var cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@id", itemId);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Item rejected successfully!",
+                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error rejecting item: " + ex.Message,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    LoadItems();
+                }
+                return;
+            }
             else if (btnDelete.Contains(clickPoint))
             {
                 if (MessageBox.Show("Delete this item?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
@@ -485,6 +529,19 @@ namespace LFsystem.Views.Pages
                     LoadItems();
                 }
             }
+        }
+        public void SetStatusFilter(string status)
+        {
+            // Find the index that matches the status (case-insensitive)
+            int index = cmbStatus.Items.IndexOf(status);
+            if (index >= 0)
+                cmbStatus.SelectedIndex = index;
+            else
+                cmbStatus.SelectedIndex = 0; // fallback to "All"
+
+            // Reload items after changing the filter
+            currentPage = 1;
+            LoadItems();
         }
 
 

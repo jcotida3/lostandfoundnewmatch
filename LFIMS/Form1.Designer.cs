@@ -1,4 +1,4 @@
-﻿namespace LFsystem.Views
+﻿/*namespace LFsystem.Views
 {
     partial class BuildingRoomForm
     {
@@ -101,3 +101,4 @@
         }
     }
 }
+*/

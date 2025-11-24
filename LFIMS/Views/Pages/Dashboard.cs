@@ -64,12 +64,15 @@ namespace LFsystem.Views.Pages
         }
         private void btnReviewPending_Click(object sender, EventArgs e)
         {
-            // Make sure the class name matches exactly (All_Item vs All_item)
             Form parentForm = this.FindForm();
             if (parentForm is MainForm mainForm)
             {
-                mainForm.LoadPage(new ManageItems());
+                var manageItemsPage = new ManageItems();
+                mainForm.LoadPage(manageItemsPage);
                 mainForm.ActivateSidebarButton("ManageItems");
+
+                // Set filter to Pending
+                manageItemsPage.SetStatusFilter("Pending");
             }
         }
 

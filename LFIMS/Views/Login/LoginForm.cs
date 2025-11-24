@@ -31,7 +31,7 @@ namespace LFsystem.Views.Login
             try
             {
                 var userService = new UserService();
-                User user = userService.GetUserByUsername(username);
+                User? user = userService.GetUserByUsername(username);
 
                 if (user == null)
                 {
@@ -59,6 +59,7 @@ namespace LFsystem.Views.Login
                 LFsystem.Helpers.Session.Username = user.Username;
                 LFsystem.Helpers.Session.Role = user.Role;
                 LFsystem.Helpers.Session.Name = user.FullName;
+                LFsystem.Helpers.Session.Email = user.Email;
 
                 MessageBox.Show($"Welcome {user.FullName}! ({user.Role})", "Login Successful!",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);

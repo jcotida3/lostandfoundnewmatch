@@ -1,4 +1,5 @@
 ﻿using Guna.UI2.WinForms;
+using LFsystem.Helpers;
 using LFsystem.Views.Login;
 using LFsystem.Views.Pages;
 using System;
@@ -11,13 +12,19 @@ namespace LFsystem.Views.Main
     public partial class MainForm : Form
     {
         private string userRole;
-        private Guna2Button activeButton = null;
+        private Guna2Button? activeButton = null;
 
         public MainForm(string role)
         {
             InitializeComponent();
             userRole = role;
 
+            if (userRole != "Super Admin")
+            {
+
+                btnUserManagement.Visible = false;
+
+            }
             // Load the default page (Dashboard)
             LoadPage(new Dashboard());
             SetActiveButton(btnDashboard);
@@ -32,6 +39,7 @@ namespace LFsystem.Views.Main
             panelContent.Controls.Add(page);
         }
 
+        
         // Handle active button color
         public void SetActiveButton(Guna2Button clickedButton)
         {
@@ -91,7 +99,8 @@ namespace LFsystem.Views.Main
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            
+            SetActiveButton(btnSettings);
+            LoadPage(new Settings());
         }
 
         private void btnUserManagement_Click(object sender, EventArgs e)

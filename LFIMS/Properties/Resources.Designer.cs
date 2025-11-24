@@ -93,6 +93,16 @@ namespace LFsystem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap edit {
+            get {
+                object obj = ResourceManager.GetObject("edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap edit_icon {
             get {
                 object obj = ResourceManager.GetObject("edit_icon", resourceCulture);
@@ -136,6 +146,16 @@ namespace LFsystem.Properties {
         internal static System.Drawing.Bitmap pending {
             get {
                 object obj = ResourceManager.GetObject("pending", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap reject_icon {
+            get {
+                object obj = ResourceManager.GetObject("reject_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

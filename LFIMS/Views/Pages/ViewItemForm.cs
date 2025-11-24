@@ -48,19 +48,42 @@ namespace LFsystem.Views.Pages
                 if (reader.Read())
                 {
                     // Basic info
-                    string reporterName = reader["reporter_name"] == DBNull.Value ? "" : reader["reporter_name"].ToString()!;
-                    string reporterContact = reader["reporter_contact"] == DBNull.Value ? "" : reader["reporter_contact"].ToString()!;
-                    string reportedBy = reader["reported_by"] == DBNull.Value ? "" : reader["reported_by"].ToString()!;
-                    string itemType = reader["type"] == DBNull.Value ? "" : reader["type"].ToString()!;
-                    
+                    string reporterName = string.IsNullOrWhiteSpace(Convert.ToString(reader["reporter_name"]))
+                      ? "N/A"
+                      : Convert.ToString(reader["reporter_name"])!;
+
+                    string reporterContact = string.IsNullOrWhiteSpace(Convert.ToString(reader["reporter_contact"]))
+                                             ? "N/A"
+                                             : Convert.ToString(reader["reporter_contact"])!;
+
+                    string reportedBy = string.IsNullOrWhiteSpace(Convert.ToString(reader["reported_by"]))
+                                        ? "N/A"
+                                        : Convert.ToString(reader["reported_by"])!;
+
+                    string itemType = string.IsNullOrWhiteSpace(Convert.ToString(reader["type"]))
+                   ? "N/A"
+                   : Convert.ToString(reader["type"])!;
 
 
-                    lblItemName.Text = reader["title"].ToString();
-                    lblDescription.Text = reader["description"].ToString();
-                    lblLocation.Text = reader["location"].ToString();
-                    lblDepartment.Text = reader["department"].ToString();
+
+                    lblItemName.Text = string.IsNullOrWhiteSpace(reader["title"]?.ToString())
+                       ? "N/A" : reader["title"].ToString();
+
+                    lblDescription.Text = string.IsNullOrWhiteSpace(reader["description"]?.ToString())
+                                           ? "N/A" : reader["description"].ToString();
+
+                    lblLocation.Text = string.IsNullOrWhiteSpace(reader["location"]?.ToString())
+                                           ? "N/A" : reader["location"].ToString();
+
+                    lblDepartment.Text = string.IsNullOrWhiteSpace(reader["department"]?.ToString())
+                                           ? "N/A" : reader["department"].ToString();
+
                     lblReportedBy.Text = reportedBy;
-                    lblSubtitle.Text = $" - {reader["category"]}";
+
+                    lblSubtitle.Text = " - " +
+                                           (string.IsNullOrWhiteSpace(reader["category"]?.ToString())
+                                           ? "N/A" : reader["category"].ToString());
+
                     lblItemType.Text = itemType;
 
                     UpdateTypeChip(itemType);

@@ -6,16 +6,15 @@ namespace LFsystem.Services
 {
     public class UserService
     {
-        public User GetUserByUsername(string username)
+        public User? GetUserByUsername(string username)
         {
-            User user = null;
-
+            User? user = null; 
             try
             {
                 using (var conn = Database.GetConnection())
                 {
                     conn.Open();
-                    string query = @"SELECT id, username, password, name, role, IsActive
+                    string query = @"SELECT id, username, password, name, email, role, IsActive
                                      FROM users 
                                      WHERE username = @username 
                                      LIMIT 1";
@@ -33,6 +32,7 @@ namespace LFsystem.Services
                                     Username = reader.GetString("username"),
                                     PasswordHash = reader.GetString("password"),
                                     FullName = reader.IsDBNull(reader.GetOrdinal("name")) ? "" : reader.GetString("name"),
+                                    Email = reader.GetString("email"),
                                     Role = reader.GetString("role"),
                                     IsActive = reader.GetBoolean("IsActive")
                                 };

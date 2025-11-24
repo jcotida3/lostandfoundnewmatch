@@ -101,6 +101,12 @@ namespace LFsystem.Views.Pages
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if((int)cmbItemDepartment.SelectedValue == 0)
+            {
+                MessageBox.Show("Please select Department.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             // Optional reporter input: no need to validate
             string reporterName = string.IsNullOrWhiteSpace(txtFinderName.Text)
