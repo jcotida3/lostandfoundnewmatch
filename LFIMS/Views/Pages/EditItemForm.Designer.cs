@@ -36,18 +36,12 @@ namespace LFsystem.Views.Pages
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -58,16 +52,20 @@ namespace LFsystem.Views.Pages
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             mainPanel = new Panel();
+            lblStatus = new Label();
+            cmbStatus = new Guna2ComboBox();
             btnReplace = new Guna2Button();
             btnSave = new Guna2Button();
             btnCancel = new Guna2Button();
-            pnlFinderInformation = new Guna2Panel();
-            txtFindContact = new Guna2TextBox();
-            lblFindContact = new Label();
-            txtFindName = new Guna2TextBox();
-            lblFindName = new Label();
-            lblFinderInformation = new Label();
             picBox = new PictureBox();
             pictureBox1 = new PictureBox();
             lblItemPhoto = new Label();
@@ -86,18 +84,26 @@ namespace LFsystem.Views.Pages
             lblItemType = new Label();
             lblEditSub = new Label();
             lblEdit = new Label();
+            pnlFinderInformation = new Guna2Panel();
+            lblFinderInformation = new Label();
+            lblFindName = new Label();
+            txtFindName = new Guna2TextBox();
+            lblFindContact = new Label();
+            txtFindContact = new Guna2TextBox();
             mainPanel.SuspendLayout();
-            pnlFinderInformation.SuspendLayout();
             ((ISupportInitialize)picBox).BeginInit();
             ((ISupportInitialize)pictureBox1).BeginInit();
+            pnlFinderInformation.SuspendLayout();
             SuspendLayout();
             // 
             // mainPanel
             // 
+            mainPanel.Controls.Add(pnlFinderInformation);
+            mainPanel.Controls.Add(lblStatus);
             mainPanel.Controls.Add(btnReplace);
+            mainPanel.Controls.Add(cmbStatus);
             mainPanel.Controls.Add(btnSave);
             mainPanel.Controls.Add(btnCancel);
-            mainPanel.Controls.Add(pnlFinderInformation);
             mainPanel.Controls.Add(picBox);
             mainPanel.Controls.Add(pictureBox1);
             mainPanel.Controls.Add(lblItemPhoto);
@@ -123,12 +129,40 @@ namespace LFsystem.Views.Pages
             mainPanel.Size = new Size(490, 803);
             mainPanel.TabIndex = 0;
             // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(246, 686);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(50, 17);
+            lblStatus.TabIndex = 30;
+            lblStatus.Text = "Status:";
+            // 
+            // cmbStatus
+            // 
+            cmbStatus.AutoRoundedCorners = true;
+            cmbStatus.BackColor = Color.Transparent;
+            cmbStatus.CustomizableEdges = customizableEdges9;
+            cmbStatus.DrawMode = DrawMode.OwnerDrawFixed;
+            cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbStatus.FocusedColor = Color.FromArgb(94, 148, 255);
+            cmbStatus.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            cmbStatus.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbStatus.ForeColor = Color.FromArgb(68, 88, 112);
+            cmbStatus.ItemHeight = 25;
+            cmbStatus.Location = new Point(302, 679);
+            cmbStatus.Name = "cmbStatus";
+            cmbStatus.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            cmbStatus.Size = new Size(175, 31);
+            cmbStatus.TabIndex = 31;
+            // 
             // btnReplace
             // 
             btnReplace.BorderColor = Color.DarkGray;
             btnReplace.BorderRadius = 5;
             btnReplace.BorderThickness = 1;
-            btnReplace.CustomizableEdges = customizableEdges1;
+            btnReplace.CustomizableEdges = customizableEdges7;
             btnReplace.DisabledState.BorderColor = Color.DarkGray;
             btnReplace.DisabledState.CustomBorderColor = Color.DarkGray;
             btnReplace.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -139,7 +173,7 @@ namespace LFsystem.Views.Pages
             btnReplace.Location = new Point(165, 524);
             btnReplace.Margin = new Padding(3, 4, 3, 4);
             btnReplace.Name = "btnReplace";
-            btnReplace.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnReplace.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnReplace.Size = new Size(154, 30);
             btnReplace.TabIndex = 29;
             btnReplace.Text = "Replace Item";
@@ -148,7 +182,7 @@ namespace LFsystem.Views.Pages
             // btnSave
             // 
             btnSave.BorderRadius = 5;
-            btnSave.CustomizableEdges = customizableEdges3;
+            btnSave.CustomizableEdges = customizableEdges11;
             btnSave.DisabledState.BorderColor = Color.DarkGray;
             btnSave.DisabledState.CustomBorderColor = Color.DarkGray;
             btnSave.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -159,7 +193,7 @@ namespace LFsystem.Views.Pages
             btnSave.Location = new Point(359, 754);
             btnSave.Margin = new Padding(3, 4, 3, 4);
             btnSave.Name = "btnSave";
-            btnSave.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnSave.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnSave.Size = new Size(120, 30);
             btnSave.TabIndex = 28;
             btnSave.Text = "Update Item";
@@ -170,7 +204,7 @@ namespace LFsystem.Views.Pages
             btnCancel.BorderColor = Color.DarkGray;
             btnCancel.BorderRadius = 5;
             btnCancel.BorderThickness = 1;
-            btnCancel.CustomizableEdges = customizableEdges5;
+            btnCancel.CustomizableEdges = customizableEdges13;
             btnCancel.DisabledState.BorderColor = Color.DarkGray;
             btnCancel.DisabledState.CustomBorderColor = Color.DarkGray;
             btnCancel.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -181,109 +215,11 @@ namespace LFsystem.Views.Pages
             btnCancel.Location = new Point(233, 754);
             btnCancel.Margin = new Padding(3, 4, 3, 4);
             btnCancel.Name = "btnCancel";
-            btnCancel.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnCancel.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnCancel.Size = new Size(120, 30);
             btnCancel.TabIndex = 27;
             btnCancel.Text = "Cancel";
             btnCancel.Click += btnCancel_Click;
-            // 
-            // pnlFinderInformation
-            // 
-            pnlFinderInformation.BackColor = Color.FromArgb(239, 247, 255);
-            pnlFinderInformation.BorderRadius = 10;
-            pnlFinderInformation.BorderThickness = 1;
-            pnlFinderInformation.Controls.Add(txtFindContact);
-            pnlFinderInformation.Controls.Add(lblFindContact);
-            pnlFinderInformation.Controls.Add(txtFindName);
-            pnlFinderInformation.Controls.Add(lblFindName);
-            pnlFinderInformation.Controls.Add(lblFinderInformation);
-            pnlFinderInformation.CustomizableEdges = customizableEdges11;
-            pnlFinderInformation.FillColor = Color.FromArgb(239, 247, 255);
-            pnlFinderInformation.Location = new Point(13, 562);
-            pnlFinderInformation.Margin = new Padding(3, 4, 3, 4);
-            pnlFinderInformation.Name = "pnlFinderInformation";
-            pnlFinderInformation.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            pnlFinderInformation.Size = new Size(466, 105);
-            pnlFinderInformation.TabIndex = 26;
-            // 
-            // txtFindContact
-            // 
-            txtFindContact.BorderRadius = 5;
-            txtFindContact.Cursor = Cursors.IBeam;
-            txtFindContact.CustomizableEdges = customizableEdges7;
-            txtFindContact.DefaultText = "";
-            txtFindContact.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            txtFindContact.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            txtFindContact.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            txtFindContact.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            txtFindContact.FillColor = Color.WhiteSmoke;
-            txtFindContact.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtFindContact.Font = new Font("Segoe UI", 9F);
-            txtFindContact.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtFindContact.Location = new Point(245, 60);
-            txtFindContact.Margin = new Padding(3, 5, 3, 5);
-            txtFindContact.Name = "txtFindContact";
-            txtFindContact.PlaceholderForeColor = Color.Black;
-            txtFindContact.PlaceholderText = "";
-            txtFindContact.SelectedText = "";
-            txtFindContact.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            txtFindContact.Size = new Size(203, 30);
-            txtFindContact.TabIndex = 31;
-            // 
-            // lblFindContact
-            // 
-            lblFindContact.AutoSize = true;
-            lblFindContact.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblFindContact.Location = new Point(242, 34);
-            lblFindContact.Name = "lblFindContact";
-            lblFindContact.Size = new Size(98, 17);
-            lblFindContact.TabIndex = 30;
-            lblFindContact.Text = "Finder Contact";
-            // 
-            // txtFindName
-            // 
-            txtFindName.BorderRadius = 5;
-            txtFindName.Cursor = Cursors.IBeam;
-            txtFindName.CustomizableEdges = customizableEdges9;
-            txtFindName.DefaultText = "";
-            txtFindName.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            txtFindName.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            txtFindName.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            txtFindName.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            txtFindName.FillColor = Color.WhiteSmoke;
-            txtFindName.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtFindName.Font = new Font("Segoe UI", 9F);
-            txtFindName.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtFindName.Location = new Point(10, 60);
-            txtFindName.Margin = new Padding(3, 5, 3, 5);
-            txtFindName.Name = "txtFindName";
-            txtFindName.PlaceholderForeColor = Color.Black;
-            txtFindName.PlaceholderText = "";
-            txtFindName.SelectedText = "";
-            txtFindName.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            txtFindName.Size = new Size(203, 30);
-            txtFindName.TabIndex = 29;
-            // 
-            // lblFindName
-            // 
-            lblFindName.AutoSize = true;
-            lblFindName.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblFindName.Location = new Point(7, 34);
-            lblFindName.Name = "lblFindName";
-            lblFindName.Size = new Size(87, 17);
-            lblFindName.TabIndex = 28;
-            lblFindName.Text = "Finder Name";
-            // 
-            // lblFinderInformation
-            // 
-            lblFinderInformation.AutoSize = true;
-            lblFinderInformation.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblFinderInformation.ForeColor = Color.FromArgb(16, 76, 136);
-            lblFinderInformation.Location = new Point(7, 2);
-            lblFinderInformation.Name = "lblFinderInformation";
-            lblFinderInformation.Size = new Size(125, 17);
-            lblFinderInformation.TabIndex = 27;
-            lblFinderInformation.Text = "Finder Information";
             // 
             // picBox
             // 
@@ -321,7 +257,7 @@ namespace LFsystem.Views.Pages
             // 
             cmbDepartment.BackColor = Color.Transparent;
             cmbDepartment.BorderRadius = 5;
-            cmbDepartment.CustomizableEdges = customizableEdges13;
+            cmbDepartment.CustomizableEdges = customizableEdges15;
             cmbDepartment.DrawMode = DrawMode.OwnerDrawFixed;
             cmbDepartment.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbDepartment.FillColor = Color.WhiteSmoke;
@@ -335,7 +271,7 @@ namespace LFsystem.Views.Pages
             cmbDepartment.Margin = new Padding(3, 4, 3, 4);
             cmbDepartment.MaxDropDownItems = 5;
             cmbDepartment.Name = "cmbDepartment";
-            cmbDepartment.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            cmbDepartment.ShadowDecoration.CustomizableEdges = customizableEdges16;
             cmbDepartment.Size = new Size(205, 30);
             cmbDepartment.TabIndex = 14;
             // 
@@ -343,7 +279,7 @@ namespace LFsystem.Views.Pages
             // 
             cmbLocation.BackColor = Color.Transparent;
             cmbLocation.BorderRadius = 5;
-            cmbLocation.CustomizableEdges = customizableEdges15;
+            cmbLocation.CustomizableEdges = customizableEdges17;
             cmbLocation.DrawMode = DrawMode.OwnerDrawFixed;
             cmbLocation.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbLocation.FillColor = Color.WhiteSmoke;
@@ -355,7 +291,7 @@ namespace LFsystem.Views.Pages
             cmbLocation.Location = new Point(9, 291);
             cmbLocation.Margin = new Padding(3, 4, 3, 4);
             cmbLocation.Name = "cmbLocation";
-            cmbLocation.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            cmbLocation.ShadowDecoration.CustomizableEdges = customizableEdges18;
             cmbLocation.Size = new Size(205, 30);
             cmbLocation.TabIndex = 13;
             // 
@@ -383,7 +319,7 @@ namespace LFsystem.Views.Pages
             // 
             itemDescription.BorderRadius = 5;
             itemDescription.Cursor = Cursors.IBeam;
-            itemDescription.CustomizableEdges = customizableEdges17;
+            itemDescription.CustomizableEdges = customizableEdges19;
             itemDescription.DefaultText = "";
             itemDescription.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             itemDescription.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -398,7 +334,7 @@ namespace LFsystem.Views.Pages
             itemDescription.Name = "itemDescription";
             itemDescription.PlaceholderText = "";
             itemDescription.SelectedText = "";
-            itemDescription.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            itemDescription.ShadowDecoration.CustomizableEdges = customizableEdges20;
             itemDescription.Size = new Size(452, 55);
             itemDescription.TabIndex = 10;
             // 
@@ -416,7 +352,7 @@ namespace LFsystem.Views.Pages
             // 
             cmbCategory.BackColor = Color.Transparent;
             cmbCategory.BorderRadius = 5;
-            cmbCategory.CustomizableEdges = customizableEdges19;
+            cmbCategory.CustomizableEdges = customizableEdges21;
             cmbCategory.DrawMode = DrawMode.OwnerDrawFixed;
             cmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCategory.FillColor = Color.WhiteSmoke;
@@ -430,7 +366,7 @@ namespace LFsystem.Views.Pages
             cmbCategory.Margin = new Padding(3, 4, 3, 4);
             cmbCategory.MaxDropDownItems = 5;
             cmbCategory.Name = "cmbCategory";
-            cmbCategory.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            cmbCategory.ShadowDecoration.CustomizableEdges = customizableEdges22;
             cmbCategory.Size = new Size(205, 30);
             cmbCategory.TabIndex = 8;
             // 
@@ -448,7 +384,7 @@ namespace LFsystem.Views.Pages
             // 
             itemName.BorderRadius = 5;
             itemName.Cursor = Cursors.IBeam;
-            itemName.CustomizableEdges = customizableEdges21;
+            itemName.CustomizableEdges = customizableEdges23;
             itemName.DefaultText = "";
             itemName.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             itemName.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -464,7 +400,7 @@ namespace LFsystem.Views.Pages
             itemName.PlaceholderForeColor = Color.Black;
             itemName.PlaceholderText = "iPhone 12";
             itemName.SelectedText = "";
-            itemName.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            itemName.ShadowDecoration.CustomizableEdges = customizableEdges24;
             itemName.Size = new Size(205, 30);
             itemName.TabIndex = 6;
             // 
@@ -489,6 +425,7 @@ namespace LFsystem.Views.Pages
             rbFound.TabStop = true;
             rbFound.Text = "Found Item";
             rbFound.UseVisualStyleBackColor = true;
+            rbFound.CheckedChanged += rbType_CheckedChanged;
             // 
             // rbLost
             // 
@@ -501,6 +438,7 @@ namespace LFsystem.Views.Pages
             rbLost.TabStop = true;
             rbLost.Text = "Lost Item";
             rbLost.UseVisualStyleBackColor = true;
+            rbLost.CheckedChanged += rbType_CheckedChanged;
             // 
             // lblItemType
             // 
@@ -531,6 +469,104 @@ namespace LFsystem.Views.Pages
             lblEdit.TabIndex = 0;
             lblEdit.Text = "Edit Item";
             // 
+            // pnlFinderInformation
+            // 
+            pnlFinderInformation.BackColor = Color.FromArgb(239, 247, 255);
+            pnlFinderInformation.BorderRadius = 10;
+            pnlFinderInformation.BorderThickness = 1;
+            pnlFinderInformation.Controls.Add(txtFindContact);
+            pnlFinderInformation.Controls.Add(lblFindContact);
+            pnlFinderInformation.Controls.Add(txtFindName);
+            pnlFinderInformation.Controls.Add(lblFindName);
+            pnlFinderInformation.Controls.Add(lblFinderInformation);
+            pnlFinderInformation.CustomizableEdges = customizableEdges5;
+            pnlFinderInformation.FillColor = Color.FromArgb(239, 247, 255);
+            pnlFinderInformation.Location = new Point(13, 562);
+            pnlFinderInformation.Margin = new Padding(3, 4, 3, 4);
+            pnlFinderInformation.Name = "pnlFinderInformation";
+            pnlFinderInformation.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            pnlFinderInformation.Size = new Size(466, 105);
+            pnlFinderInformation.TabIndex = 26;
+            // 
+            // lblFinderInformation
+            // 
+            lblFinderInformation.AutoSize = true;
+            lblFinderInformation.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblFinderInformation.ForeColor = Color.FromArgb(16, 76, 136);
+            lblFinderInformation.Location = new Point(7, 2);
+            lblFinderInformation.Name = "lblFinderInformation";
+            lblFinderInformation.Size = new Size(125, 17);
+            lblFinderInformation.TabIndex = 27;
+            lblFinderInformation.Text = "Finder Information";
+            // 
+            // lblFindName
+            // 
+            lblFindName.AutoSize = true;
+            lblFindName.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblFindName.Location = new Point(7, 34);
+            lblFindName.Name = "lblFindName";
+            lblFindName.Size = new Size(87, 17);
+            lblFindName.TabIndex = 28;
+            lblFindName.Text = "Finder Name";
+            // 
+            // txtFindName
+            // 
+            txtFindName.BorderRadius = 5;
+            txtFindName.Cursor = Cursors.IBeam;
+            txtFindName.CustomizableEdges = customizableEdges3;
+            txtFindName.DefaultText = "";
+            txtFindName.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            txtFindName.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            txtFindName.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            txtFindName.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            txtFindName.FillColor = Color.WhiteSmoke;
+            txtFindName.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtFindName.Font = new Font("Segoe UI", 9F);
+            txtFindName.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtFindName.Location = new Point(10, 60);
+            txtFindName.Margin = new Padding(3, 5, 3, 5);
+            txtFindName.Name = "txtFindName";
+            txtFindName.PlaceholderForeColor = Color.Black;
+            txtFindName.PlaceholderText = "";
+            txtFindName.SelectedText = "";
+            txtFindName.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            txtFindName.Size = new Size(203, 30);
+            txtFindName.TabIndex = 29;
+            // 
+            // lblFindContact
+            // 
+            lblFindContact.AutoSize = true;
+            lblFindContact.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblFindContact.Location = new Point(242, 34);
+            lblFindContact.Name = "lblFindContact";
+            lblFindContact.Size = new Size(98, 17);
+            lblFindContact.TabIndex = 30;
+            lblFindContact.Text = "Finder Contact";
+            // 
+            // txtFindContact
+            // 
+            txtFindContact.BorderRadius = 5;
+            txtFindContact.Cursor = Cursors.IBeam;
+            txtFindContact.CustomizableEdges = customizableEdges1;
+            txtFindContact.DefaultText = "";
+            txtFindContact.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            txtFindContact.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            txtFindContact.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            txtFindContact.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            txtFindContact.FillColor = Color.WhiteSmoke;
+            txtFindContact.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtFindContact.Font = new Font("Segoe UI", 9F);
+            txtFindContact.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            txtFindContact.Location = new Point(245, 60);
+            txtFindContact.Margin = new Padding(3, 5, 3, 5);
+            txtFindContact.Name = "txtFindContact";
+            txtFindContact.PlaceholderForeColor = Color.Black;
+            txtFindContact.PlaceholderText = "";
+            txtFindContact.SelectedText = "";
+            txtFindContact.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            txtFindContact.Size = new Size(203, 30);
+            txtFindContact.TabIndex = 31;
+            // 
             // EditItemForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -544,13 +580,12 @@ namespace LFsystem.Views.Pages
             Name = "EditItemForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Load += EditItemForm_Load;
             mainPanel.ResumeLayout(false);
             mainPanel.PerformLayout();
-            pnlFinderInformation.ResumeLayout(false);
-            pnlFinderInformation.PerformLayout();
             ((ISupportInitialize)picBox).EndInit();
             ((ISupportInitialize)pictureBox1).EndInit();
+            pnlFinderInformation.ResumeLayout(false);
+            pnlFinderInformation.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -574,15 +609,17 @@ namespace LFsystem.Views.Pages
         private PictureBox picBox;
         private PictureBox pictureBox1;
         private Label lblItemPhoto;
-        private Guna2Panel pnlFinderInformation;
-        private Label lblFinderInformation;
         private Label lblLocation;
+        private Guna2Button btnSave;
+        private Guna2Button btnCancel;
+        private Guna2Button btnReplace;
+        private Label lblStatus;
+        private Guna2ComboBox cmbStatus;
+        private Guna2Panel pnlFinderInformation;
         private Guna2TextBox txtFindContact;
         private Label lblFindContact;
         private Guna2TextBox txtFindName;
         private Label lblFindName;
-        private Guna2Button btnSave;
-        private Guna2Button btnCancel;
-        private Guna2Button btnReplace;
+        private Label lblFinderInformation;
     }
 }

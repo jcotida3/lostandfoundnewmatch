@@ -70,7 +70,7 @@
             panelSettingInfo.Controls.Add(txtEmailEdit);
             panelSettingInfo.Controls.Add(txtNameEdit);
             panelSettingInfo.CustomizableEdges = customizableEdges1;
-            panelSettingInfo.Location = new Point(46, 144);
+            panelSettingInfo.Location = new Point(46, 124);
             panelSettingInfo.Name = "panelSettingInfo";
             panelSettingInfo.ShadowDecoration.CustomizableEdges = customizableEdges2;
             panelSettingInfo.Size = new Size(528, 220);
@@ -214,7 +214,7 @@
             // 
             roleValue.AutoSize = true;
             roleValue.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            roleValue.Location = new Point(107, 86);
+            roleValue.Location = new Point(107, 80);
             roleValue.Name = "roleValue";
             roleValue.Size = new Size(53, 25);
             roleValue.TabIndex = 11;
@@ -225,7 +225,7 @@
             lblRole.AutoSize = true;
             lblRole.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
             lblRole.ForeColor = Color.Gray;
-            lblRole.Location = new Point(46, 86);
+            lblRole.Location = new Point(46, 80);
             lblRole.Name = "lblRole";
             lblRole.Size = new Size(55, 25);
             lblRole.TabIndex = 12;
@@ -239,7 +239,7 @@
             Controls.Add(panelSettingInfo);
             Controls.Add(lblSettings);
             Name = "Settings";
-            Size = new Size(1084, 515);
+            Size = new Size(1084, 790);
             panelSettingInfo.ResumeLayout(false);
             panelSettingInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)btnEdit).EndInit();

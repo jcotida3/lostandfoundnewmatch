@@ -23,9 +23,10 @@ namespace LFsystem.Views.Pages
 
             // Load filter ComboBoxes first
             LoadFilters();
-
+            LoadStatus();
             // Load item details
             LoadItemDetails();
+            
         }
 
         private void LoadFilters()
@@ -66,7 +67,7 @@ namespace LFsystem.Views.Pages
                 string query = @"
                     SELECT i.title, i.description, i.type, i.image_path,
                            i.category_id, i.location_id, i.department_id,
-                           i.student_name, i.student_contact
+                           i.student_name, i.student_contact, i.status
                     FROM items i
                     WHERE i.id = @id";
 
@@ -97,14 +98,38 @@ namespace LFsystem.Views.Pages
                     // --- Image ---
                     _imagePath = reader["image_path"] != DBNull.Value ? reader["image_path"].ToString() : "";
                     LoadPicture(_imagePath);
+
+                    string status = reader["status"] != DBNull.Value ? reader["status"].ToString() : "Pending";
+                    cmbStatus.SelectedItem = status;
+                   
+
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error loading item: " + ex.Message);
             }
+            UpdateFinderInfoVisibility();
         }
+        private void LoadStatus()
+        {
+            cmbStatus.Items.Add("Pending");
+            cmbStatus.Items.Add("Approved");
+            cmbStatus.Items.Add("Claimed");
+        }
+        private void UpdateFinderInfoVisibility()
+        {
+            pnlFinderInformation.Visible = rbFound.Checked;
 
+            if (rbLost.Checked)
+            {
+                pnlFinderInformation.Visible = false;
+            }
+        }
+        private void rbType_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateFinderInfoVisibility();
+        }
         private void SelectComboBoxValue(ComboBox combo, object value)
         {
             if (value != DBNull.Value && value != null)
@@ -172,7 +197,8 @@ namespace LFsystem.Views.Pages
                         department_id = @dept,
                         student_name = @fname,
                         student_contact = @fcontact,
-                        image_path = @img
+                        image_path = @img,
+                        status = @status
                     WHERE id = @id";
 
                 using var cmd = new MySqlCommand(query, conn);
@@ -185,6 +211,7 @@ namespace LFsystem.Views.Pages
                 cmd.Parameters.AddWithValue("@fname", txtFindName.Text.Trim());
                 cmd.Parameters.AddWithValue("@fcontact", txtFindContact.Text.Trim());
                 cmd.Parameters.AddWithValue("@img", _imagePath);
+                cmd.Parameters.AddWithValue("@status", cmbStatus.SelectedItem.ToString());
                 cmd.Parameters.AddWithValue("@id", _itemId);
 
                 cmd.ExecuteNonQuery();
@@ -197,9 +224,8 @@ namespace LFsystem.Views.Pages
             }
         }
 
-        private void EditItemForm_Load(object sender, EventArgs e)
-        {
+        
 
-        }
+      
     }
 }
