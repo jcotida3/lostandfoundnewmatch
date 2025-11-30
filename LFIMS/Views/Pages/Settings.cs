@@ -2,6 +2,7 @@
 using LFsystem.Services;
 using MySql.Data.MySqlClient;
 using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace LFsystem.Views.Pages
@@ -12,11 +13,17 @@ namespace LFsystem.Views.Pages
         {
             InitializeComponent();
             LoadUserProfile();
-
+            LoadCategories();
+            LoadDepartments();
+            LoadLocation();
             // Subscribe event handlers
             btnEdit.Click += BtnEdit_Click;
             btnSave.Click += BtnSave_Click;
             btnCancel.Click += BtnCancel_Click;
+
+            dvgCategories.CellClick += DgvCategories_CellClick;
+            dvgLocation.CellClick += DgvLocation_CellClick;
+            dvgDepartment.CellClick += DgvDepartment_CellClick;
         }
 
         private void LoadUserProfile()
@@ -105,5 +112,115 @@ namespace LFsystem.Views.Pages
                 }
             }
         }
+        private void LoadCategories() =>
+            LoadDataGridView(dvgCategories, "categories", "colCategoryID", "colCategoryName", "colCategoryEdit", "colCategoryDelete");
+
+        private void LoadLocation() =>
+            LoadDataGridView(dvgLocation, "locations", "colLocationID", "colLocationName", "colLocationEdit", "colLocationDelete");
+
+        private void LoadDepartments() =>
+            LoadDataGridView(dvgDepartment, "departments", "colDepartmentID", "colDepartmentName", "colDepartmentEdit", "colDepartmentDelete");
+        private void LoadDataGridView(DataGridView dgv, string tableName, string idCol, string nameCol, string editCol, string deleteCol)
+        {
+            try
+            {
+                using (MySqlConnection conn = Database.GetConnection())
+                {
+                    conn.Open();
+                    string query = $"SELECT id, name FROM {tableName}";
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    dgv.Rows.Clear();
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        int rowIndex = dgv.Rows.Add();
+                        dgv.Rows[rowIndex].Cells[idCol].Value = row["id"];
+                        dgv.Rows[rowIndex].Cells[nameCol].Value = row["name"];
+                        dgv.Rows[rowIndex].Cells[editCol].Value = "Edit";
+                        dgv.Rows[rowIndex].Cells[deleteCol].Value = "Delete";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void btnAddCategory_Click(object sender, EventArgs e)
+        {
+            using var form = new AddFilterForm("categories");
+            form.ShowDialog();
+            LoadCategories(); // Reload DataGridView after closing
+        }
+
+        private void btnAddLocation_Click(object sender, EventArgs e)
+        {
+            using var form = new AddFilterForm("locations");
+            form.ShowDialog();
+            LoadLocation();
+        }
+
+        private void btnAddDepartment_Click(object sender, EventArgs e)
+        {
+            using var form = new AddFilterForm("departments");
+            form.ShowDialog();
+            LoadDepartments();
+        }
+        private void HandleEditDeleteClick(
+    DataGridView dgv,
+    DataGridViewCellEventArgs e,
+    string tableName,
+    Action reloadAction)
+        {
+            if (e.RowIndex < 0) return;
+
+            var id = dgv.Rows[e.RowIndex].Cells[0].Value.ToString();
+            var name = dgv.Rows[e.RowIndex].Cells[1].Value.ToString();
+            var column = dgv.Columns[e.ColumnIndex].Name;
+
+            // EDIT
+            if (column.Contains("Edit"))
+            {
+                using var form = new EditFilterForm(tableName, id, name);
+                form.ShowDialog();
+                reloadAction();
+            }
+
+            // DELETE
+            else if (column.Contains("Delete"))
+            {
+                if (MessageBox.Show("Are you sure you want to delete this item?",
+                    "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    using var conn = Database.GetConnection();
+                    conn.Open();
+                    string query = $"DELETE FROM {tableName} WHERE id=@id";
+
+                    using var cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Item deleted successfully!");
+                    reloadAction();
+                }
+            }
+        }
+        private void DgvCategories_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            HandleEditDeleteClick(dvgCategories, e, "categories", LoadCategories);
+        }
+
+        private void DgvLocation_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            HandleEditDeleteClick(dvgLocation, e, "locations", LoadLocation);
+        }
+
+        private void DgvDepartment_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            HandleEditDeleteClick(dvgDepartment, e, "departments", LoadDepartments);
+        }
+
     }
 }

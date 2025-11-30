@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace LFsystem.Views.Pages
 {
-    public partial class SuperAdminPage : UserControl
+    public partial class ClaimItemForm : Form
     {
-        public SuperAdminPage()
+        public ClaimItemForm()
         {
             InitializeComponent();
         }

@@ -19,7 +19,7 @@ namespace LFsystem.Views.Main
             InitializeComponent();
             userRole = role;
 
-            if (userRole != "SuperAdmin")
+            if (userRole != "Super Admin")
             {
 
                 btnUserManagement.Visible = false;

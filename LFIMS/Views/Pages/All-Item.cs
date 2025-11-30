@@ -20,7 +20,7 @@ namespace LFsystem.Views.Pages
         private int pageSize = 10; // items per page
         private int totalRecords = 0;
         private int totalPages = 0;
-
+        private string typeFilter = "";
         private readonly Font titleFont = new Font("Segoe UI", 10, FontStyle.Bold);
         private readonly Font descFont = new Font("Segoe UI", 9, FontStyle.Regular);
         private readonly Font statusFont = new Font("Segoe UI", 9, FontStyle.Bold);
@@ -46,6 +46,7 @@ namespace LFsystem.Views.Pages
             btnClearFilter.Click += BtnClearFilter_Click;
             tblItems.CellFormatting += TblItems_CellFormatting;
             tblItems.CellMouseClick += TblItems_CellMouseClick;
+            
 
             // Initialize search debounce timer
             searchTimer = new System.Windows.Forms.Timer { Interval = 300 };
@@ -160,7 +161,7 @@ namespace LFsystem.Views.Pages
                 if (Session.Role == "Admin" || (Session.Role == "Staff" && reporterId == Session.UserId))
                     visibleIcons.Add(Properties.Resources.edit_icon);
 
-                if (Session.Role == "SuperAdmin")
+                if (Session.Role == "Super Admin")
                     visibleIcons.Add(Properties.Resources.delete_icon);
 
                 // Add Approve icon only if status is Pending
@@ -212,6 +213,32 @@ namespace LFsystem.Views.Pages
             LoadFilter(cmbCategory, "categories", "All Categories");
             LoadFilter(cmbLocation, "locations", "All Locations");
             LoadFilter(cmbDepartment, "departments", "All Departments");
+            LoadTypeFilter();
+        }
+        private void LoadTypeFilter()
+        {
+            cmbType.Items.Clear();
+            cmbType.Items.AddRange(new[] { "All", "Lost", "Found" });
+            cmbType.SelectedIndex = 0;
+
+            cmbType.SelectedIndexChanged += (s, e) =>
+            {
+                switch (cmbType.SelectedItem.ToString().ToLower())
+                {
+                    case "lost":
+                        typeFilter = "lost";
+                        break;
+                    case "found":
+                        typeFilter = "found";
+                        break;
+                    default:
+                        typeFilter = "";
+                        break;
+                }
+
+                currentPage = 1;
+                LoadItems();
+            };
         }
 
         private void LoadStatusFilter()
@@ -220,6 +247,7 @@ namespace LFsystem.Views.Pages
             cmbStatus.Items.AddRange(new[] { "All", "Approved", "Pending" });
             cmbStatus.SelectedIndex = 0;
         }
+       
 
         private void LoadFilter(ComboBox combo, string table, string placeholder)
         {
@@ -270,6 +298,7 @@ namespace LFsystem.Views.Pages
                                                 categoryId,
                                                 locationId,
                                                 departmentId,
+                                                typeFilter,
                                                 currentPage,
                                                 pageSize);
 
@@ -375,6 +404,8 @@ namespace LFsystem.Views.Pages
                 row.Height = Math.Max(80, titleSize.Height + descSize.Height + 20);
             }
         }
+       
+
         #endregion
 
         #region Event Handlers
@@ -393,6 +424,8 @@ namespace LFsystem.Views.Pages
 
         private void BtnClearFilter_Click(object? sender, EventArgs e)
         {
+            typeFilter = "";
+
             currentPage = 1;
             cmbStatus.SelectedIndex = 0;
             cmbCategory.SelectedIndex = 0;
@@ -426,7 +459,7 @@ namespace LFsystem.Views.Pages
                 btnEdit = rects[index++];
 
             Rectangle btnDelete = Rectangle.Empty;
-            if (Session.Role == "SuperAdmin")
+            if (Session.Role == "Super Admin")
                 btnDelete = rects[index++];
 
             Rectangle btnApprove = Rectangle.Empty;
@@ -543,7 +576,42 @@ namespace LFsystem.Views.Pages
             currentPage = 1;
             LoadItems();
         }
+        private void TblItems_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex != tblItems.Columns["colActions"].Index)
+            {
+                tblItems.Cursor = Cursors.Default;
+                return;
+            }
 
+            var cell = tblItems.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            var rects = cell.Tag as Rectangle[];
+            if (rects == null)
+            {
+                tblItems.Cursor = Cursors.Default;
+                return;
+            }
+
+            // Get mouse position relative to the DataGridView
+            var pt = tblItems.PointToClient(Cursor.Position);
+
+            bool overIcon = false;
+            foreach (var r in rects)
+            {
+                if (r.Contains(pt))
+                {
+                    overIcon = true;
+                    break;
+                }
+            }
+
+            tblItems.Cursor = overIcon ? Cursors.Hand : Cursors.Default;
+        }
+
+        private void TblItems_CellMouseLeave(object sender, EventArgs e)
+        {
+            tblItems.Cursor = Cursors.Default;
+        }
 
         #endregion
     }

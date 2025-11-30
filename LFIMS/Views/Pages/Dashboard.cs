@@ -31,7 +31,7 @@ namespace LFsystem.Views.Pages
 
             // Show/hide pending panel depending on role
 
-            if (Session.Role == "Admin" || Session.Role == "Super Admin")
+            if (Session.Role == "Admin" || Session.Role == "SuperAdmin")
             {
                 string pendingCount = GetCount("SELECT COUNT(*) FROM items WHERE Status = 'Pending'");
 

@@ -32,7 +32,7 @@ namespace LFsystem.Views.Pages
                 COUNT(*) AS TotalUsers,
                 SUM(role='Staff') AS TotalStaff,
                 SUM(role='Admin') AS TotalAdmin,
-                SUM(role='SuperAdmin') AS TotalSuperAdmin
+                SUM(role='Super Admin') AS TotalSuperAdmin
             FROM users;
         ";
 
