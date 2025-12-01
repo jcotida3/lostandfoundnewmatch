@@ -12,6 +12,8 @@ namespace LFsystem.Views.Pages
         public Settings()
         {
             InitializeComponent();
+
+            ApplyRoleBasedSettingVisibility();
             LoadUserProfile();
             LoadCategories();
             LoadDepartments();
@@ -25,7 +27,17 @@ namespace LFsystem.Views.Pages
             dvgLocation.CellClick += DgvLocation_CellClick;
             dvgDepartment.CellClick += DgvDepartment_CellClick;
         }
-
+        private void ApplyRoleBasedSettingVisibility()
+        {
+            if(Session.Role != "Super Admin")
+            {
+                Tabs.Visible = false;
+            }
+            else
+            {
+                Tabs.Visible = true;
+            }
+        }
         private void LoadUserProfile()
         {
             using (MySqlConnection conn = Database.GetConnection())

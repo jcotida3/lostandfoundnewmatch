@@ -157,7 +157,13 @@ namespace LFsystem.Views.Pages
 
                 int reporterId = Convert.ToInt32(tblItems.Rows[e.RowIndex].Cells["colReportedById"].Value);
                 string status = tblItems.Rows[e.RowIndex].Cells["colStatus"].Value?.ToString() ?? "";
+                string type = tblItems.Rows[e.RowIndex].Cells["colType"].Value?.ToString() ?? "";
 
+                bool canClaim = type.Equals("Found", StringComparison.OrdinalIgnoreCase) && status.Equals("Approved", StringComparison.OrdinalIgnoreCase);
+                if(canClaim)
+                {
+                    visibleIcons.Add(Properties.Resources.claim_icon);
+                }
                 if (Session.Role == "Admin" || (Session.Role == "Staff" && reporterId == Session.UserId))
                     visibleIcons.Add(Properties.Resources.edit_icon);
 
@@ -449,11 +455,18 @@ namespace LFsystem.Views.Pages
             int reporterId = Convert.ToInt32(tblItems.Rows[e.RowIndex].Cells["colReportedById"].Value);
             string status = tblItems.Rows[e.RowIndex].Cells["colStatus"].Value?.ToString() ?? "";
             int itemId = Convert.ToInt32(tblItems.Rows[e.RowIndex].Cells["colItemId"].Value);
-
+            string type = tblItems.Rows[e.RowIndex].Cells["colType"].Value?.ToString() ?? "";
+            string itemName = tblItems.Rows[e.RowIndex].Cells["colItem"].Value?.ToString() ?? "";
             // Dynamically map rectangles to icons
             int index = 0;
             Rectangle btnView = rects[index++];
 
+            Rectangle btnClaim = Rectangle.Empty;
+            bool canClaim = type.Equals("Found", StringComparison.OrdinalIgnoreCase) && status.Equals("Approved", StringComparison.OrdinalIgnoreCase);
+            if (canClaim)
+            {
+                btnClaim = rects[index++];
+            }
             Rectangle btnEdit = Rectangle.Empty;
             if (Session.Role == "Admin" || (Session.Role == "Staff" && reporterId == Session.UserId))
                 btnEdit = rects[index++];
@@ -478,6 +491,14 @@ namespace LFsystem.Views.Pages
             if (btnView.Contains(clickPoint))
             {
                 new ViewItemForm(itemId).ShowDialog();
+            }
+            else if (btnClaim != Rectangle.Empty && btnClaim.Contains(clickPoint))
+            {
+                // Open the claim form created in Step 2
+                // Ensure you import the namespace where ClaimItemForm exists
+                new ClaimItemForm(itemId, itemName).ShowDialog();
+                // Optional: Reload items if you want to update UI immediately after claim submission
+                LoadItems(); 
             }
             else if (btnEdit.Contains(clickPoint))
             {

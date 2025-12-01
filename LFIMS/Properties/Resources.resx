@@ -166,4 +166,10 @@
   <data name="superadmin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\superadmin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="claim_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\assignment_ind_24dp_7C3AED_FILL0_wght400_GRAD0_opsz24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="claims_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\assignment_ind_35dp_BLACK_FILL0_wght400_GRAD0_opsz40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

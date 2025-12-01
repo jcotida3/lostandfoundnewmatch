@@ -37,7 +37,7 @@ namespace LFsystem.Views.Pages
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(167, 111);
+            btnSave.Location = new Point(262, 121);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(75, 33);
             btnSave.TabIndex = 2;
@@ -45,7 +45,7 @@ namespace LFsystem.Views.Pages
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(262, 111);
+            btnCancel.Location = new Point(169, 121);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(75, 33);
             btnCancel.TabIndex = 3;
@@ -72,7 +72,7 @@ namespace LFsystem.Views.Pages
             txtName.Size = new Size(300, 36);
             txtName.TabIndex = 4;
             // 
-            // AddItemForm
+            // AddFilterForm
             // 
             BackColor = Color.White;
             ClientSize = new Size(370, 166);
@@ -83,7 +83,7 @@ namespace LFsystem.Views.Pages
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "AddItemForm";
+            Name = "AddFilterForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "AddItemForm";
             ResumeLayout(false);

@@ -19,7 +19,7 @@ namespace LFsystem.Views.Pages
 
             this.Text = "Edit " + tableName;
             txtName.Text = currentName;
-
+            lblTitle.Text = $"Edit " + tableName;
             btnSave.Click += BtnSave_Click;
             btnCancel.Click += (s, e) => Close();
         }

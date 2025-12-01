@@ -19,17 +19,40 @@ namespace LFsystem.Views.Main
             InitializeComponent();
             userRole = role;
 
-            if (userRole != "Super Admin")
-            {
+            ApplyRolePermissions(); // New method to handle button visibility
 
-                btnUserManagement.Visible = false;
-
-            }
             // Load the default page (Dashboard)
             LoadPage(new Dashboard());
             SetActiveButton(btnDashboard);
             lblRole.Text = userRole;
         }
+
+        private void ApplyRolePermissions()
+        {
+            // By default, assume buttons are visible as per designer, then hide as needed.
+            // Or set Visible = false in designer and make true here for specific roles.
+            // I'll go with hiding based on roles here.
+
+            // Common default behavior:
+            btnUserManagement.Visible = false; // Initially hidden, only Super Admin sees it
+            btnManageClaims.Visible = false;   // Initially hidden, only Admin/Super Admin sees it
+
+            if (userRole == "Super Admin")
+            {
+                btnUserManagement.Visible = true; // Super Admin can manage users
+                btnManageClaims.Visible = false;    // Super Admin can manage claims
+                btnReport.Visible = false;         // Admins/Super Admins usually don't report items
+            }
+            else if (userRole == "Admin")
+            {
+                btnManageClaims.Visible = true;    // Admin can manage claims
+                btnReport.Visible = false;         // Admins usually don't report items
+            }
+            // If userRole is neither "Super Admin" nor "Admin" (e.g., "User" or "Staff"),
+            // btnUserManagement and btnManageClaims remain hidden.
+            // btnReport remains visible as per designer default (or if you explicitly set it visible).
+        }
+
 
         // Load UserControl into panelContent
         public void LoadPage(UserControl page)
@@ -39,7 +62,6 @@ namespace LFsystem.Views.Main
             panelContent.Controls.Add(page);
         }
 
-        
         // Handle active button color
         public void SetActiveButton(Guna2Button clickedButton)
         {
@@ -68,6 +90,9 @@ namespace LFsystem.Views.Main
                 case "ManageItems":
                     SetActiveButton(btnManageItems);
                     break;
+                case "ManageClaims": // New case for Manage Claims
+                    SetActiveButton(btnManageClaims);
+                    break;
                 case "Settings":
                     SetActiveButton(btnSettings);
                     break;
@@ -88,13 +113,20 @@ namespace LFsystem.Views.Main
         private void btnReport_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnReport);
-            LoadPage(new Report());
+            LoadPage(new Report()); // Assuming 'Report' is a UserControl for reporting items
         }
 
         private void btnManageItems_Click(object sender, EventArgs e)
         {
-            SetActiveButton(btnManageItems); 
-            LoadPage(new ManageItems());
+            SetActiveButton(btnManageItems);
+            LoadPage(new ManageItems()); // Assuming 'ManageItems' is a UserControl for managing all items
+        }
+
+        // New event for Manage Claims button
+        private void btnManageClaims_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnManageClaims);
+            LoadPage(new ManageClaims()); 
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
