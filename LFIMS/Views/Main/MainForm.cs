@@ -110,8 +110,7 @@ namespace LFsystem.Views.Main
 
         private void btnManageClaims_Click(object sender, EventArgs e)
         {
-            SetActiveButton(btnManageClaims);
-            LoadPage(new ManageClaims());
+            
         }
 
         private void btnSettings_Click(object sender, EventArgs e)

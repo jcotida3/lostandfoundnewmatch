@@ -58,6 +58,16 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             lblManageItems = new Label();
             lblRole = new Label();
             pnlFilter = new Guna.UI2.WinForms.Guna2Panel();
@@ -90,11 +100,25 @@
             lblPageInfo = new Label();
             btnNextPage = new Guna.UI2.WinForms.Guna2Button();
             btnPreviousPage = new Guna.UI2.WinForms.Guna2Button();
+            guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
+            guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
+            guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
+            guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             pnlFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tblItems).BeginInit();
             panelPagination.SuspendLayout();
+            guna2Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).BeginInit();
             SuspendLayout();
             // 
             // lblManageItems
@@ -547,11 +571,124 @@
             btnPreviousPage.TabIndex = 0;
             btnPreviousPage.Text = "Prev";
             // 
+            // guna2Panel1
+            // 
+            guna2Panel1.BorderColor = Color.Black;
+            guna2Panel1.BorderRadius = 1;
+            guna2Panel1.BorderThickness = 1;
+            guna2Panel1.Controls.Add(guna2HtmlLabel4);
+            guna2Panel1.Controls.Add(guna2PictureBox4);
+            guna2Panel1.Controls.Add(guna2HtmlLabel3);
+            guna2Panel1.Controls.Add(guna2PictureBox3);
+            guna2Panel1.Controls.Add(guna2HtmlLabel2);
+            guna2Panel1.Controls.Add(guna2PictureBox2);
+            guna2Panel1.Controls.Add(guna2HtmlLabel1);
+            guna2Panel1.Controls.Add(guna2PictureBox1);
+            guna2Panel1.CustomizableEdges = customizableEdges27;
+            guna2Panel1.Location = new Point(67, 893);
+            guna2Panel1.Name = "guna2Panel1";
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            guna2Panel1.Size = new Size(1002, 80);
+            guna2Panel1.TabIndex = 7;
+            // 
+            // guna2HtmlLabel4
+            // 
+            guna2HtmlLabel4.BackColor = Color.Transparent;
+            guna2HtmlLabel4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel4.Location = new Point(725, 25);
+            guna2HtmlLabel4.Name = "guna2HtmlLabel4";
+            guna2HtmlLabel4.Size = new Size(116, 22);
+            guna2HtmlLabel4.TabIndex = 7;
+            guna2HtmlLabel4.Text = "Assign Claimant";
+            // 
+            // guna2PictureBox4
+            // 
+            guna2PictureBox4.CustomizableEdges = customizableEdges19;
+            guna2PictureBox4.Image = Properties.Resources.plus;
+            guna2PictureBox4.ImageRotate = 0F;
+            guna2PictureBox4.Location = new Point(680, 25);
+            guna2PictureBox4.Name = "guna2PictureBox4";
+            guna2PictureBox4.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            guna2PictureBox4.Size = new Size(26, 27);
+            guna2PictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            guna2PictureBox4.TabIndex = 6;
+            guna2PictureBox4.TabStop = false;
+            // 
+            // guna2HtmlLabel3
+            // 
+            guna2HtmlLabel3.BackColor = Color.Transparent;
+            guna2HtmlLabel3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel3.Location = new Point(505, 25);
+            guna2HtmlLabel3.Name = "guna2HtmlLabel3";
+            guna2HtmlLabel3.Size = new Size(83, 22);
+            guna2HtmlLabel3.TabIndex = 5;
+            guna2HtmlLabel3.Text = "Reject Item";
+            // 
+            // guna2PictureBox3
+            // 
+            guna2PictureBox3.CustomizableEdges = customizableEdges21;
+            guna2PictureBox3.Image = Properties.Resources.reject_icon;
+            guna2PictureBox3.ImageRotate = 0F;
+            guna2PictureBox3.Location = new Point(460, 25);
+            guna2PictureBox3.Name = "guna2PictureBox3";
+            guna2PictureBox3.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            guna2PictureBox3.Size = new Size(26, 27);
+            guna2PictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            guna2PictureBox3.TabIndex = 4;
+            guna2PictureBox3.TabStop = false;
+            // 
+            // guna2HtmlLabel2
+            // 
+            guna2HtmlLabel2.BackColor = Color.Transparent;
+            guna2HtmlLabel2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel2.Location = new Point(301, 25);
+            guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            guna2HtmlLabel2.Size = new Size(100, 22);
+            guna2HtmlLabel2.TabIndex = 3;
+            guna2HtmlLabel2.Text = "Approve Item";
+            // 
+            // guna2PictureBox2
+            // 
+            guna2PictureBox2.CustomizableEdges = customizableEdges23;
+            guna2PictureBox2.Image = Properties.Resources.approve_icon;
+            guna2PictureBox2.ImageRotate = 0F;
+            guna2PictureBox2.Location = new Point(256, 25);
+            guna2PictureBox2.Name = "guna2PictureBox2";
+            guna2PictureBox2.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            guna2PictureBox2.Size = new Size(26, 27);
+            guna2PictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            guna2PictureBox2.TabIndex = 2;
+            guna2PictureBox2.TabStop = false;
+            // 
+            // guna2HtmlLabel1
+            // 
+            guna2HtmlLabel1.BackColor = Color.Transparent;
+            guna2HtmlLabel1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel1.Location = new Point(82, 25);
+            guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            guna2HtmlLabel1.Size = new Size(126, 22);
+            guna2HtmlLabel1.TabIndex = 1;
+            guna2HtmlLabel1.Text = "View Item Details";
+            // 
+            // guna2PictureBox1
+            // 
+            guna2PictureBox1.CustomizableEdges = customizableEdges25;
+            guna2PictureBox1.Image = Properties.Resources.view_icon;
+            guna2PictureBox1.ImageRotate = 0F;
+            guna2PictureBox1.Location = new Point(37, 25);
+            guna2PictureBox1.Name = "guna2PictureBox1";
+            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            guna2PictureBox1.Size = new Size(26, 27);
+            guna2PictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            guna2PictureBox1.TabIndex = 0;
+            guna2PictureBox1.TabStop = false;
+            // 
             // ManageItems
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
+            Controls.Add(guna2Panel1);
             Controls.Add(panelPagination);
             Controls.Add(btnClearFilter);
             Controls.Add(pnlTable);
@@ -567,6 +704,12 @@
             ((System.ComponentModel.ISupportInitialize)tblItems).EndInit();
             panelPagination.ResumeLayout(false);
             panelPagination.PerformLayout();
+            guna2Panel1.ResumeLayout(false);
+            guna2Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -605,5 +748,14 @@
         private DataGridViewTextBoxColumn colStatus;
         private DataGridViewButtonColumn colActions;
         private DataGridViewTextBoxColumn colDescription;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox3;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
     }
 }
