@@ -42,6 +42,7 @@ namespace LFsystem.Views.Pages
             btnSave.Size = new Size(75, 33);
             btnSave.TabIndex = 2;
             btnSave.Text = "Save";
+            btnSave.Click += BtnSave_Click;
             // 
             // btnCancel
             // 
@@ -90,6 +91,5 @@ namespace LFsystem.Views.Pages
             PerformLayout();
         }
         private Guna.UI2.WinForms.Guna2TextBox txtName;
-        private Guna.UI2.WinForms.Guna2Button btnSaves;
     }
 }

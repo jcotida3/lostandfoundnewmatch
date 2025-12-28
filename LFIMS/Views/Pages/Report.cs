@@ -36,7 +36,6 @@ namespace LFsystem.Views.Pages
             // Load dropdowns
             LoadCategories();
             LoadLocations();
-            LoadDepartments();
         }
 
         private void RadioButtons_CheckedChanged(object sender, EventArgs e)
@@ -101,12 +100,7 @@ namespace LFsystem.Views.Pages
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if((int)cmbItemDepartment.SelectedValue == 0)
-            {
-                MessageBox.Show("Please select Department.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            
 
             // Optional reporter input: no need to validate
             string reporterName = string.IsNullOrWhiteSpace(txtFinderName.Text)
@@ -133,7 +127,6 @@ namespace LFsystem.Views.Pages
                     Type = type,
                     CategoryId = Convert.ToInt32(cmbItemCategory.SelectedValue) == 0 ? (int?)null : Convert.ToInt32(cmbItemCategory.SelectedValue),
                     LocationId = Convert.ToInt32(cmbItemLocation.SelectedValue) == 0 ? (int?)null : Convert.ToInt32(cmbItemLocation.SelectedValue),
-                    DepartmentId = Convert.ToInt32(cmbItemDepartment.SelectedValue) == 0 ? (int?)null : Convert.ToInt32(cmbItemDepartment.SelectedValue),
                     Status = (Session.Role == "Admin" || Session.Role == "Super Admin") ? "Approved" : "Pending",
                     ReporterId = Session.UserId, // staff/admin entering
                     StudentName = reporterName, // can be null
@@ -265,33 +258,6 @@ namespace LFsystem.Views.Pages
                 MessageBox.Show("Error loading locations: " + ex.Message);
             }
         }
-        private void LoadDepartments()
-        {
-            try
-            {
-                using (MySqlConnection conn = Database.GetConnection())
-                {
-                    conn.Open();
-                    string query = "SELECT id, name FROM departments";
-                    MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-
-                    DataRow placeholder = dt.NewRow();
-                    placeholder["id"] = 0;
-                    placeholder["name"] = "Select Department";
-                    dt.Rows.InsertAt(placeholder, 0);
-
-                    cmbItemDepartment.DataSource = dt;
-                    cmbItemDepartment.DisplayMember = "name";
-                    cmbItemDepartment.ValueMember = "id";
-                    cmbItemDepartment.SelectedIndex = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading departments: " + ex.Message);
-            }
-        }
+        
     }
 }

@@ -32,8 +32,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -44,33 +44,28 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             lblManageItems = new Label();
             lblRole = new Label();
             pnlFilter = new Guna.UI2.WinForms.Guna2Panel();
             lblType = new Label();
-            lblDepartment = new Label();
             lblLocation = new Label();
             cmbType = new Guna.UI2.WinForms.Guna2ComboBox();
             lblCategory = new Label();
             lblStatus = new Label();
-            cmbDepartment = new Guna.UI2.WinForms.Guna2ComboBox();
             cmbLocation = new Guna.UI2.WinForms.Guna2ComboBox();
             cmbCategory = new Guna.UI2.WinForms.Guna2ComboBox();
             cmbStatus = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -82,13 +77,12 @@
             colItemId = new DataGridViewTextBoxColumn();
             colReportedById = new DataGridViewTextBoxColumn();
             colItem = new DataGridViewTextBoxColumn();
-            colCategory = new DataGridViewTextBoxColumn();
             colType = new DataGridViewTextBoxColumn();
-            colStatus = new DataGridViewTextBoxColumn();
+            colCategory = new DataGridViewTextBoxColumn();
             colLocation = new DataGridViewTextBoxColumn();
-            colDepartment = new DataGridViewTextBoxColumn();
             colReportedBy = new DataGridViewTextBoxColumn();
             colDateTime = new DataGridViewTextBoxColumn();
+            colStatus = new DataGridViewTextBoxColumn();
             colActions = new DataGridViewButtonColumn();
             colDescription = new DataGridViewTextBoxColumn();
             btnClearFilter = new Guna.UI2.WinForms.Guna2Button();
@@ -131,22 +125,20 @@
             pnlFilter.BorderRadius = 20;
             pnlFilter.BorderThickness = 1;
             pnlFilter.Controls.Add(lblType);
-            pnlFilter.Controls.Add(lblDepartment);
             pnlFilter.Controls.Add(lblLocation);
             pnlFilter.Controls.Add(cmbType);
             pnlFilter.Controls.Add(lblCategory);
             pnlFilter.Controls.Add(lblStatus);
-            pnlFilter.Controls.Add(cmbDepartment);
             pnlFilter.Controls.Add(cmbLocation);
             pnlFilter.Controls.Add(cmbCategory);
             pnlFilter.Controls.Add(cmbStatus);
             pnlFilter.Controls.Add(searchBox);
             pnlFilter.Controls.Add(searchfilter);
             pnlFilter.Controls.Add(pictureBox1);
-            pnlFilter.CustomizableEdges = customizableEdges13;
+            pnlFilter.CustomizableEdges = customizableEdges11;
             pnlFilter.Location = new Point(46, 161);
             pnlFilter.Name = "pnlFilter";
-            pnlFilter.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            pnlFilter.ShadowDecoration.CustomizableEdges = customizableEdges12;
             pnlFilter.Size = new Size(1341, 114);
             pnlFilter.TabIndex = 4;
             // 
@@ -161,23 +153,12 @@
             lblType.TabIndex = 14;
             lblType.Text = "Type";
             // 
-            // lblDepartment
-            // 
-            lblDepartment.AutoSize = true;
-            lblDepartment.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblDepartment.ForeColor = Color.Black;
-            lblDepartment.Location = new Point(1101, 34);
-            lblDepartment.Name = "lblDepartment";
-            lblDepartment.Size = new Size(101, 19);
-            lblDepartment.TabIndex = 12;
-            lblDepartment.Text = "Department";
-            // 
             // lblLocation
             // 
             lblLocation.AutoSize = true;
             lblLocation.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblLocation.ForeColor = Color.Black;
-            lblLocation.Location = new Point(884, 34);
+            lblLocation.Location = new Point(1046, 35);
             lblLocation.Name = "lblLocation";
             lblLocation.Size = new Size(74, 19);
             lblLocation.TabIndex = 11;
@@ -199,7 +180,7 @@
             cmbType.Location = new Point(282, 56);
             cmbType.Name = "cmbType";
             cmbType.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            cmbType.Size = new Size(166, 36);
+            cmbType.Size = new Size(198, 36);
             cmbType.TabIndex = 13;
             // 
             // lblCategory
@@ -207,7 +188,7 @@
             lblCategory.AutoSize = true;
             lblCategory.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCategory.ForeColor = Color.Black;
-            lblCategory.Location = new Point(685, 34);
+            lblCategory.Location = new Point(794, 34);
             lblCategory.Name = "lblCategory";
             lblCategory.Size = new Size(78, 19);
             lblCategory.TabIndex = 10;
@@ -218,36 +199,17 @@
             lblStatus.AutoSize = true;
             lblStatus.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblStatus.ForeColor = Color.Black;
-            lblStatus.Location = new Point(486, 34);
+            lblStatus.Location = new Point(514, 35);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(56, 19);
             lblStatus.TabIndex = 9;
             lblStatus.Text = "Status";
             // 
-            // cmbDepartment
-            // 
-            cmbDepartment.BackColor = Color.Transparent;
-            cmbDepartment.BorderRadius = 10;
-            cmbDepartment.CustomizableEdges = customizableEdges3;
-            cmbDepartment.DrawMode = DrawMode.OwnerDrawFixed;
-            cmbDepartment.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbDepartment.FillColor = Color.Gainsboro;
-            cmbDepartment.FocusedColor = Color.FromArgb(94, 148, 255);
-            cmbDepartment.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            cmbDepartment.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            cmbDepartment.ForeColor = Color.FromArgb(68, 88, 112);
-            cmbDepartment.ItemHeight = 30;
-            cmbDepartment.Location = new Point(1101, 56);
-            cmbDepartment.Name = "cmbDepartment";
-            cmbDepartment.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            cmbDepartment.Size = new Size(198, 36);
-            cmbDepartment.TabIndex = 8;
-            // 
             // cmbLocation
             // 
             cmbLocation.BackColor = Color.Transparent;
             cmbLocation.BorderRadius = 10;
-            cmbLocation.CustomizableEdges = customizableEdges5;
+            cmbLocation.CustomizableEdges = customizableEdges3;
             cmbLocation.DrawMode = DrawMode.OwnerDrawFixed;
             cmbLocation.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbLocation.FillColor = Color.Gainsboro;
@@ -256,17 +218,17 @@
             cmbLocation.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cmbLocation.ForeColor = Color.FromArgb(68, 88, 112);
             cmbLocation.ItemHeight = 30;
-            cmbLocation.Location = new Point(884, 57);
+            cmbLocation.Location = new Point(1046, 56);
             cmbLocation.Name = "cmbLocation";
-            cmbLocation.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            cmbLocation.Size = new Size(188, 36);
+            cmbLocation.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            cmbLocation.Size = new Size(224, 36);
             cmbLocation.TabIndex = 7;
             // 
             // cmbCategory
             // 
             cmbCategory.BackColor = Color.Transparent;
             cmbCategory.BorderRadius = 10;
-            cmbCategory.CustomizableEdges = customizableEdges7;
+            cmbCategory.CustomizableEdges = customizableEdges5;
             cmbCategory.DrawMode = DrawMode.OwnerDrawFixed;
             cmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCategory.FillColor = Color.Gainsboro;
@@ -275,17 +237,17 @@
             cmbCategory.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cmbCategory.ForeColor = Color.FromArgb(68, 88, 112);
             cmbCategory.ItemHeight = 30;
-            cmbCategory.Location = new Point(685, 57);
+            cmbCategory.Location = new Point(794, 56);
             cmbCategory.Name = "cmbCategory";
-            cmbCategory.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            cmbCategory.Size = new Size(166, 36);
+            cmbCategory.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            cmbCategory.Size = new Size(216, 36);
             cmbCategory.TabIndex = 6;
             // 
             // cmbStatus
             // 
             cmbStatus.BackColor = Color.Transparent;
             cmbStatus.BorderRadius = 10;
-            cmbStatus.CustomizableEdges = customizableEdges9;
+            cmbStatus.CustomizableEdges = customizableEdges7;
             cmbStatus.DrawMode = DrawMode.OwnerDrawFixed;
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.FillColor = Color.Gainsboro;
@@ -294,16 +256,16 @@
             cmbStatus.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cmbStatus.ForeColor = Color.FromArgb(68, 88, 112);
             cmbStatus.ItemHeight = 30;
-            cmbStatus.Location = new Point(486, 56);
+            cmbStatus.Location = new Point(514, 57);
             cmbStatus.Name = "cmbStatus";
-            cmbStatus.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            cmbStatus.Size = new Size(166, 36);
+            cmbStatus.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            cmbStatus.Size = new Size(223, 36);
             cmbStatus.TabIndex = 5;
             // 
             // searchBox
             // 
             searchBox.BorderRadius = 10;
-            searchBox.CustomizableEdges = customizableEdges11;
+            searchBox.CustomizableEdges = customizableEdges9;
             searchBox.DefaultText = "";
             searchBox.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             searchBox.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -320,7 +282,7 @@
             searchBox.PlaceholderForeColor = Color.FromArgb(64, 64, 64);
             searchBox.PlaceholderText = "⌕  Seach items, descriptions";
             searchBox.SelectedText = "";
-            searchBox.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            searchBox.ShadowDecoration.CustomizableEdges = customizableEdges10;
             searchBox.Size = new Size(241, 35);
             searchBox.TabIndex = 4;
             // 
@@ -369,15 +331,15 @@
             tblItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             tblItems.ColumnHeadersHeight = 50;
             tblItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            tblItems.Columns.AddRange(new DataGridViewColumn[] { colItemId, colReportedById, colItem, colCategory, colType, colStatus, colLocation, colDepartment, colReportedBy, colDateTime, colActions, colDescription });
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = Color.White;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle9.ForeColor = Color.Black;
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(231, 229, 255);
-            dataGridViewCellStyle9.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            tblItems.DefaultCellStyle = dataGridViewCellStyle9;
+            tblItems.Columns.AddRange(new DataGridViewColumn[] { colItemId, colReportedById, colItem, colType, colCategory, colLocation, colReportedBy, colDateTime, colStatus, colActions, colDescription });
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = Color.White;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle8.ForeColor = Color.Black;
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle8.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            tblItems.DefaultCellStyle = dataGridViewCellStyle8;
             tblItems.Dock = DockStyle.Fill;
             tblItems.GridColor = Color.FromArgb(231, 229, 255);
             tblItems.Location = new Point(0, 0);
@@ -414,7 +376,7 @@
             // colItemId
             // 
             colItemId.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            colItemId.HeaderText = "Id";
+            colItemId.HeaderText = "ID";
             colItemId.MinimumWidth = 6;
             colItemId.Name = "colItemId";
             colItemId.Width = 70;
@@ -437,6 +399,14 @@
             colItem.Name = "colItem";
             colItem.Width = 250;
             // 
+            // colType
+            // 
+            colType.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colType.HeaderText = "Type";
+            colType.MinimumWidth = 6;
+            colType.Name = "colType";
+            colType.Width = 92;
+            // 
             // colCategory
             // 
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -446,46 +416,20 @@
             colCategory.MinimumWidth = 6;
             colCategory.Name = "colCategory";
             // 
-            // colType
-            // 
-            colType.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            colType.HeaderText = "Type";
-            colType.MinimumWidth = 6;
-            colType.Name = "colType";
-            colType.Width = 92;
-            // 
-            // colStatus
-            // 
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colStatus.DefaultCellStyle = dataGridViewCellStyle5;
-            colStatus.FillWeight = 28.7242069F;
-            colStatus.HeaderText = "Status";
-            colStatus.MinimumWidth = 6;
-            colStatus.Name = "colStatus";
-            // 
             // colLocation
             // 
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colLocation.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colLocation.DefaultCellStyle = dataGridViewCellStyle5;
             colLocation.FillWeight = 28.7242069F;
             colLocation.HeaderText = "Location";
             colLocation.MinimumWidth = 6;
             colLocation.Name = "colLocation";
             // 
-            // colDepartment
-            // 
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colDepartment.DefaultCellStyle = dataGridViewCellStyle7;
-            colDepartment.FillWeight = 28.7242069F;
-            colDepartment.HeaderText = "Department";
-            colDepartment.MinimumWidth = 6;
-            colDepartment.Name = "colDepartment";
-            // 
             // colReportedBy
             // 
             colReportedBy.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colReportedBy.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colReportedBy.DefaultCellStyle = dataGridViewCellStyle6;
             colReportedBy.FillWeight = 28.7242069F;
             colReportedBy.HeaderText = "Reported By";
             colReportedBy.MinimumWidth = 6;
@@ -500,6 +444,15 @@
             colDateTime.MinimumWidth = 6;
             colDateTime.Name = "colDateTime";
             colDateTime.Width = 120;
+            // 
+            // colStatus
+            // 
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colStatus.DefaultCellStyle = dataGridViewCellStyle7;
+            colStatus.FillWeight = 28.7242069F;
+            colStatus.HeaderText = "Status";
+            colStatus.MinimumWidth = 6;
+            colStatus.Name = "colStatus";
             // 
             // colActions
             // 
@@ -523,7 +476,7 @@
             btnClearFilter.BorderRadius = 20;
             btnClearFilter.BorderThickness = 1;
             btnClearFilter.Cursor = Cursors.Hand;
-            btnClearFilter.CustomizableEdges = customizableEdges15;
+            btnClearFilter.CustomizableEdges = customizableEdges13;
             btnClearFilter.DisabledState.BorderColor = Color.DarkGray;
             btnClearFilter.DisabledState.CustomBorderColor = Color.DarkGray;
             btnClearFilter.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -532,10 +485,10 @@
             btnClearFilter.ForeColor = Color.White;
             btnClearFilter.Location = new Point(1207, 110);
             btnClearFilter.Name = "btnClearFilter";
-            btnClearFilter.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnClearFilter.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnClearFilter.Size = new Size(180, 45);
             btnClearFilter.TabIndex = 1;
-            btnClearFilter.Text = "Clear FIlter";
+            btnClearFilter.Text = "Clear Filter";
             btnClearFilter.Click += BtnClearFilter_Click;
             // 
             // panelPagination
@@ -562,7 +515,7 @@
             // 
             btnNextPage.Anchor = AnchorStyles.Right;
             btnNextPage.BorderRadius = 8;
-            btnNextPage.CustomizableEdges = customizableEdges17;
+            btnNextPage.CustomizableEdges = customizableEdges15;
             btnNextPage.DisabledState.BorderColor = Color.DarkGray;
             btnNextPage.DisabledState.CustomBorderColor = Color.DarkGray;
             btnNextPage.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -571,7 +524,7 @@
             btnNextPage.ForeColor = Color.White;
             btnNextPage.Location = new Point(189, 5);
             btnNextPage.Name = "btnNextPage";
-            btnNextPage.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnNextPage.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnNextPage.Size = new Size(75, 30);
             btnNextPage.TabIndex = 1;
             btnNextPage.Text = "Next";
@@ -580,7 +533,7 @@
             // 
             btnPreviousPage.Anchor = AnchorStyles.Left;
             btnPreviousPage.BorderRadius = 8;
-            btnPreviousPage.CustomizableEdges = customizableEdges19;
+            btnPreviousPage.CustomizableEdges = customizableEdges17;
             btnPreviousPage.DisabledState.BorderColor = Color.DarkGray;
             btnPreviousPage.DisabledState.CustomBorderColor = Color.DarkGray;
             btnPreviousPage.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -589,7 +542,7 @@
             btnPreviousPage.ForeColor = Color.White;
             btnPreviousPage.Location = new Point(10, 5);
             btnPreviousPage.Name = "btnPreviousPage";
-            btnPreviousPage.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnPreviousPage.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnPreviousPage.Size = new Size(75, 30);
             btnPreviousPage.TabIndex = 0;
             btnPreviousPage.Text = "Prev";
@@ -624,13 +577,11 @@
         private Label lblRole;
         private Guna.UI2.WinForms.Guna2Panel pnlFilter;
         private PictureBox pictureBox1;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbDepartment;
         private Guna.UI2.WinForms.Guna2ComboBox cmbLocation;
         private Guna.UI2.WinForms.Guna2ComboBox cmbCategory;
         private Guna.UI2.WinForms.Guna2ComboBox cmbStatus;
         private Guna.UI2.WinForms.Guna2TextBox searchBox;
         private Label searchfilter;
-        private Label lblDepartment;
         private Label lblLocation;
         private Label lblCategory;
         private Label lblStatus;
@@ -641,19 +592,18 @@
         private Guna.UI2.WinForms.Guna2Button btnNextPage;
         private Guna.UI2.WinForms.Guna2Button btnPreviousPage;
         private Label lblPageInfo;
+        private Label lblType;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbType;
         private DataGridViewTextBoxColumn colItemId;
         private DataGridViewTextBoxColumn colReportedById;
         private DataGridViewTextBoxColumn colItem;
-        private DataGridViewTextBoxColumn colCategory;
         private DataGridViewTextBoxColumn colType;
-        private DataGridViewTextBoxColumn colStatus;
+        private DataGridViewTextBoxColumn colCategory;
         private DataGridViewTextBoxColumn colLocation;
-        private DataGridViewTextBoxColumn colDepartment;
         private DataGridViewTextBoxColumn colReportedBy;
         private DataGridViewTextBoxColumn colDateTime;
+        private DataGridViewTextBoxColumn colStatus;
         private DataGridViewButtonColumn colActions;
         private DataGridViewTextBoxColumn colDescription;
-        private Label lblType;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbType;
     }
 }

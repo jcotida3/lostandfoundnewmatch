@@ -32,6 +32,7 @@
             btnSignOut = new Guna.UI2.WinForms.Guna2Button();
             pictureBox1 = new PictureBox();
             panelHeader = new Panel();
+            lblTime = new Label();
             btnClose = new Guna.UI2.WinForms.Guna2Button();
             lblRole = new Label();
             lblHeader = new Label();
@@ -257,6 +258,7 @@
             // panelHeader
             // 
             panelHeader.BackColor = SystemColors.HotTrack;
+            panelHeader.Controls.Add(lblTime);
             panelHeader.Controls.Add(btnClose);
             panelHeader.Controls.Add(lblRole);
             panelHeader.Controls.Add(lblHeader);
@@ -265,6 +267,16 @@
             panelHeader.Name = "panelHeader";
             panelHeader.Size = new Size(983, 60);
             panelHeader.TabIndex = 1;
+            // 
+            // lblTime
+            // 
+            lblTime.AutoSize = true;
+            lblTime.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTime.ForeColor = Color.White;
+            lblTime.Location = new Point(780, 19);
+            lblTime.Name = "lblTime";
+            lblTime.Size = new Size(0, 27);
+            lblTime.TabIndex = 3;
             // 
             // btnClose
             // 
@@ -352,5 +364,6 @@
         private Label lblHeader;
         private FlowLayoutPanel flowSideBar;
         private Guna.UI2.WinForms.Guna2Button btnManageClaims;
+        private Label lblTime;
     }
 }

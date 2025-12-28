@@ -38,7 +38,10 @@ namespace LFsystem.Views.Pages
                 btnReviewPending.Text = $"Review [{pendingCount}] Pending Items";
                 panelPending.Visible = true;
             }    
-
+            if (Session.Role != "Staff")
+            {
+                panelMyReport.Visible = false;
+            }
         }
         private string GetCount(string query, int? userId = null)
         {

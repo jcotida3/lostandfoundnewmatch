@@ -2,7 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
-
+using LFsystem.Helpers;
 namespace LFsystem.Services
 {
     public class ItemService
@@ -15,10 +15,10 @@ namespace LFsystem.Services
                 {
                     conn.Open();
                     string query = @"INSERT INTO items
-                        (title, description, type, category_id, location_id, department_id,
-                         status, reporter_id, student_name, student_contact, image_path, date_created)
-                         VALUES (@title, @description, @type, @category_id, @location_id, @department_id,
-                                 @status, @reporter_id, @student_name, @student_contact, @image_path, @date_created)";
+                        (title, description, type, category_id, location_id, 
+                         status, reporter_id, student_name, student_contact, image_path, created_at)
+                         VALUES (@title, @description, @type, @category_id, @location_id,
+                                 @status, @reporter_id, @student_name, @student_contact, @image_path, @created_at)";
 
                     using (var cmd = new MySqlCommand(query, conn))
                     {
@@ -27,13 +27,12 @@ namespace LFsystem.Services
                         cmd.Parameters.AddWithValue("@type", item.Type);
                         cmd.Parameters.AddWithValue("@category_id", item.CategoryId);
                         cmd.Parameters.AddWithValue("@location_id", item.LocationId);
-                        cmd.Parameters.AddWithValue("@department_id", item.DepartmentId);
                         cmd.Parameters.AddWithValue("@status", item.Status ?? "Pending");
                         cmd.Parameters.AddWithValue("@reporter_id", item.ReporterId);
                         cmd.Parameters.AddWithValue("@student_name", item.StudentName);
                         cmd.Parameters.AddWithValue("@student_contact", item.StudentEmail);
                         cmd.Parameters.AddWithValue("@image_path", item.ImagePath ?? (object)DBNull.Value);
-                        cmd.Parameters.AddWithValue("@date_created", item.DateReported);
+                        cmd.Parameters.AddWithValue("@created_at", item.DateReported);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -54,7 +53,6 @@ namespace LFsystem.Services
             string status = "",
             int? categoryId = null,
             int? locationId = null,
-            int? departmentId = null,
             string typeFilter = "",    // Lost / Found / "" (all)
             int page = 1,
             int pageSize = 10)
@@ -73,7 +71,6 @@ namespace LFsystem.Services
                   AND (@type = '' OR LOWER(i.type) = LOWER(@type))
                   AND (@categoryId IS NULL OR i.category_id = @categoryId)
                   AND (@locationId IS NULL OR i.location_id = @locationId)
-                  AND (@departmentId IS NULL OR i.department_id = @departmentId)
                   AND (@searchText = '' OR i.title LIKE @searchText OR i.description LIKE @searchText)
             ";
 
@@ -83,7 +80,6 @@ namespace LFsystem.Services
                 countCmd.Parameters.AddWithValue("@type", typeFilter);
                 countCmd.Parameters.AddWithValue("@categoryId", categoryId.HasValue ? categoryId : (object)DBNull.Value);
                 countCmd.Parameters.AddWithValue("@locationId", locationId.HasValue ? locationId : (object)DBNull.Value);
-                countCmd.Parameters.AddWithValue("@departmentId", departmentId.HasValue ? departmentId : (object)DBNull.Value);
                 countCmd.Parameters.AddWithValue("@searchText", "%" + search + "%");
 
                 totalRecords = Convert.ToInt32(countCmd.ExecuteScalar());
@@ -97,24 +93,21 @@ namespace LFsystem.Services
                        c.name AS category, 
                        i.type,
                        l.name AS location, 
-                       d.name AS department,
                        i.reporter_id, 
                        u.name AS reporter_name, 
-                       i.date_created, 
+                       i.created_at, 
                        i.image_path, 
                        i.status
                 FROM items i
                 LEFT JOIN categories c ON i.category_id = c.id
                 LEFT JOIN locations l ON i.location_id = l.id
-                LEFT JOIN departments d ON i.department_id = d.id
                 LEFT JOIN users u ON i.reporter_id = u.id
                 WHERE (@status = '' OR i.status = @status)
                   AND (@type = '' OR LOWER(i.type) = LOWER(@type))
                   AND (@categoryId IS NULL OR i.category_id = @categoryId)
                   AND (@locationId IS NULL OR i.location_id = @locationId)
-                  AND (@departmentId IS NULL OR i.department_id = @departmentId)
                   AND (@searchText = '' OR i.title LIKE @searchText OR i.description LIKE @searchText)
-                ORDER BY i.date_created DESC
+                ORDER BY i.created_at DESC
                 LIMIT @pageSize OFFSET @offset
             ";
 
@@ -123,7 +116,6 @@ namespace LFsystem.Services
             cmd.Parameters.AddWithValue("@type", typeFilter);
             cmd.Parameters.AddWithValue("@categoryId", categoryId.HasValue ? categoryId : (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@locationId", locationId.HasValue ? locationId : (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@departmentId", departmentId.HasValue ? departmentId : (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@searchText", "%" + search + "%");
             cmd.Parameters.AddWithValue("@pageSize", pageSize);
             cmd.Parameters.AddWithValue("@offset", offset);
@@ -133,5 +125,47 @@ namespace LFsystem.Services
 
             return dt;
         }
+        // Inside your ItemService.cs class
+
+        
+        public bool StaffSubmitClaim(int itemId, string claimantName, string contact, string notes)
+        {
+            using var conn = Database.GetConnection();
+            conn.Open();
+            using var transaction = conn.BeginTransaction();
+            try
+            {
+                // 1. Insert the claim record into the 'claims' table
+                string claimQuery = @"
+            INSERT INTO claims 
+            (item_id, claimant_name, claimant_contact, claim_notes, status, claim_date)
+            VALUES (@itemId, @name, @contact, @notes, 'Pending', NOW())";
+
+                using var cmd1 = new MySqlCommand(claimQuery, conn, transaction);
+                cmd1.Parameters.AddWithValue("@itemId", itemId);
+                cmd1.Parameters.AddWithValue("@name", claimantName);
+                cmd1.Parameters.AddWithValue("@contact", contact);
+                cmd1.Parameters.AddWithValue("@notes", notes);
+                cmd1.ExecuteNonQuery();
+
+                // 2. Update the item status in the 'items' table to 'Claim Pending'
+                string itemUpdateQuery = "UPDATE items SET status = 'Claim Pending' WHERE id = @itemId";
+                using var cmd2 = new MySqlCommand(itemUpdateQuery, conn, transaction);
+                cmd2.Parameters.AddWithValue("@itemId", itemId);    
+                cmd2.ExecuteNonQuery();
+
+                transaction.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+        // --- NEW CLAIM APPROVAL/REJECTION LOGIC ---
+
+        
     }
 }

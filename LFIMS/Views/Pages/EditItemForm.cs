@@ -21,6 +21,12 @@ namespace LFsystem.Views.Pages
 
             _itemId = itemId;
 
+
+            if(Session.Role.Equals("Staff", StringComparison.OrdinalIgnoreCase))
+            {
+                lblStatus.Visible = false;
+                cmbStatus.Visible = false;
+            }
             // Load filter ComboBoxes first
             LoadFilters();
             LoadStatus();
@@ -33,7 +39,6 @@ namespace LFsystem.Views.Pages
         {
             LoadFilter(cmbCategory, "categories");
             LoadFilter(cmbLocation, "locations");
-            LoadFilter(cmbDepartment, "departments");
         }
 
         private void LoadFilter(ComboBox combo, string table)
@@ -66,7 +71,7 @@ namespace LFsystem.Views.Pages
 
                 string query = @"
                     SELECT i.title, i.description, i.type, i.image_path,
-                           i.category_id, i.location_id, i.department_id,
+                           i.category_id, i.location_id,
                            i.student_name, i.student_contact, i.status
                     FROM items i
                     WHERE i.id = @id";
@@ -89,7 +94,6 @@ namespace LFsystem.Views.Pages
                     // --- ComboBoxes ---
                     SelectComboBoxValue(cmbCategory, reader["category_id"]);
                     SelectComboBoxValue(cmbLocation, reader["location_id"]);
-                    SelectComboBoxValue(cmbDepartment, reader["department_id"]);
 
                     // --- Finder Info ---
                     txtFindName.Text = reader["student_name"] != DBNull.Value ? reader["student_name"].ToString() : "";
@@ -194,7 +198,6 @@ namespace LFsystem.Views.Pages
                         type = @type,
                         category_id = @cat,
                         location_id = @loc,
-                        department_id = @dept,
                         student_name = @fname,
                         student_contact = @fcontact,
                         image_path = @img,
@@ -207,7 +210,6 @@ namespace LFsystem.Views.Pages
                 cmd.Parameters.AddWithValue("@type", rbLost.Checked ? "Lost" : "Found");
                 cmd.Parameters.AddWithValue("@cat", Convert.ToInt32(cmbCategory.SelectedValue));
                 cmd.Parameters.AddWithValue("@loc", Convert.ToInt32(cmbLocation.SelectedValue));
-                cmd.Parameters.AddWithValue("@dept", Convert.ToInt32(cmbDepartment.SelectedValue));
                 cmd.Parameters.AddWithValue("@fname", txtFindName.Text.Trim());
                 cmd.Parameters.AddWithValue("@fcontact", txtFindContact.Text.Trim());
                 cmd.Parameters.AddWithValue("@img", _imagePath);

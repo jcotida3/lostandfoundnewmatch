@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -54,8 +54,6 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             lblReportItem = new Label();
             lblRole = new Label();
             pnlReportForm = new Guna.UI2.WinForms.Guna2Panel();
@@ -73,8 +71,6 @@
             btnUploadPhoto = new Guna.UI2.WinForms.Guna2Button();
             picItem = new PictureBox();
             lblItemPhoto = new Label();
-            cmbItemDepartment = new Guna.UI2.WinForms.Guna2ComboBox();
-            label6 = new Label();
             cmbItemLocation = new Guna.UI2.WinForms.Guna2ComboBox();
             lblLocation = new Label();
             txtItemDescription = new Guna.UI2.WinForms.Guna2TextBox();
@@ -127,8 +123,6 @@
             pnlReportForm.Controls.Add(pnlFinderInformation);
             pnlReportForm.Controls.Add(pnlPic);
             pnlReportForm.Controls.Add(lblItemPhoto);
-            pnlReportForm.Controls.Add(cmbItemDepartment);
-            pnlReportForm.Controls.Add(label6);
             pnlReportForm.Controls.Add(cmbItemLocation);
             pnlReportForm.Controls.Add(lblLocation);
             pnlReportForm.Controls.Add(txtItemDescription);
@@ -142,10 +136,10 @@
             pnlReportForm.Controls.Add(lblItemType);
             pnlReportForm.Controls.Add(label1);
             pnlReportForm.Controls.Add(lblItemDetailsTitle);
-            pnlReportForm.CustomizableEdges = customizableEdges27;
+            pnlReportForm.CustomizableEdges = customizableEdges25;
             pnlReportForm.Location = new Point(46, 109);
             pnlReportForm.Name = "pnlReportForm";
-            pnlReportForm.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            pnlReportForm.ShadowDecoration.CustomizableEdges = customizableEdges26;
             pnlReportForm.Size = new Size(595, 894);
             pnlReportForm.TabIndex = 3;
             // 
@@ -372,40 +366,11 @@
             lblItemPhoto.TabIndex = 19;
             lblItemPhoto.Text = "Item Photo";
             // 
-            // cmbItemDepartment
-            // 
-            cmbItemDepartment.BackColor = Color.Transparent;
-            cmbItemDepartment.BorderRadius = 10;
-            cmbItemDepartment.CustomizableEdges = customizableEdges17;
-            cmbItemDepartment.DrawMode = DrawMode.OwnerDrawFixed;
-            cmbItemDepartment.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbItemDepartment.FocusedColor = Color.FromArgb(94, 148, 255);
-            cmbItemDepartment.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            cmbItemDepartment.Font = new Font("Segoe UI", 10F);
-            cmbItemDepartment.ForeColor = Color.FromArgb(68, 88, 112);
-            cmbItemDepartment.ItemHeight = 30;
-            cmbItemDepartment.Location = new Point(329, 352);
-            cmbItemDepartment.Name = "cmbItemDepartment";
-            cmbItemDepartment.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            cmbItemDepartment.Size = new Size(232, 36);
-            cmbItemDepartment.TabIndex = 18;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.ForeColor = Color.Black;
-            label6.Location = new Point(329, 330);
-            label6.Name = "label6";
-            label6.Size = new Size(101, 19);
-            label6.TabIndex = 17;
-            label6.Text = "Department";
-            // 
             // cmbItemLocation
             // 
             cmbItemLocation.BackColor = Color.Transparent;
             cmbItemLocation.BorderRadius = 10;
-            cmbItemLocation.CustomizableEdges = customizableEdges19;
+            cmbItemLocation.CustomizableEdges = customizableEdges17;
             cmbItemLocation.DrawMode = DrawMode.OwnerDrawFixed;
             cmbItemLocation.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbItemLocation.FocusedColor = Color.FromArgb(94, 148, 255);
@@ -415,7 +380,7 @@
             cmbItemLocation.ItemHeight = 30;
             cmbItemLocation.Location = new Point(29, 352);
             cmbItemLocation.Name = "cmbItemLocation";
-            cmbItemLocation.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            cmbItemLocation.ShadowDecoration.CustomizableEdges = customizableEdges18;
             cmbItemLocation.Size = new Size(232, 36);
             cmbItemLocation.TabIndex = 16;
             // 
@@ -432,7 +397,7 @@
             // 
             // txtItemDescription
             // 
-            txtItemDescription.CustomizableEdges = customizableEdges21;
+            txtItemDescription.CustomizableEdges = customizableEdges19;
             txtItemDescription.DefaultText = "";
             txtItemDescription.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             txtItemDescription.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -447,7 +412,7 @@
             txtItemDescription.PlaceholderForeColor = Color.Gray;
             txtItemDescription.PlaceholderText = "Detailed Description including color, brand, size, distinctive features....";
             txtItemDescription.SelectedText = "";
-            txtItemDescription.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            txtItemDescription.ShadowDecoration.CustomizableEdges = customizableEdges20;
             txtItemDescription.Size = new Size(535, 60);
             txtItemDescription.TabIndex = 14;
             // 
@@ -466,7 +431,7 @@
             // 
             cmbItemCategory.BackColor = Color.Transparent;
             cmbItemCategory.BorderRadius = 10;
-            cmbItemCategory.CustomizableEdges = customizableEdges23;
+            cmbItemCategory.CustomizableEdges = customizableEdges21;
             cmbItemCategory.DrawMode = DrawMode.OwnerDrawFixed;
             cmbItemCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbItemCategory.FocusedColor = Color.FromArgb(94, 148, 255);
@@ -476,14 +441,14 @@
             cmbItemCategory.ItemHeight = 30;
             cmbItemCategory.Location = new Point(329, 173);
             cmbItemCategory.Name = "cmbItemCategory";
-            cmbItemCategory.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            cmbItemCategory.ShadowDecoration.CustomizableEdges = customizableEdges22;
             cmbItemCategory.Size = new Size(232, 36);
             cmbItemCategory.TabIndex = 12;
             // 
             // txtItemName
             // 
             txtItemName.BorderRadius = 10;
-            txtItemName.CustomizableEdges = customizableEdges25;
+            txtItemName.CustomizableEdges = customizableEdges23;
             txtItemName.DefaultText = "";
             txtItemName.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             txtItemName.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -498,7 +463,7 @@
             txtItemName.PlaceholderForeColor = Color.Gray;
             txtItemName.PlaceholderText = "e.g..,Iphone12, Bagpack";
             txtItemName.SelectedText = "";
-            txtItemName.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            txtItemName.ShadowDecoration.CustomizableEdges = customizableEdges24;
             txtItemName.Size = new Size(256, 35);
             txtItemName.TabIndex = 11;
             // 
@@ -617,8 +582,6 @@
         private RadioButton radioFound;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlPic;
         private Label lblItemPhoto;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbItemDepartment;
-        private Label label6;
         private Guna.UI2.WinForms.Guna2ComboBox cmbItemLocation;
         private Label lblLocation;
         private Guna.UI2.WinForms.Guna2TextBox txtItemDescription;

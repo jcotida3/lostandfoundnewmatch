@@ -28,131 +28,104 @@ namespace LFsystem.Views.Pages
                 conn.Open();
 
                 string query = @"
-                                SELECT i.title, i.description, i.image_path,
-                                       c.name AS category, i.type, i.status,
-                                       l.name AS location, d.name AS department,
-                                       i.student_name AS reporter_name, i.student_contact AS reporter_contact,
-                                       u.name AS reported_by,
-                                       i.date_created, i.date_updated
-                                FROM items i
-                                LEFT JOIN categories c ON i.category_id = c.id
-                                LEFT JOIN locations l ON i.location_id = l.id
-                                LEFT JOIN departments d ON i.department_id = d.id
-                                LEFT JOIN users u ON i.reporter_id = u.id
-                                WHERE i.id = @itemId";
+            SELECT i.title, i.description, i.image_path,
+                   c.name AS category, i.type, i.status,
+                   l.name AS location,
+                   i.student_name AS reporter_name, i.student_contact AS reporter_contact,
+                   u.name AS reported_by,
+                   i.created_at, i.updated_at
+            FROM items i
+            LEFT JOIN categories c ON i.category_id = c.id
+            LEFT JOIN locations l ON i.location_id = l.id
+            LEFT JOIN users u ON i.reporter_id = u.id
+            WHERE i.id = @itemId";
 
                 using var cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@itemId", _itemId);
 
                 using var reader = cmd.ExecuteReader();
+
+                string itemStatus = "";
+
                 if (reader.Read())
                 {
-                    // Basic info
-                    string reporterName = string.IsNullOrWhiteSpace(Convert.ToString(reader["reporter_name"]))
-                      ? "N/A"
-                      : Convert.ToString(reader["reporter_name"])!;
+                    // --- Existing code to load item info ---
+                    lblItemName.Text = reader["title"]?.ToString() ?? "N/A";
+                    lblDescription.Text = reader["description"]?.ToString() ?? "N/A";
+                    lblLocation.Text = reader["location"]?.ToString() ?? "N/A";
+                    lblCategory.Text = " - " + (reader["category"]?.ToString() ?? "N/A");
 
-                    string reporterContact = string.IsNullOrWhiteSpace(Convert.ToString(reader["reporter_contact"]))
-                                             ? "N/A"
-                                             : Convert.ToString(reader["reporter_contact"])!;
-
-                    string reportedBy = string.IsNullOrWhiteSpace(Convert.ToString(reader["reported_by"]))
-                                        ? "N/A"
-                                        : Convert.ToString(reader["reported_by"])!;
-
-                    string itemType = string.IsNullOrWhiteSpace(Convert.ToString(reader["type"]))
-                   ? "N/A"
-                   : Convert.ToString(reader["type"])!;
-
-
-
-                    lblItemName.Text = string.IsNullOrWhiteSpace(reader["title"]?.ToString())
-                       ? "N/A" : reader["title"].ToString();
-
-                    lblDescription.Text = string.IsNullOrWhiteSpace(reader["description"]?.ToString())
-                                           ? "N/A" : reader["description"].ToString();
-
-                    lblLocation.Text = string.IsNullOrWhiteSpace(reader["location"]?.ToString())
-                                           ? "N/A" : reader["location"].ToString();
-
-                    lblDepartment.Text = string.IsNullOrWhiteSpace(reader["department"]?.ToString())
-                                           ? "N/A" : reader["department"].ToString();
+                    string reporterName = reader["reporter_name"]?.ToString() ?? "N/A";
+                    string reporterContact = reader["reporter_contact"]?.ToString() ?? "N/A";
+                    string reportedBy = reader["reported_by"]?.ToString() ?? "N/A";
 
                     lblReportedBy.Text = reportedBy;
 
-                    lblSubtitle.Text = " - " +
-                                           (string.IsNullOrWhiteSpace(reader["category"]?.ToString())
-                                           ? "N/A" : reader["category"].ToString());
-
+                    string itemType = reader["type"]?.ToString() ?? "N/A";
                     lblItemType.Text = itemType;
-
                     UpdateTypeChip(itemType);
 
-                    // Handle pnlFinder based on type
-                    if (itemType == "Found")
-                    {
-                        pnlFinder.Visible = true;
-                        lblReporterName.Text = string.IsNullOrWhiteSpace(reporterName) ? "NA" : reporterName;
-                        lblReporterContact.Text = string.IsNullOrWhiteSpace(reporterContact) ? "NA" : reporterContact;
-                    }
-                    else if (itemType == "Lost")
-                    {
-                        if (string.IsNullOrWhiteSpace(reporterName) && string.IsNullOrWhiteSpace(reporterContact))
-                            pnlFinder.Visible = false;
-                        else
-                        {
-                            pnlFinder.Visible = true;
-                            lblReporterName.Text = reporterName;
-                            lblReporterContact.Text = reporterContact;
-                        }
-                    }
+                    pnlFinder.Visible = (itemType == "Found" || (!string.IsNullOrWhiteSpace(reporterName) || !string.IsNullOrWhiteSpace(reporterContact)));
+                    lblReporterName.Text = reporterName;
+                    lblReporterContact.Text = reporterContact;
 
                     // Status
-                    string status = reader["status"] == DBNull.Value ? "" : reader["status"].ToString()!;
-                    statusChip.Text = status.ToLower();
-                    UpdateStatusColor(status);
+                    itemStatus = reader["status"]?.ToString() ?? "";
+                    statusChip.Text = itemStatus.ToLower();
+                    UpdateStatusColor(itemStatus);
 
                     // Dates
-                    lblCreatedDate.Text = Convert.ToDateTime(reader["date_created"]).ToString("MMMM dd, yyyy hh:mm tt");
-                    lblUpdatedDate.Text = reader["date_updated"] == DBNull.Value
-                        ? "N/A"
-                        : Convert.ToDateTime(reader["date_updated"]).ToString("MMMM dd, yyyy hh:mm tt");
+                    lblCreatedDate.Text = Convert.ToDateTime(reader["created_at"]).ToString("MMMM dd, yyyy hh:mm tt");
+                    lblUpdatedDate.Text = reader["updated_at"] != DBNull.Value
+                        ? Convert.ToDateTime(reader["updated_at"]).ToString("MMMM dd, yyyy  hh:mm tt")
+                        : "N/A";
 
                     // Image
-                    // Image
-                    string? imgPath = reader["image_path"] as string;
-
+                    string imgPath = reader["image_path"]?.ToString();
                     if (!string.IsNullOrWhiteSpace(imgPath))
                     {
                         string fullPath = Path.Combine(Application.StartupPath, imgPath);
-
-                        if (File.Exists(fullPath))
-                        {
-                            try
-                            {
-                                using (var fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read))
-                                {
-                                    picBox.Image = Image.FromStream(fs);
-                                }
-                            }
-                            catch
-                            {
-                                // Failed to load the image → use default
-                                picBox.Image = Properties.Resources.default_item;
-                            }
-                        }
-                        else
-                        {
-                            // File does not exist → default
-                            picBox.Image = Properties.Resources.default_item;
-                        }
+                        picBox.Image = File.Exists(fullPath)
+                            ? Image.FromFile(fullPath)
+                            : Properties.Resources.default_item;
                     }
                     else
                     {
-                        // Empty or NULL → default
                         picBox.Image = Properties.Resources.default_item;
                     }
+                }
+                reader.Close();
 
+                // --- Load claimant info if claimed ---
+                if (itemStatus.ToUpper() == "CLAIMED")
+                {
+                    pnlClaimant.Visible = true; // Add a panel for claimant info
+                    string claimQuery = @"
+                SELECT claimant_name, claimant_contact, student_id, year_level, department, claim_date
+                FROM claims
+                WHERE item_id = @itemId
+                ORDER BY claim_date DESC
+                LIMIT 1";
+
+                    using var claimCmd = new MySqlCommand(claimQuery, conn);
+                    claimCmd.Parameters.AddWithValue("@itemId", _itemId);
+
+                    using var claimReader = claimCmd.ExecuteReader();
+                    if (claimReader.Read())
+                    {
+                        lblClaimantName.Text = claimReader["claimant_name"]?.ToString() ?? "N/A";
+                        lblClaimantContact.Text = claimReader["claimant_contact"]?.ToString() ?? "N/A";
+                        lblStudentID.Text = claimReader["student_id"]?.ToString() ?? "N/A";
+                        lblYearLevel.Text = claimReader["year_level"]?.ToString() ?? "N/A";
+                        lblDepartment.Text = claimReader["department"]?.ToString() ?? "N/A";
+                        lblClaimDate.Text = claimReader["claim_date"] != DBNull.Value
+                            ? Convert.ToDateTime(claimReader["claim_date"]).ToString("MMMM dd, yyyy")
+                            : "N/A";
+                    }
+                }
+                else
+                {
+                    pnlClaimant.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -160,6 +133,7 @@ namespace LFsystem.Views.Pages
                 MessageBox.Show("Error loading item: " + ex.Message);
             }
         }
+
         private void UpdateTypeChip(string itemtype)
         {
             switch (itemtype.ToUpper())
@@ -200,8 +174,8 @@ namespace LFsystem.Views.Pages
                     statusChip.ForeColor = Color.FromArgb(156, 101, 0);
                     break;
                 case "CLAIMED":
-                    statusChip.BackColor = Color.FromArgb(173, 216, 230);
-                    statusChip.ForeColor = Color.FromArgb(0, 0, 139);
+                    statusChip.BackColor = Color.FromArgb(173, 216, 230); // light blue
+                    statusChip.ForeColor = Color.FromArgb(0, 0, 139);     // dark blue
                     break;
                 case "REJECTED":
                     statusChip.BackColor = Color.FromArgb(255, 192, 192);

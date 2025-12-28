@@ -13,48 +13,37 @@ namespace LFsystem.Views.Main
     {
         private string userRole;
         private Guna2Button? activeButton = null;
+        private System.Windows.Forms.Timer timerClock; // Use fully qualified name
 
         public MainForm(string role)
         {
             InitializeComponent();
             userRole = role;
+            ApplyRolePermissions(); // Handle button visibility
 
-            ApplyRolePermissions(); // New method to handle button visibility
-
-            // Load the default page (Dashboard)
+            // Load default page
             LoadPage(new Dashboard());
             SetActiveButton(btnDashboard);
             lblRole.Text = userRole;
         }
-
         private void ApplyRolePermissions()
         {
-            // By default, assume buttons are visible as per designer, then hide as needed.
-            // Or set Visible = false in designer and make true here for specific roles.
-            // I'll go with hiding based on roles here.
-
-            // Common default behavior:
-            btnUserManagement.Visible = false; // Initially hidden, only Super Admin sees it
-            btnManageClaims.Visible = false;   // Initially hidden, only Admin/Super Admin sees it
+            btnUserManagement.Visible = false; // Only Super Admin
+            btnManageClaims.Visible = false;   // Only Admin/Super Admin
 
             if (userRole == "Super Admin")
             {
-                btnUserManagement.Visible = true; // Super Admin can manage users
-                btnManageClaims.Visible = false;    // Super Admin can manage claims
-                btnReport.Visible = false;         // Admins/Super Admins usually don't report items
+                btnUserManagement.Visible = true;
+                btnManageClaims.Visible = false;
+                btnReport.Visible = false;
             }
             else if (userRole == "Admin")
             {
-                btnManageClaims.Visible = true;    // Admin can manage claims
-                btnReport.Visible = false;         // Admins usually don't report items
+                btnManageClaims.Visible = true;
+                btnReport.Visible = false;
             }
-            // If userRole is neither "Super Admin" nor "Admin" (e.g., "User" or "Staff"),
-            // btnUserManagement and btnManageClaims remain hidden.
-            // btnReport remains visible as per designer default (or if you explicitly set it visible).
         }
 
-
-        // Load UserControl into panelContent
         public void LoadPage(UserControl page)
         {
             panelContent.Controls.Clear();
@@ -62,20 +51,18 @@ namespace LFsystem.Views.Main
             panelContent.Controls.Add(page);
         }
 
-        // Handle active button color
         public void SetActiveButton(Guna2Button clickedButton)
         {
             if (activeButton != null)
             {
-                activeButton.FillColor = Color.FromArgb(176, 196, 222); // default sidebar color
+                activeButton.FillColor = Color.FromArgb(176, 196, 222); // default sidebar
                 activeButton.ForeColor = Color.White;
             }
 
             activeButton = clickedButton;
-            activeButton.FillColor = Color.FromArgb(30, 144, 255); // highlight color
+            activeButton.FillColor = Color.FromArgb(30, 144, 255); // highlight
             activeButton.ForeColor = Color.White;
         }
-
 
         public void ActivateSidebarButton(string name)
         {
@@ -90,7 +77,7 @@ namespace LFsystem.Views.Main
                 case "ManageItems":
                     SetActiveButton(btnManageItems);
                     break;
-                case "ManageClaims": // New case for Manage Claims
+                case "ManageClaims":
                     SetActiveButton(btnManageClaims);
                     break;
                 case "Settings":
@@ -99,10 +86,9 @@ namespace LFsystem.Views.Main
                 case "UserManagement":
                     SetActiveButton(btnUserManagement);
                     break;
-                default:
-                    break;
             }
         }
+
         // Button events
         private void btnDashboard_Click(object sender, EventArgs e)
         {
@@ -113,20 +99,19 @@ namespace LFsystem.Views.Main
         private void btnReport_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnReport);
-            LoadPage(new Report()); // Assuming 'Report' is a UserControl for reporting items
+            LoadPage(new Report());
         }
 
         private void btnManageItems_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnManageItems);
-            LoadPage(new ManageItems()); // Assuming 'ManageItems' is a UserControl for managing all items
+            LoadPage(new ManageItems());
         }
 
-        // New event for Manage Claims button
         private void btnManageClaims_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnManageClaims);
-            LoadPage(new ManageClaims()); 
+            LoadPage(new ManageClaims());
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
