@@ -23,11 +23,11 @@ namespace LFsystem.Views.Pages
             roleValue.Text = Session.Role;
 
             // Load item counts
-            lblTotalNum.Text = GetCount("SELECT COUNT(*) FROM items");
-            lblMyReportNum.Text = GetCount($"SELECT COUNT(*) FROM items WHERE reporter_id = @userId", Session.UserId);
-            lblPendingNum.Text = GetCount("SELECT COUNT(*) FROM items WHERE Status = 'Pending'");
-            lblApprovedNum.Text = GetCount("SELECT COUNT(*) FROM items WHERE Status = 'Approved'");
-            lblClaimedNum.Text = GetCount("SELECT COUNT(*) FROM items WHERE Status = 'Claimed'");
+            lblTotalNum.Text = GetCount("SELECT COUNT(*) FROM items WHERE Status != 'Rejected' AND delete_at IS NULL");
+            lblMyReportNum.Text = GetCount($"SELECT COUNT(*) FROM items WHERE reporter_id = @userId AND delete_at IS NULL", Session.UserId);
+            lblPendingNum.Text = GetCount("SELECT COUNT(*) FROM items WHERE Status = 'Pending' AND delete_at IS NULL");
+            lblApprovedNum.Text = GetCount("SELECT COUNT(*) FROM items WHERE Status = 'Approved' AND delete_at IS NULL");
+            lblClaimedNum.Text = GetCount("SELECT COUNT(*) FROM items WHERE Status = 'Claimed' AND delete_at IS NULL");
 
             // Show/hide pending panel depending on role
 

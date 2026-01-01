@@ -50,7 +50,7 @@ namespace LFsystem.Services
         public DataTable GetItems(
             out int totalRecords,
             string search = "",
-            string status = "",
+            string status = null,
             int? categoryId = null,
             int? locationId = null,
             string typeFilter = "",    // Lost / Found / "" (all)
@@ -67,7 +67,8 @@ namespace LFsystem.Services
             string countQuery = @"
                 SELECT COUNT(*)
                 FROM items i
-                WHERE (@status = '' OR i.status = @status)
+                WHERE i.status != 'Rejected'
+                  AND (@status IS NULL OR i.status = @status)
                   AND (@type = '' OR LOWER(i.type) = LOWER(@type))
                   AND (@categoryId IS NULL OR i.category_id = @categoryId)
                   AND (@locationId IS NULL OR i.location_id = @locationId)
@@ -97,12 +98,14 @@ namespace LFsystem.Services
                        u.name AS reporter_name, 
                        i.created_at, 
                        i.image_path, 
-                       i.status
+                       i.status,
+                       i.matched_item_id
                 FROM items i
                 LEFT JOIN categories c ON i.category_id = c.id
                 LEFT JOIN locations l ON i.location_id = l.id
                 LEFT JOIN users u ON i.reporter_id = u.id
-                WHERE (@status = '' OR i.status = @status)
+                   WHERE i.status != 'Rejected'
+                  AND (@status IS NULL OR i.status = @status)
                   AND (@type = '' OR LOWER(i.type) = LOWER(@type))
                   AND (@categoryId IS NULL OR i.category_id = @categoryId)
                   AND (@locationId IS NULL OR i.location_id = @locationId)
@@ -128,43 +131,7 @@ namespace LFsystem.Services
         // Inside your ItemService.cs class
 
         
-        public bool StaffSubmitClaim(int itemId, string claimantName, string contact, string notes)
-        {
-            using var conn = Database.GetConnection();
-            conn.Open();
-            using var transaction = conn.BeginTransaction();
-            try
-            {
-                // 1. Insert the claim record into the 'claims' table
-                string claimQuery = @"
-            INSERT INTO claims 
-            (item_id, claimant_name, claimant_contact, claim_notes, status, claim_date)
-            VALUES (@itemId, @name, @contact, @notes, 'Pending', NOW())";
-
-                using var cmd1 = new MySqlCommand(claimQuery, conn, transaction);
-                cmd1.Parameters.AddWithValue("@itemId", itemId);
-                cmd1.Parameters.AddWithValue("@name", claimantName);
-                cmd1.Parameters.AddWithValue("@contact", contact);
-                cmd1.Parameters.AddWithValue("@notes", notes);
-                cmd1.ExecuteNonQuery();
-
-                // 2. Update the item status in the 'items' table to 'Claim Pending'
-                string itemUpdateQuery = "UPDATE items SET status = 'Claim Pending' WHERE id = @itemId";
-                using var cmd2 = new MySqlCommand(itemUpdateQuery, conn, transaction);
-                cmd2.Parameters.AddWithValue("@itemId", itemId);    
-                cmd2.ExecuteNonQuery();
-
-                transaction.Commit();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-        }
-        // --- NEW CLAIM APPROVAL/REJECTION LOGIC ---
+       
 
         
     }

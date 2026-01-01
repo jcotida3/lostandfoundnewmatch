@@ -1,0 +1,29 @@
+
+
+STAFF-----
+VIEW OWN REPORT,
+REPORT ITEM,
+ITEM DASHBOARD,
+
+
+
+ADMIN-------
+APPROVED ITEMS
+REJECT ITEMS,
+ADD A CLAIMANT FORM,
+
+
+UPDATE items SET delete_at = NOW() + INTERVAL 30 DAY WHERE id = ? AND status = 'Rejected'.
+
+
+CREATE TRIGGER set_delete_at_after_reject
+BEFORE UPDATE ON items
+FOR EACH ROW
+BEGIN
+    IF NEW.status = 'Rejected' AND OLD.status <> 'Rejected' THEN
+        SET NEW.delete_at = NOW() + INTERVAL 30 DAY;
+    END IF;
+END;
+
+
+DROP TRIGGER IF EXISTS set_delete_at_after_reject;

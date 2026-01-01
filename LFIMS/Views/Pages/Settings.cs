@@ -20,7 +20,6 @@ namespace LFsystem.Views.Pages
             LoadLocation();
             // Subscribe event handlers
             btnEdit.Click += BtnEdit_Click;
-            btnSave.Click += BtnSave_Click;
             btnCancel.Click += BtnCancel_Click;
 
             dvgCategories.CellClick += DgvCategories_CellClick;

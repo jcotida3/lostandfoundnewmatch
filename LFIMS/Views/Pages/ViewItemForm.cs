@@ -27,13 +27,9 @@ namespace LFsystem.Views.Pages
                 using var conn = Database.GetConnection();
                 conn.Open();
 
+                // --- Load current item ---
                 string query = @"
-            SELECT i.title, i.description, i.image_path,
-                   c.name AS category, i.type, i.status,
-                   l.name AS location,
-                   i.student_name AS reporter_name, i.student_contact AS reporter_contact,
-                   u.name AS reported_by,
-                   i.created_at, i.updated_at
+            SELECT i.*, c.name AS category, l.name AS location, u.name AS reported_by
             FROM items i
             LEFT JOIN categories c ON i.category_id = c.id
             LEFT JOIN locations l ON i.location_id = l.id
@@ -42,26 +38,24 @@ namespace LFsystem.Views.Pages
 
                 using var cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@itemId", _itemId);
-
                 using var reader = cmd.ExecuteReader();
 
                 string itemStatus = "";
+                string itemType = "";
+                int? matchedItemId = null;
 
                 if (reader.Read())
                 {
-                    // --- Existing code to load item info ---
                     lblItemName.Text = reader["title"]?.ToString() ?? "N/A";
                     lblDescription.Text = reader["description"]?.ToString() ?? "N/A";
                     lblLocation.Text = reader["location"]?.ToString() ?? "N/A";
                     lblCategory.Text = " - " + (reader["category"]?.ToString() ?? "N/A");
 
-                    string reporterName = reader["reporter_name"]?.ToString() ?? "N/A";
-                    string reporterContact = reader["reporter_contact"]?.ToString() ?? "N/A";
-                    string reportedBy = reader["reported_by"]?.ToString() ?? "N/A";
+                    string reporterName = reader["student_name"]?.ToString() ?? "N/A";
+                    string reporterContact = reader["student_contact"]?.ToString() ?? "N/A";
+                    lblReportedBy.Text = reader["reported_by"]?.ToString() ?? "N/A";
 
-                    lblReportedBy.Text = reportedBy;
-
-                    string itemType = reader["type"]?.ToString() ?? "N/A";
+                    itemType = reader["type"]?.ToString() ?? "N/A";
                     lblItemType.Text = itemType;
                     UpdateTypeChip(itemType);
 
@@ -93,39 +87,63 @@ namespace LFsystem.Views.Pages
                     {
                         picBox.Image = Properties.Resources.default_item;
                     }
+
+                    // Matched item (if Lost)
+                    matchedItemId = reader["matched_item_id"] != DBNull.Value
+                        ? Convert.ToInt32(reader["matched_item_id"])
+                        : (int?)null;
                 }
                 reader.Close();
 
-                // --- Load claimant info if claimed ---
-                if (itemStatus.ToUpper() == "CLAIMED")
+                // --- Determine which item to show claim info for ---
+                int itemToCheckClaimId = _itemId;
+
+                if (itemType.Equals("Lost", StringComparison.OrdinalIgnoreCase) && matchedItemId.HasValue)
                 {
-                    pnlClaimant.Visible = true; // Add a panel for claimant info
-                    string claimQuery = @"
-                SELECT claimant_name, claimant_contact, student_id, year_level, department, claim_date
-                FROM claims
-                WHERE item_id = @itemId
-                ORDER BY claim_date DESC
-                LIMIT 1";
+                    // Show claimant info from matched Found item
+                    itemToCheckClaimId = matchedItemId.Value;
+                }
 
-                    using var claimCmd = new MySqlCommand(claimQuery, conn);
-                    claimCmd.Parameters.AddWithValue("@itemId", _itemId);
+                // --- Load claimant info ---
+                string claimQuery = @"
+            SELECT claimant_name, claimant_contact, student_id, year_level, department, claim_date
+            FROM claims
+            WHERE item_id = @itemId
+            ORDER BY claim_date DESC
+            LIMIT 1";
 
-                    using var claimReader = claimCmd.ExecuteReader();
-                    if (claimReader.Read())
-                    {
-                        lblClaimantName.Text = claimReader["claimant_name"]?.ToString() ?? "N/A";
-                        lblClaimantContact.Text = claimReader["claimant_contact"]?.ToString() ?? "N/A";
-                        lblStudentID.Text = claimReader["student_id"]?.ToString() ?? "N/A";
-                        lblYearLevel.Text = claimReader["year_level"]?.ToString() ?? "N/A";
-                        lblDepartment.Text = claimReader["department"]?.ToString() ?? "N/A";
-                        lblClaimDate.Text = claimReader["claim_date"] != DBNull.Value
-                            ? Convert.ToDateTime(claimReader["claim_date"]).ToString("MMMM dd, yyyy")
-                            : "N/A";
-                    }
+                using var claimCmd = new MySqlCommand(claimQuery, conn);
+                claimCmd.Parameters.AddWithValue("@itemId", itemToCheckClaimId);
+
+                using var claimReader = claimCmd.ExecuteReader();
+                if (claimReader.Read())
+                {
+                    pnlClaimant.Visible = true;
+                    lblClaimantName.Text = claimReader["claimant_name"]?.ToString() ?? "N/A";
+                    lblClaimantContact.Text = claimReader["claimant_contact"]?.ToString() ?? "N/A";
+                    lblStudentID.Text = claimReader["student_id"]?.ToString() ?? "N/A";
+                    lblYearLevel.Text = claimReader["year_level"]?.ToString() ?? "N/A";
+                    lblDepartment.Text = claimReader["department"]?.ToString() ?? "N/A";
+                    lblClaimDate.Text = claimReader["claim_date"] != DBNull.Value
+                        ? Convert.ToDateTime(claimReader["claim_date"]).ToString("MMMM dd, yyyy")
+                        : "N/A";
                 }
                 else
                 {
                     pnlClaimant.Visible = false;
+                }
+
+                // Optional: indicate that Lost item is matched
+                if (itemType.Equals("Lost", StringComparison.OrdinalIgnoreCase) && matchedItemId.HasValue)
+                {
+                    pnlNote.Visible = true;
+                    lblMatchedNote.Visible = true;
+                    lblMatchedNote.Text = $"This lost item is matched to Found item ID: {matchedItemId}";
+                }
+                else
+                {
+                    pnlNote.Visible= false;
+                    lblMatchedNote.Visible = false;
                 }
             }
             catch (Exception ex)

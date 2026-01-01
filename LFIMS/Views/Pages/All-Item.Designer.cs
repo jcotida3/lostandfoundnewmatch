@@ -47,11 +47,6 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -68,6 +63,11 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             lblManageItems = new Label();
             lblRole = new Label();
             pnlFilter = new Guna.UI2.WinForms.Guna2Panel();
@@ -84,17 +84,6 @@
             pictureBox1 = new PictureBox();
             pnlTable = new Panel();
             tblItems = new Guna.UI2.WinForms.Guna2DataGridView();
-            colItemId = new DataGridViewTextBoxColumn();
-            colReportedById = new DataGridViewTextBoxColumn();
-            colItem = new DataGridViewTextBoxColumn();
-            colType = new DataGridViewTextBoxColumn();
-            colCategory = new DataGridViewTextBoxColumn();
-            colLocation = new DataGridViewTextBoxColumn();
-            colReportedBy = new DataGridViewTextBoxColumn();
-            colDateTime = new DataGridViewTextBoxColumn();
-            colStatus = new DataGridViewTextBoxColumn();
-            colActions = new DataGridViewButtonColumn();
-            colDescription = new DataGridViewTextBoxColumn();
             btnClearFilter = new Guna.UI2.WinForms.Guna2Button();
             panelPagination = new Panel();
             lblPageInfo = new Label();
@@ -109,6 +98,18 @@
             guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            colItemId = new DataGridViewTextBoxColumn();
+            colReportedById = new DataGridViewTextBoxColumn();
+            colItem = new DataGridViewTextBoxColumn();
+            colType = new DataGridViewTextBoxColumn();
+            colCategory = new DataGridViewTextBoxColumn();
+            colLocation = new DataGridViewTextBoxColumn();
+            colReportedBy = new DataGridViewTextBoxColumn();
+            colDateTime = new DataGridViewTextBoxColumn();
+            colStatus = new DataGridViewTextBoxColumn();
+            colMatchedTo = new DataGridViewTextBoxColumn();
+            colActions = new DataGridViewButtonColumn();
+            colDescription = new DataGridViewTextBoxColumn();
             pnlFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlTable.SuspendLayout();
@@ -355,7 +356,7 @@
             tblItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             tblItems.ColumnHeadersHeight = 50;
             tblItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            tblItems.Columns.AddRange(new DataGridViewColumn[] { colItemId, colReportedById, colItem, colType, colCategory, colLocation, colReportedBy, colDateTime, colStatus, colActions, colDescription });
+            tblItems.Columns.AddRange(new DataGridViewColumn[] { colItemId, colReportedById, colItem, colType, colCategory, colLocation, colReportedBy, colDateTime, colStatus, colMatchedTo, colActions, colDescription });
             dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle8.BackColor = Color.White;
             dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
@@ -396,103 +397,6 @@
             tblItems.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
             tblItems.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
             tblItems.CellMouseMove += TblItems_CellMouseMove;
-            // 
-            // colItemId
-            // 
-            colItemId.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            colItemId.HeaderText = "ID";
-            colItemId.MinimumWidth = 6;
-            colItemId.Name = "colItemId";
-            colItemId.Width = 70;
-            // 
-            // colReportedById
-            // 
-            colReportedById.HeaderText = "ReportedById";
-            colReportedById.MinimumWidth = 6;
-            colReportedById.Name = "colReportedById";
-            colReportedById.Visible = false;
-            // 
-            // colItem
-            // 
-            colItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            colItem.DefaultCellStyle = dataGridViewCellStyle3;
-            colItem.FillWeight = 598.930542F;
-            colItem.HeaderText = "Item";
-            colItem.MinimumWidth = 6;
-            colItem.Name = "colItem";
-            colItem.Width = 250;
-            // 
-            // colType
-            // 
-            colType.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            colType.HeaderText = "Type";
-            colType.MinimumWidth = 6;
-            colType.Name = "colType";
-            colType.Width = 92;
-            // 
-            // colCategory
-            // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colCategory.DefaultCellStyle = dataGridViewCellStyle4;
-            colCategory.FillWeight = 28.7242069F;
-            colCategory.HeaderText = "Category";
-            colCategory.MinimumWidth = 6;
-            colCategory.Name = "colCategory";
-            // 
-            // colLocation
-            // 
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colLocation.DefaultCellStyle = dataGridViewCellStyle5;
-            colLocation.FillWeight = 28.7242069F;
-            colLocation.HeaderText = "Location";
-            colLocation.MinimumWidth = 6;
-            colLocation.Name = "colLocation";
-            // 
-            // colReportedBy
-            // 
-            colReportedBy.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colReportedBy.DefaultCellStyle = dataGridViewCellStyle6;
-            colReportedBy.FillWeight = 28.7242069F;
-            colReportedBy.HeaderText = "Reported By";
-            colReportedBy.MinimumWidth = 6;
-            colReportedBy.Name = "colReportedBy";
-            colReportedBy.Width = 120;
-            // 
-            // colDateTime
-            // 
-            colDateTime.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            colDateTime.FillWeight = 28.7242069F;
-            colDateTime.HeaderText = "Date & Time";
-            colDateTime.MinimumWidth = 6;
-            colDateTime.Name = "colDateTime";
-            colDateTime.Width = 120;
-            // 
-            // colStatus
-            // 
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colStatus.DefaultCellStyle = dataGridViewCellStyle7;
-            colStatus.FillWeight = 28.7242069F;
-            colStatus.HeaderText = "Status";
-            colStatus.MinimumWidth = 6;
-            colStatus.Name = "colStatus";
-            // 
-            // colActions
-            // 
-            colActions.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            colActions.FillWeight = 28.7242069F;
-            colActions.HeaderText = "Actions";
-            colActions.MinimumWidth = 6;
-            colActions.Name = "colActions";
-            colActions.Width = 160;
-            // 
-            // colDescription
-            // 
-            colDescription.HeaderText = "";
-            colDescription.MinimumWidth = 6;
-            colDescription.Name = "colDescription";
-            colDescription.Visible = false;
             // 
             // btnClearFilter
             // 
@@ -585,10 +489,10 @@
             guna2Panel1.Controls.Add(guna2HtmlLabel1);
             guna2Panel1.Controls.Add(guna2PictureBox1);
             guna2Panel1.CustomizableEdges = customizableEdges27;
-            guna2Panel1.Location = new Point(67, 893);
+            guna2Panel1.Location = new Point(46, 893);
             guna2Panel1.Name = "guna2Panel1";
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges28;
-            guna2Panel1.Size = new Size(1002, 80);
+            guna2Panel1.Size = new Size(1023, 71);
             guna2Panel1.TabIndex = 7;
             // 
             // guna2HtmlLabel4
@@ -683,6 +587,110 @@
             guna2PictureBox1.TabIndex = 0;
             guna2PictureBox1.TabStop = false;
             // 
+            // colItemId
+            // 
+            colItemId.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colItemId.HeaderText = "ID";
+            colItemId.MinimumWidth = 6;
+            colItemId.Name = "colItemId";
+            colItemId.Width = 70;
+            // 
+            // colReportedById
+            // 
+            colReportedById.HeaderText = "ReportedById";
+            colReportedById.MinimumWidth = 6;
+            colReportedById.Name = "colReportedById";
+            colReportedById.Visible = false;
+            // 
+            // colItem
+            // 
+            colItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            colItem.DefaultCellStyle = dataGridViewCellStyle3;
+            colItem.FillWeight = 598.930542F;
+            colItem.HeaderText = "Item";
+            colItem.MinimumWidth = 6;
+            colItem.Name = "colItem";
+            colItem.Width = 250;
+            // 
+            // colType
+            // 
+            colType.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colType.HeaderText = "Type";
+            colType.MinimumWidth = 6;
+            colType.Name = "colType";
+            colType.Width = 92;
+            // 
+            // colCategory
+            // 
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colCategory.DefaultCellStyle = dataGridViewCellStyle4;
+            colCategory.FillWeight = 28.7242069F;
+            colCategory.HeaderText = "Category";
+            colCategory.MinimumWidth = 6;
+            colCategory.Name = "colCategory";
+            // 
+            // colLocation
+            // 
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colLocation.DefaultCellStyle = dataGridViewCellStyle5;
+            colLocation.FillWeight = 28.7242069F;
+            colLocation.HeaderText = "Location";
+            colLocation.MinimumWidth = 6;
+            colLocation.Name = "colLocation";
+            // 
+            // colReportedBy
+            // 
+            colReportedBy.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colReportedBy.DefaultCellStyle = dataGridViewCellStyle6;
+            colReportedBy.FillWeight = 28.7242069F;
+            colReportedBy.HeaderText = "Reported By";
+            colReportedBy.MinimumWidth = 6;
+            colReportedBy.Name = "colReportedBy";
+            colReportedBy.Width = 120;
+            // 
+            // colDateTime
+            // 
+            colDateTime.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colDateTime.FillWeight = 28.7242069F;
+            colDateTime.HeaderText = "Date & Time";
+            colDateTime.MinimumWidth = 6;
+            colDateTime.Name = "colDateTime";
+            colDateTime.Width = 120;
+            // 
+            // colStatus
+            // 
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colStatus.DefaultCellStyle = dataGridViewCellStyle7;
+            colStatus.FillWeight = 28.7242069F;
+            colStatus.HeaderText = "Status";
+            colStatus.MinimumWidth = 6;
+            colStatus.Name = "colStatus";
+            // 
+            // colMatchedTo
+            // 
+            colMatchedTo.FillWeight = 20F;
+            colMatchedTo.HeaderText = "Matched To";
+            colMatchedTo.MinimumWidth = 6;
+            colMatchedTo.Name = "colMatchedTo";
+            // 
+            // colActions
+            // 
+            colActions.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            colActions.FillWeight = 28.7242069F;
+            colActions.HeaderText = "Actions";
+            colActions.MinimumWidth = 6;
+            colActions.Name = "colActions";
+            colActions.Width = 160;
+            // 
+            // colDescription
+            // 
+            colDescription.HeaderText = "";
+            colDescription.MinimumWidth = 6;
+            colDescription.Name = "colDescription";
+            colDescription.Visible = false;
+            // 
             // ManageItems
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -737,17 +745,6 @@
         private Label lblPageInfo;
         private Label lblType;
         private Guna.UI2.WinForms.Guna2ComboBox cmbType;
-        private DataGridViewTextBoxColumn colItemId;
-        private DataGridViewTextBoxColumn colReportedById;
-        private DataGridViewTextBoxColumn colItem;
-        private DataGridViewTextBoxColumn colType;
-        private DataGridViewTextBoxColumn colCategory;
-        private DataGridViewTextBoxColumn colLocation;
-        private DataGridViewTextBoxColumn colReportedBy;
-        private DataGridViewTextBoxColumn colDateTime;
-        private DataGridViewTextBoxColumn colStatus;
-        private DataGridViewButtonColumn colActions;
-        private DataGridViewTextBoxColumn colDescription;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
@@ -757,5 +754,17 @@
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
+        private DataGridViewTextBoxColumn colItemId;
+        private DataGridViewTextBoxColumn colReportedById;
+        private DataGridViewTextBoxColumn colItem;
+        private DataGridViewTextBoxColumn colType;
+        private DataGridViewTextBoxColumn colCategory;
+        private DataGridViewTextBoxColumn colLocation;
+        private DataGridViewTextBoxColumn colReportedBy;
+        private DataGridViewTextBoxColumn colDateTime;
+        private DataGridViewTextBoxColumn colStatus;
+        private DataGridViewTextBoxColumn colMatchedTo;
+        private DataGridViewButtonColumn colActions;
+        private DataGridViewTextBoxColumn colDescription;
     }
 }

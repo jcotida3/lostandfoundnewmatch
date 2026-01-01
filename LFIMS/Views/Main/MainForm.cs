@@ -29,17 +29,17 @@ namespace LFsystem.Views.Main
         private void ApplyRolePermissions()
         {
             btnUserManagement.Visible = false; // Only Super Admin
-            btnManageClaims.Visible = false;   // Only Admin/Super Admin
+            btnMatches.Visible = false;   // Only Admin/Super Admin
 
             if (userRole == "Super Admin")
             {
                 btnUserManagement.Visible = true;
-                btnManageClaims.Visible = false;
+                btnMatches.Visible = false;
                 btnReport.Visible = false;
             }
             else if (userRole == "Admin")
             {
-                btnManageClaims.Visible = true;
+                btnMatches.Visible = true;
                 btnReport.Visible = false;
             }
         }
@@ -78,7 +78,7 @@ namespace LFsystem.Views.Main
                     SetActiveButton(btnManageItems);
                     break;
                 case "ManageClaims":
-                    SetActiveButton(btnManageClaims);
+                    SetActiveButton(btnMatches);
                     break;
                 case "Settings":
                     SetActiveButton(btnSettings);
@@ -108,9 +108,15 @@ namespace LFsystem.Views.Main
             LoadPage(new ManageItems());
         }
 
-        private void btnManageClaims_Click(object sender, EventArgs e)
+        private void btnMatches_Click(object sender, EventArgs e)
         {
-            
+            SetActiveButton(btnMatches);
+            LoadPage(new MatchItems());
+        }
+        private void btnArchive_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnArchive);
+            LoadPage(new ArchivedItems());
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -136,5 +142,7 @@ namespace LFsystem.Views.Main
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
         }
+
+        
     }
 }

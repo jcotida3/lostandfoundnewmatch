@@ -139,6 +139,10 @@ namespace LFsystem.Views.Pages
                         backColor = Color.FromArgb(173, 216, 230); // light blue
                         foreColor = Color.FromArgb(0, 0, 139);     // dark blue
                         break;
+                    case "MATCHED":  // ✅ new case for matched items
+                        backColor = Color.FromArgb(144, 238, 144); // light green
+                        foreColor = Color.FromArgb(0, 100, 0);     // dark green
+                        break;
                     default:
                         backColor = Color.LightGray;
                         foreColor = Color.Black;
@@ -203,10 +207,12 @@ namespace LFsystem.Views.Pages
                     icons.Add(("reject", Properties.Resources.reject_icon));
                 }
 
+                string matchedTo = row.Cells["colMatchedTo"].Value?.ToString() ?? "";
+
                 // Claim
-                if (type.Equals("Found", StringComparison.OrdinalIgnoreCase) &&
-                    status.Equals("Approved", StringComparison.OrdinalIgnoreCase) &&
-                    Session.Role == "Admin")
+                if (Session.Role == "Admin" && status != "Claimed" &&
+                   ((type.Equals("Found", StringComparison.OrdinalIgnoreCase) && status.Equals("Approved", StringComparison.OrdinalIgnoreCase))
+                     || !string.IsNullOrEmpty(matchedTo)))
                 {
                     icons.Add(("claim", Properties.Resources.claim_icon));
                 }
@@ -323,12 +329,21 @@ namespace LFsystem.Views.Pages
             // 🔥 CLAIM BUTTON SUPPORT (NEW FEATURE)
             // ---------------------------------------
             if (icons.ContainsKey("claim") && icons["claim"].Contains(clickPoint))
-           {
-                using var claimForm = new ClaimItemForm(itemId);
+            {
+                int? matchedItemId = null;
+                string matchedToValue = tblItems.Rows[e.RowIndex].Cells["colMatchedTo"].Value?.ToString();
+
+                if (!string.IsNullOrEmpty(matchedToValue))
+                {
+                    matchedItemId = int.Parse(matchedToValue); // the Lost item ID
+                }
+
+                using var claimForm = new ClaimItemForm(itemId, matchedItemId);
                 claimForm.ShowDialog();
                 LoadItems();
                 return;
             }
+
         }
         private void TblItems_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -411,7 +426,7 @@ namespace LFsystem.Views.Pages
         {
             cmbStatus.Items.Clear();
             // ADDED "Claim Pending" and "Claimed"
-            cmbStatus.Items.AddRange(new[] { "All", "Approved", "Pending", "Claimed"});
+            cmbStatus.Items.AddRange(new[] { "All", "Approved", "Pending", "Claimed", "Matched"});
             cmbStatus.SelectedIndex = 0;
         }
 
@@ -450,7 +465,8 @@ namespace LFsystem.Views.Pages
             try
             {
                 // Safely handle nullable SelectedItem
-                string status = (cmbStatus.SelectedItem?.ToString() ?? "All") == "All" ? "" : cmbStatus.SelectedItem!.ToString()!;
+                string selected = cmbStatus.SelectedItem?.ToString();
+                string status = selected == "All" || string.IsNullOrEmpty(selected) ? null : selected;
 
                 int? categoryId = Convert.ToInt32(cmbCategory.SelectedValue) == 0 ? null : Convert.ToInt32(cmbCategory.SelectedValue);
                 int? locationId = Convert.ToInt32(cmbLocation.SelectedValue) == 0 ? null : Convert.ToInt32(cmbLocation.SelectedValue);
@@ -510,6 +526,9 @@ namespace LFsystem.Views.Pages
 
                     tblItems.Rows[rowIndex].Cells["colDateTime"].Value =
                         row["created_at"] != DBNull.Value ? Convert.ToDateTime(row["created_at"]).ToString("MMMM dd, yyyy hh:mm tt") : "";
+                    tblItems.Rows[rowIndex].Cells["colMatchedTo"].Value = row["matched_item_id"] != DBNull.Value
+    ? row["matched_item_id"].ToString()
+    : "";
                     tblItems.Rows[rowIndex].Cells["colActions"].Value = "View";
                 }
 

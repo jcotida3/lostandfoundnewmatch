@@ -5,13 +5,14 @@ namespace LFsystem.Views.Pages
 {
     public partial class ClaimItemForm : Form
     {
-        private readonly int itemId;
+        private readonly int foundItemId;
+        private readonly int? matchedLostItemId; // optional
 
-
-        public ClaimItemForm(int itemId)
+        public ClaimItemForm(int foundItemId, int? matchedLostItemId = null)
         {
             InitializeComponent();
-            this.itemId = itemId;
+            this.foundItemId = foundItemId;
+            this.matchedLostItemId = matchedLostItemId;
 
             LoadDepartments();
             LoadYearLevels();
@@ -20,24 +21,48 @@ namespace LFsystem.Views.Pages
 
         private void LoadItemDetails()
         {
-            string query = @"
+            // Load Found item
+            string queryFound = @"
 SELECT i.title, c.name AS category, l.name as location
 FROM items i
 LEFT JOIN categories c ON i.category_id = c.id
 LEFT JOIN locations l on i.location_id = l.id
 WHERE i.id = @item_id";
+
             using var conn = Database.GetConnection();
             conn.Open();
 
-            using var cmd = new MySqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@item_id", itemId);
-
-            using var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (var cmd = new MySqlCommand(queryFound, conn))
             {
-                itemTitleValue.Text = reader.GetString("title");
-                itemCategoryValue.Text = reader.GetString("category");
-                itemLocationValue.Text = reader.GetString("location");
+                cmd.Parameters.AddWithValue("@item_id", foundItemId);
+                using var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    itemTitleValue.Text = reader.GetString("title");
+                    itemCategoryValue.Text = reader.GetString("category");
+                    itemLocationValue.Text = reader.GetString("location");
+                }
+            }
+
+            // Load matched Lost item details if exists
+            if (matchedLostItemId.HasValue)
+            {
+                string queryLost = @"
+SELECT i.title, c.name AS category, l.name as location
+FROM items i
+LEFT JOIN categories c ON i.category_id = c.id
+LEFT JOIN locations l on i.location_id = l.id
+WHERE i.id = @item_id";
+
+                using var cmdLost = new MySqlCommand(queryLost, conn);
+                cmdLost.Parameters.AddWithValue("@item_id", matchedLostItemId.Value);
+                using var readerLost = cmdLost.ExecuteReader();
+                if (readerLost.Read())
+                {
+                    itemTitleValue.Text = readerLost.GetString("title");
+                    itemCategoryValue.Text = readerLost.GetString("category");
+                    itemLocationValue.Text = readerLost.GetString("location");
+                }
             }
         }
 
@@ -45,18 +70,20 @@ WHERE i.id = @item_id";
         {
             if (!ValidateInputs()) return;
 
-            string query = @"INSERT INTO claims (item_id, claimant_name, claimant_contact, student_id, year_level, department, claim_date) VALUES(@item_id, @claimant_name, @claimant_contact, @student_id, @year_level, @department, NOW())";
-
             using var conn = Database.GetConnection();
             conn.Open();
 
+            // Insert claim for Found item
+            string query = @"
+INSERT INTO claims 
+(item_id, claimant_name, claimant_contact, student_id, year_level, department, claim_date)
+VALUES (@item_id, @claimant_name, @claimant_contact, @student_id, @year_level, @department, NOW())";
+
             using var cmd = new MySqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@item_id", itemId);
+            cmd.Parameters.AddWithValue("@item_id", foundItemId);
             cmd.Parameters.AddWithValue("@claimant_name", txtClaimantName.Text.Trim());
             cmd.Parameters.AddWithValue("@claimant_contact", txtClaimantContact.Text.Trim());
             cmd.Parameters.AddWithValue("@student_id", txtStudentID.Text.Trim());
-
-            // ComboBox selected values
             cmd.Parameters.AddWithValue("@year_level", cmbYearLevel.SelectedItem.ToString());
             cmd.Parameters.AddWithValue("@department", cmbDepartment.SelectedItem.ToString());
 
@@ -64,12 +91,22 @@ WHERE i.id = @item_id";
 
             if (rows > 0)
             {
-                string updateQuery = "UPDATE items SET status='Claimed' WHERE id=@item_id";
-                using var updateCmd = new MySqlCommand(updateQuery, conn);
-                updateCmd.Parameters.AddWithValue("@item_id", itemId);
+                // Update Found item to Claimed
+                string updateFound = "UPDATE items SET status='Claimed' WHERE id=@item_id";
+                using var updateCmd = new MySqlCommand(updateFound, conn);
+                updateCmd.Parameters.AddWithValue("@item_id", foundItemId);
                 updateCmd.ExecuteNonQuery();
 
-                MessageBox.Show("Claim submitted successfully and item marked as Claimed!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Update matched Lost item to Claimed if exists
+                if (matchedLostItemId.HasValue)
+                {
+                    string updateLost = "UPDATE items SET status='Claimed' WHERE id=@item_id";
+                    using var updateLostCmd = new MySqlCommand(updateLost, conn);
+                    updateLostCmd.Parameters.AddWithValue("@item_id", matchedLostItemId.Value);
+                    updateLostCmd.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Claim submitted successfully and item(s) marked as Claimed!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else

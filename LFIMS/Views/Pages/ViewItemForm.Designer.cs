@@ -35,6 +35,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewItemForm));
             lblItemName = new Label();
             lblCategory = new Label();
@@ -81,6 +83,9 @@
             lblCreatedDate = new Label();
             headCreated = new Label();
             Timeline = new Label();
+            lblMatchedNote = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            pnlNote = new Guna.UI2.WinForms.Guna2Panel();
+            lblNote = new Guna.UI2.WinForms.Guna2HtmlLabel();
             ((System.ComponentModel.ISupportInitialize)picBox).BeginInit();
             flwNameType.SuspendLayout();
             pnlClaimant.SuspendLayout();
@@ -89,6 +94,7 @@
             flowLayoutPanel2.SuspendLayout();
             pnlFinder.SuspendLayout();
             pnlTimeline.SuspendLayout();
+            pnlNote.SuspendLayout();
             SuspendLayout();
             // 
             // lblItemName
@@ -149,7 +155,7 @@
             lblDescription.BackColor = Color.FromArgb(243, 247, 254);
             lblDescription.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblDescription.Location = new Point(10, 32);
-            lblDescription.MaximumSize = new Size(260, 0);
+            lblDescription.MaximumSize = new Size(400, 0);
             lblDescription.Name = "lblDescription";
             lblDescription.Size = new Size(94, 20);
             lblDescription.TabIndex = 6;
@@ -260,7 +266,6 @@
             pnlClaimant.BackColor = Color.FromArgb(243, 247, 254);
             pnlClaimant.BorderColor = Color.Black;
             pnlClaimant.BorderRadius = 10;
-            pnlClaimant.BorderThickness = 1;
             pnlClaimant.Controls.Add(label7);
             pnlClaimant.Controls.Add(label6);
             pnlClaimant.Controls.Add(label5);
@@ -276,10 +281,10 @@
             pnlClaimant.Controls.Add(lblClaimantName);
             pnlClaimant.CustomizableEdges = customizableEdges1;
             pnlClaimant.FillColor = Color.FromArgb(243, 247, 254);
-            pnlClaimant.Location = new Point(3, 87);
+            pnlClaimant.Location = new Point(3, 159);
             pnlClaimant.Name = "pnlClaimant";
             pnlClaimant.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            pnlClaimant.Size = new Size(437, 166);
+            pnlClaimant.Size = new Size(437, 179);
             pnlClaimant.TabIndex = 18;
             // 
             // label7
@@ -436,15 +441,16 @@
             pnlDescription.Controls.Add(headDesc);
             pnlDescription.Controls.Add(lblDescription);
             pnlDescription.CustomizableEdges = customizableEdges5;
-            pnlDescription.Location = new Point(23, 329);
+            pnlDescription.Location = new Point(23, 314);
             pnlDescription.Name = "pnlDescription";
             pnlDescription.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            pnlDescription.Size = new Size(440, 61);
+            pnlDescription.Size = new Size(440, 86);
             pnlDescription.TabIndex = 20;
             // 
             // flowLayoutPanel2
             // 
             flowLayoutPanel2.Controls.Add(pnlFinder);
+            flowLayoutPanel2.Controls.Add(pnlNote);
             flowLayoutPanel2.Controls.Add(pnlClaimant);
             flowLayoutPanel2.Controls.Add(pnlTimeline);
             flowLayoutPanel2.Location = new Point(23, 406);
@@ -455,7 +461,6 @@
             // pnlFinder
             // 
             pnlFinder.BackColor = Color.FromArgb(240, 253, 244);
-            pnlFinder.BorderStyle = BorderStyle.FixedSingle;
             pnlFinder.Controls.Add(label9);
             pnlFinder.Controls.Add(findName);
             pnlFinder.Controls.Add(lblReporterContact);
@@ -463,14 +468,14 @@
             pnlFinder.Controls.Add(lblFinderInformation);
             pnlFinder.Location = new Point(3, 3);
             pnlFinder.Name = "pnlFinder";
-            pnlFinder.Size = new Size(431, 78);
+            pnlFinder.Size = new Size(437, 81);
             pnlFinder.TabIndex = 14;
             // 
             // label9
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI Semibold", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(195, 32);
+            label9.Location = new Point(178, 23);
             label9.Name = "label9";
             label9.Size = new Size(55, 17);
             label9.TabIndex = 30;
@@ -480,7 +485,7 @@
             // 
             findName.AutoSize = true;
             findName.Font = new Font("Segoe UI Semibold", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            findName.Location = new Point(11, 33);
+            findName.Location = new Point(11, 23);
             findName.Name = "findName";
             findName.Size = new Size(44, 17);
             findName.TabIndex = 29;
@@ -490,7 +495,7 @@
             // 
             lblReporterContact.AutoSize = true;
             lblReporterContact.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblReporterContact.Location = new Point(195, 49);
+            lblReporterContact.Location = new Point(178, 40);
             lblReporterContact.Name = "lblReporterContact";
             lblReporterContact.Size = new Size(94, 20);
             lblReporterContact.TabIndex = 15;
@@ -500,7 +505,7 @@
             // 
             lblReporterName.AutoSize = true;
             lblReporterName.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblReporterName.Location = new Point(11, 50);
+            lblReporterName.Location = new Point(11, 40);
             lblReporterName.Name = "lblReporterName";
             lblReporterName.Size = new Size(94, 20);
             lblReporterName.TabIndex = 14;
@@ -523,7 +528,7 @@
             pnlTimeline.Controls.Add(lblCreatedDate);
             pnlTimeline.Controls.Add(headCreated);
             pnlTimeline.Controls.Add(Timeline);
-            pnlTimeline.Location = new Point(3, 259);
+            pnlTimeline.Location = new Point(3, 344);
             pnlTimeline.Name = "pnlTimeline";
             pnlTimeline.Size = new Size(437, 105);
             pnlTimeline.TabIndex = 16;
@@ -580,6 +585,42 @@
             Timeline.TabIndex = 14;
             Timeline.Text = "Timeline";
             // 
+            // lblMatchedNote
+            // 
+            lblMatchedNote.BackColor = Color.Transparent;
+            lblMatchedNote.ForeColor = Color.FromArgb(186, 150, 82);
+            lblMatchedNote.Location = new Point(27, 25);
+            lblMatchedNote.Name = "lblMatchedNote";
+            lblMatchedNote.Size = new Size(28, 22);
+            lblMatchedNote.TabIndex = 22;
+            lblMatchedNote.Text = "text";
+            // 
+            // pnlNote
+            // 
+            pnlNote.BackColor = Color.FromArgb(254, 252, 232);
+            pnlNote.BorderColor = Color.FromArgb(254, 244, 163);
+            pnlNote.BorderRadius = 5;
+            pnlNote.BorderThickness = 2;
+            pnlNote.Controls.Add(lblNote);
+            pnlNote.Controls.Add(lblMatchedNote);
+            pnlNote.CustomizableEdges = customizableEdges7;
+            pnlNote.Location = new Point(3, 90);
+            pnlNote.Name = "pnlNote";
+            pnlNote.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            pnlNote.Size = new Size(437, 63);
+            pnlNote.TabIndex = 19;
+            // 
+            // lblNote
+            // 
+            lblNote.BackColor = Color.Transparent;
+            lblNote.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNote.ForeColor = Color.FromArgb(186, 150, 82);
+            lblNote.Location = new Point(11, 3);
+            lblNote.Name = "lblNote";
+            lblNote.Size = new Size(42, 22);
+            lblNote.TabIndex = 23;
+            lblNote.Text = "Note:";
+            // 
             // ViewItemForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -615,6 +656,8 @@
             pnlFinder.PerformLayout();
             pnlTimeline.ResumeLayout(false);
             pnlTimeline.PerformLayout();
+            pnlNote.ResumeLayout(false);
+            pnlNote.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -665,5 +708,8 @@
         private Label Timeline;
         private Label label9;
         private Label findName;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblMatchedNote;
+        private Guna.UI2.WinForms.Guna2Panel pnlNote;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblNote;
     }
 }
